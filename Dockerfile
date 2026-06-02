@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project files
 COPY main.py api.py index.html ./
 COPY knowledge_base.json ./
-COPY config/ ./config/
+
 
 # Create directories
 RUN mkdir -p input output logs videos
