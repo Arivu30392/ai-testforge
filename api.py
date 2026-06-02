@@ -27,6 +27,7 @@ from fastapi import FastAPI, BackgroundTasks, HTTPException, UploadFile, File, R
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
 from pydantic import BaseModel
+import cv2
 
 # Import all logic from your original file
 # Make sure main.py is in the same directory
