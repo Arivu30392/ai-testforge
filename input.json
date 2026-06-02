@@ -1,0 +1,19 @@
+{
+  "stories": [
+    {
+      "id": "",
+      "builder": "form_builder"
+    },
+    {
+      "id": "26007",
+      "builder": "dashboard_builder"
+    }
+  ],
+  "bugs": [
+    {
+      "story_id": "",
+      "video_path": "videos/Tooltip hover in view details.mp4",
+      "builder": "form_builder"
+    }
+  ]
+}

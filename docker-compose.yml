@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  testforge:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config:/app/config
+      - ./input:/app/input
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./videos:/app/videos
+      - ./knowledge_base.json:/app/knowledge_base.json
+    env_file:
+      - config/.env
+    restart: unless-stopped

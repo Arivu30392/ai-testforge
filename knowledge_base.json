@@ -1,0 +1,229 @@
+{
+  "app_name": "GPMD — Dual Builder Platform",
+
+  "app_description": "GPMD is a dual-builder platform. The Form Builder creates projects and collects structured input data through forms. The Dashboard Builder generates visualizations from that data. Both use phone number + OTP authentication.",
+
+  "builders": {
+    "form_builder": {
+      "url": "https://stage-gpmd-formbuilderui.theproindia.com/",
+      "purpose": "Create projects and collect structured form data"
+    },
+    "dashboard_builder": {
+      "url": "https://stage-gpmd-dashboardui.theproindia.com/",
+      "purpose": "Visualize Form Builder data as charts and KPI cards"
+    }
+  },
+
+  "login_flow": {
+    "form_builder":      "Open https://stage-gpmd-formbuilderui.theproindia.com/ → Wait until phone number field is visible → Enter phone number +91 9876543210 → Click Send OTP button → Enter OTP 123456 in OTP field → Click Verify OTP button → Dashboard loads with Form Builder and Dashboard Builder in left sidebar",
+    "dashboard_builder": "Open https://stage-gpmd-dashboardui.theproindia.com/ → Wait until phone number field is visible → Enter phone number +91 9876543210 → Click Send OTP button → Enter OTP 123456 in OTP field → Click Verify OTP button → Dashboard loads with Form Builder and Dashboard Builder in left sidebar"
+  },
+
+  "test_phone": "+91 9876543210",
+  "test_otp":   "123456",
+
+  "authentication": {
+    "method": "Phone number + OTP — NO email, NO password",
+    "flow":   "Enter phone number → Click Send OTP → Enter 6-digit OTP → Click Verify OTP → Access granted",
+    "test_phone": "+91 9876543210",
+    "test_otp":   "123456",
+    "otp_expiry":       "7 days",
+    "resend_cooldown":  "120 seconds",
+    "invalid_phone":    "+91 1234567890"
+  },
+
+  "navigation": {
+    "form_builder_login":      "Open https://stage-gpmd-formbuilderui.theproindia.com/ → Enter +91 9876543210 → Click Send OTP → Enter 123456 → Click Verify OTP → Dashboard loads",
+    "dashboard_builder_login": "Open https://stage-gpmd-dashboardui.theproindia.com/ → Enter +91 9876543210 → Click Send OTP → Enter 123456 → Click Verify OTP → Dashboard loads",
+    "open_form_builder":       "After login → Click Form Builder in left sidebar navigation",
+    "create_project":          "Form Builder → Click New Project button → Enter project name → Click Create button",
+    "open_project":            "Form Builder → Click project name in projects list",
+    "add_form_field":          "Open project → Click + Add Field button → Select field type → Configure label and validations → Click Save",
+    "publish_form":            "Open project → Click Publish button → Confirm in dialog → Form status changes to Published",
+    "view_submissions":        "Open project → Click Submissions tab → View all submitted form entries",
+    "open_dashboard_builder":  "After login → Click Dashboard Builder in left sidebar navigation",
+    "create_dashboard":        "Dashboard Builder → Click New Dashboard button → Enter dashboard name → Select source project → Click Create",
+    "add_chart_widget":        "Open dashboard → Click + Add Widget button → Select chart type → Configure X-axis and Y-axis → Click Save",
+    "logout":                  "Click user profile icon top right → Click Logout"
+  },
+
+  "key_fields": {
+    "phone_number_input":        "Phone number text field on login page — accepts 10-digit mobile number — placeholder 'Enter your phone number'",
+    "send_otp_button":           "Button labelled 'Send OTP' — triggers OTP SMS to entered phone number",
+    "otp_input":                 "6-digit OTP input field — appears after clicking Send OTP",
+    "verify_otp_button":         "Button labelled 'Verify OTP' — submits OTP and completes login",
+    "resend_otp_link":           "Link labelled 'Resend OTP' — enabled after 120-second cooldown",
+    "form_builder_menu":         "Left sidebar item labelled 'Form Builder'",
+    "dashboard_builder_menu":    "Left sidebar item labelled 'Dashboard Builder'",
+    "new_project_button":        "Button labelled 'New Project' in Form Builder",
+    "project_name_field":        "Text input for project name — required, max 100 characters",
+    "add_field_button":          "Button labelled '+ Add Field' in project form editor",
+    "field_type_dropdown":       "Dropdown: Text, Number, Email, Phone, Date, Dropdown, Checkbox, File Upload",
+    "field_label_input":         "Text input for the display label of a form field",
+    "required_toggle":           "Toggle switch to mark a form field as required or optional",
+    "publish_button":            "Button labelled 'Publish' — makes form live to accept submissions",
+    "submissions_tab":           "Tab labelled 'Submissions' inside a project",
+    "new_dashboard_button":      "Button labelled 'New Dashboard' in Dashboard Builder",
+    "source_project_dropdown":   "Dropdown to select which Form Builder project to visualize",
+    "add_widget_button":         "Button labelled '+ Add Widget' inside dashboard editor",
+    "chart_type_selector":       "Chart types: Bar Chart, Line Chart, Pie Chart, Stacked Bar Chart, KPI Card",
+    "x_axis_dropdown":           "Dropdown to select X-axis field from form submission data",
+    "y_axis_dropdown":           "Dropdown to select Y-axis numeric field from form submission data",
+    "save_button":               "Button labelled 'Save' — persists changes",
+    "cancel_button":             "Button labelled 'Cancel' — discards changes"
+  },
+
+  "known_issues": [
+    "OTP SMS delivery may be delayed up to 60 seconds on some network carriers",
+    "Resend OTP button sometimes requires page scroll to become visible on mobile",
+    "Dashboard charts may show stale data if browser cache is not cleared after new submissions",
+    "Session token expiry silently redirects to login — no visible notification shown"
+  ],
+
+  "tech_stack": "React 18 frontend, Azure Static Web Apps (CDN), REST API on Azure Functions, Phone OTP via SMS gateway (Twilio or MSG91), JWT-based authentication, Azure DevOps for ALM and CI/CD",
+
+  "test_conventions": {
+    "positive_prefix": "Verify",
+    "negative_prefix": "Validate that",
+    "step_verbs": ["Open", "Click", "Enter", "Select", "Navigate", "Wait until", "Verify", "Scroll", "Hover", "Assert", "Check", "Confirm", "Observe", "Tap", "Type", "Submit", "Refresh", "Inspect"],
+    "title_format": "[US-XXXXX] <Verb> <what is being tested> <context>",
+    "min_steps": 8,
+    "max_steps": 12,
+    "login_steps_count": 5
+  },
+
+  "extra_context": "GPMD is a no-code B2B SaaS platform. Form Builder is always the entry point — create projects and forms here first. Dashboard Builder only works if a Form Builder project exists with submissions. Login is EXCLUSIVELY phone number + OTP — no email, no password, no Google login. Test phone: +91 9876543210 | OTP: 123456. Use Indian mobile format (+91 XXXXXXXXXX). Both builders share the same left sidebar navigation after login.",
+
+  "error_messages": {
+    "login": {
+      "phone_empty":          "Please enter your phone number",
+      "phone_invalid_format": "Please enter a valid 10-digit mobile number",
+      "phone_not_registered": "This phone number is not registered. Please contact your administrator.",
+      "otp_empty":            "Please enter the OTP",
+      "otp_invalid":          "Invalid OTP. Please try again.",
+      "otp_expired":          "OTP has expired. Please request a new one.",
+      "otp_too_many_attempts":"Too many incorrect attempts. Please request a new OTP.",
+      "resend_cooldown_active":"Please wait 120 seconds before requesting a new OTP"
+    },
+    "form_builder": {
+      "project_name_empty":   "Project name is required",
+      "project_name_too_long":"Project name cannot exceed 100 characters",
+      "project_name_duplicate":"A project with this name already exists",
+      "field_label_empty":    "Field label is required",
+      "field_label_too_long": "Field label cannot exceed 50 characters",
+      "no_fields_publish":    "Cannot publish — form must have at least one field",
+      "unsaved_changes":      "You have unsaved changes. Do you want to leave?"
+    },
+    "dashboard_builder": {
+      "dashboard_name_empty": "Dashboard name is required",
+      "no_source_project":    "Please select a source project",
+      "no_submissions":       "Selected project has no submissions yet. Add submissions first.",
+      "widget_axis_empty":    "Please select both X-axis and Y-axis fields",
+      "widget_save_failed":   "Failed to save widget. Please try again."
+    },
+    "session": {
+      "session_expired":      "Your session has expired. Please log in again.",
+      "unauthorized":         "You are not authorized to access this resource."
+    }
+  },
+
+  "validation_rules": {
+    "phone_number": {
+      "format":       "10-digit Indian mobile number prefixed with +91",
+      "min_digits":   10,
+      "max_digits":   10,
+      "valid_example":   "+91 9876543210",
+      "invalid_example": "+91 1234567890",
+      "boundary_short":  "+91 98765",
+      "boundary_long":   "+91 98765432100"
+    },
+    "otp": {
+      "digits":           6,
+      "valid_example":    "123456",
+      "invalid_example":  "000000",
+      "boundary_short":   "12345",
+      "boundary_long":    "1234567",
+      "letters_invalid":  "ABCDEF",
+      "expiry_seconds":   604800
+    },
+    "project_name": {
+      "min_length":       1,
+      "max_length":       100,
+      "valid_example":    "Customer Feedback Q4",
+      "boundary_min":     "A",
+      "boundary_max":     "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "over_max":         "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "special_chars_ok": true,
+      "empty_not_allowed": true
+    },
+    "field_label": {
+      "min_length":       1,
+      "max_length":       50,
+      "valid_example":    "Full Name",
+      "boundary_max":     "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "over_max":         "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "empty_not_allowed": true
+    },
+    "dashboard_name": {
+      "min_length":       1,
+      "max_length":       80,
+      "valid_example":    "Q4 Sales Overview",
+      "empty_not_allowed": true
+    },
+    "form_fields": {
+      "allowed_types":    ["Text", "Number", "Email", "Phone", "Date", "Dropdown", "Checkbox", "File Upload"],
+      "min_fields_to_publish": 1
+    }
+  },
+
+  "test_data": {
+    "auth": {
+      "valid_phone":          "+91 9876543210",
+      "valid_otp":            "123456",
+      "invalid_phone":        "+91 1234567890",
+      "invalid_otp":          "000000",
+      "short_otp":            "12345",
+      "long_otp":             "1234567",
+      "alpha_otp":            "ABCDEF",
+      "empty_phone":          "",
+      "short_phone":          "+91 98765",
+      "long_phone":           "+91 98765432100"
+    },
+    "projects": {
+      "valid_name":           "Customer Feedback Q4",
+      "valid_name_2":         "Employee Onboarding Survey",
+      "valid_name_3":         "Product NPS Tracker",
+      "boundary_min_name":    "A",
+      "boundary_max_name":    "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "over_max_name":        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "empty_name":           "",
+      "special_chars_name":   "Survey #1 — Q&A (2024)",
+      "duplicate_name":       "Customer Feedback Q4"
+    },
+    "form_fields": {
+      "valid_text_label":     "Full Name",
+      "valid_number_label":   "Age",
+      "valid_email_label":    "Work Email",
+      "valid_phone_label":    "Mobile Number",
+      "valid_date_label":     "Date of Joining",
+      "valid_dropdown_label": "Department",
+      "valid_checkbox_label": "Agree to Terms",
+      "valid_file_label":     "Upload Resume",
+      "empty_label":          "",
+      "boundary_max_label":   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "over_max_label":       "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "dashboards": {
+      "valid_name":           "Q4 Sales Overview",
+      "valid_name_2":         "Employee Headcount Dashboard",
+      "empty_name":           "",
+      "chart_types":          ["Bar Chart", "Line Chart", "Pie Chart", "Stacked Bar Chart", "KPI Card"],
+      "valid_x_axis_field":   "Department",
+      "valid_y_axis_field":   "Age"
+    },
+    "session": {
+      "expired_token_behavior": "Redirect to login page with no notification",
+      "valid_session_duration": "7 days"
+    }
+  }
+}

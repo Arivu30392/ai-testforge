@@ -1,0 +1,12 @@
+config/.env
+*.pyc
+__pycache__/
+output/
+logs/
+input/*.mp4
+input/*.avi
+input/*.mov
+videos/*.mp4
+videos/*.avi
+.git/
+node_modules/
