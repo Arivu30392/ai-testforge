@@ -16,8 +16,6 @@
   --mono:'JetBrains Mono',monospace;--sans:'Outfit',sans-serif;
 }
 html,body{min-height:100vh;width:100%;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;}
-
-/* SUMMARY BAR */
 .sum-bar{display:flex;align-items:stretch;background:var(--s1);border-bottom:1px solid var(--b1);padding:0 36px;height:80px;}
 .si{display:flex;align-items:center;gap:14px;padding:0 28px;border-right:1px solid var(--b1);flex-shrink:0;}
 .si:first-child{padding-left:0;}
@@ -38,8 +36,6 @@ html,body{min-height:100vh;width:100%;background:var(--bg);color:var(--text);fon
 .sp-a{color:var(--amber);background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.2);}
 .sp-t{color:var(--teal);background:rgba(0,201,212,.1);border:1px solid rgba(0,201,212,.2);}
 .sp-v{color:var(--violet);background:rgba(157,125,255,.1);border:1px solid rgba(157,125,255,.2);}
-
-/* TOPBAR */
 .topbar{display:flex;align-items:center;height:56px;background:var(--s1);border-bottom:2px solid var(--b1);padding:0 36px;position:sticky;top:0;z-index:200;}
 .logo{display:flex;align-items:center;gap:11px;margin-right:40px;}
 .logo-box{width:34px;height:34px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:14px;color:#000;}
@@ -50,7 +46,7 @@ html,body{min-height:100vh;width:100%;background:var(--bg);color:var(--text);fon
 .nb:hover{color:var(--text);}
 .nb.active{color:var(--text);border-bottom-color:var(--accent);}
 .nb .nd{width:6px;height:6px;border-radius:50%;background:var(--b2);}
-.nb.active .nd{background:var(--accent);box-shadow:0 0 8px var(--accent);}
+.nb.active .nd{background:var(--accent);}
 .nb .nc{font-family:var(--mono);font-size:10px;padding:1px 6px;border-radius:10px;background:var(--b1);color:var(--t2);}
 .nb.active .nc{background:rgba(0,229,160,.15);color:var(--accent);}
 .topbar-r{margin-left:auto;display:flex;align-items:center;gap:10px;}
@@ -64,38 +60,28 @@ html,body{min-height:100vh;width:100%;background:var(--bg);color:var(--text);fon
 .cp-ok{color:var(--accent);}.cp-err{color:var(--coral);}.cp-idle{color:var(--t3);}
 .cp-run{color:var(--amber);animation:blink 1s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* PAGE */
 .page{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 136px);}
-
-/* SIDEBAR */
 .sidebar{background:var(--s1);border-right:1px solid var(--b1);display:flex;flex-direction:column;position:sticky;top:56px;height:calc(100vh - 136px);overflow-y:auto;}
 .sidebar::-webkit-scrollbar{width:3px;}
 .sidebar::-webkit-scrollbar-thumb{background:var(--b2);}
 .sb-sec{padding:16px 14px 10px;}
 .sb-sec h3{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:10px;}
 .add-row{display:flex;gap:7px;margin-bottom:6px;}
-.add-inp{flex:1;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:13px;padding:9px 11px;outline:none;transition:border .15s;}
-.add-inp:focus{border-color:var(--accent);}
+.add-inp{flex:1;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:13px;padding:9px 11px;outline:none;}
 .add-inp::placeholder{color:var(--t3);}
-.btn-plus{width:38px;height:38px;background:var(--accent);border:none;border-radius:8px;color:#000;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;}
-.btn-plus:hover{background:#00ffb3;}
-.btn-bulk{width:100%;font-size:11px;font-weight:600;padding:6px;background:transparent;border:1px solid var(--b1);color:var(--t2);border-radius:7px;cursor:pointer;font-family:var(--sans);transition:all .15s;margin-bottom:2px;}
-.btn-bulk:hover{color:var(--text);}
-.sb-item{display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:8px;margin:0 6px 4px;background:var(--s2);border:1px solid var(--b1);cursor:pointer;transition:all .15s;}
-.sb-item:hover{border-color:var(--b2);}
+.btn-plus{width:38px;height:38px;background:var(--accent);border:none;border-radius:8px;color:#000;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.btn-bulk{width:100%;font-size:11px;font-weight:600;padding:6px;background:transparent;border:1px solid var(--b1);color:var(--t2);border-radius:7px;cursor:pointer;font-family:var(--sans);margin-bottom:2px;}
+.sb-item{display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:8px;margin:0 6px 4px;background:var(--s2);border:1px solid var(--b1);cursor:pointer;}
 .sb-item.active{border-color:var(--accent);background:rgba(0,229,160,.04);}
 .sbi-id{font-family:var(--mono);font-size:10px;color:var(--blue);background:rgba(42,143,255,.1);border:1px solid rgba(42,143,255,.2);padding:2px 6px;border-radius:4px;flex-shrink:0;}
 .sbi-lbl{font-size:12px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .sbi-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.d-p{background:var(--t3);}.d-r{background:var(--amber);animation:blink 1s infinite;}.d-d{background:var(--accent);}.d-e{background:var(--coral);}
+.d-p{background:var(--t3);}.d-r{background:var(--amber);}.d-d{background:var(--accent);}.d-e{background:var(--coral);}
 .sb-div{height:1px;background:var(--b1);margin:6px 0;}
 .sb-qs{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 14px 14px;}
 .qs{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:11px 13px;}
 .qs-v{font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1;}
 .qs-l{font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-top:3px;}
-
-/* CONTENT */
 .content{display:flex;flex-direction:column;overflow-y:auto;}
 .panel{display:none;flex-direction:column;}
 .panel.active{display:flex;}
@@ -104,11 +90,8 @@ html,body{min-height:100vh;width:100%;background:var(--bg);color:var(--text);fon
 .ph p{font-size:13px;color:var(--t2);margin-top:4px;line-height:1.5;}
 .ph-r{display:flex;gap:8px;flex-shrink:0;}
 .pb{padding:18px 0 32px;}
-
-/* COLLAPSIBLE */
 .coll{background:var(--s1);border:1px solid var(--b1);border-radius:12px;margin:0 36px 14px;overflow:hidden;}
-.coll-hdr{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;border-bottom:1px solid transparent;transition:all .15s;user-select:none;}
-.coll-hdr:hover{background:rgba(255,255,255,.02);}
+.coll-hdr{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;border-bottom:1px solid transparent;}
 .coll-hdr.open{border-bottom-color:var(--b1);}
 .coll-ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
 .coll-ttl{font-size:14px;font-weight:700;flex:1;}
@@ -117,8 +100,6 @@ html,body{min-height:100vh;width:100%;background:var(--bg);color:var(--text);fon
 .coll-chev.open{transform:rotate(180deg);}
 .coll-body{display:none;padding:18px;}
 .coll-body.open{display:block;}
-
-/* PIPELINE */
 .pipeline{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:center;}
 .ps{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:16px;}
 .ps-n{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
@@ -126,18 +107,12 @@ html,body{min-height:100vh;width:100%;background:var(--bg);color:var(--text);fon
 .ps-t{font-size:14px;font-weight:700;margin-bottom:4px;}
 .ps-d{font-size:12px;color:var(--t2);line-height:1.5;}
 .ps-arr{text-align:center;font-size:20px;color:var(--b2);}
-
-/* ITEM ROWS (story/bug/result — clickable) */
 .sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin:0 36px 8px;padding-top:16px;}
-.item-row{margin:0 36px 8px;background:var(--s1);border:1px solid var(--b1);border-radius:11px;overflow:hidden;transition:border-color .15s;}
-.item-row:hover{border-color:var(--b2);}
+.item-row{margin:0 36px 8px;background:var(--s1);border:1px solid var(--b1);border-radius:11px;overflow:hidden;}
 .item-row.expanded{border-color:var(--accent);}
-.item-hdr{display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer;transition:background .15s;flex-wrap:wrap;}
-.item-hdr:hover{background:rgba(255,255,255,.02);}
+.item-hdr{display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer;flex-wrap:wrap;}
 .exp-ico{width:24px;height:24px;border:1px solid var(--b2);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--t3);transition:all .2s;flex-shrink:0;}
 .item-row.expanded .exp-ico{background:rgba(0,229,160,.1);border-color:var(--accent);color:var(--accent);transform:rotate(180deg);}
-
-/* DETAIL DRAWER */
 .drawer{display:none;border-top:1px solid var(--b1);}
 .drawer.open{display:block;}
 .drawer-in{padding:20px;background:var(--s2);}
@@ -146,60 +121,34 @@ html,body{min-height:100vh;width:100%;background:var(--bg);color:var(--text);fon
 .dcard{background:var(--s1);border:1px solid var(--b1);border-radius:9px;padding:14px 16px;}
 .dc-lbl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px;}
 .dc-val{font-size:14px;font-weight:700;}
-.dc-sub{font-size:11px;color:var(--t2);margin-top:2px;}
-
-/* ADO STEP TABLE */
 .tc-wrap{border:1px solid var(--b1);border-radius:8px;overflow:hidden;margin-bottom:6px;}
-.tc-hdr{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--s3);cursor:pointer;user-select:none;}
-.tc-hdr:hover{background:rgba(255,255,255,.03);}
+.tc-hdr{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--s3);cursor:pointer;}
 .tc-type{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;flex-shrink:0;}
 .tcp{color:var(--accent);background:rgba(0,229,160,.12);border:1px solid rgba(0,229,160,.25);}
 .tcn{color:var(--coral);background:rgba(255,82,82,.12);border:1px solid rgba(255,82,82,.25);}
 .tc-ttl{font-size:12px;font-weight:600;color:var(--text);flex:1;line-height:1.4;}
 .tc-cnt{font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0;}
-.tc-chev{font-size:10px;color:var(--t3);transition:transform .15s;flex-shrink:0;}
-.tc-chev.open{transform:rotate(180deg);}
 .ado-tbl{width:100%;border-collapse:collapse;font-size:12px;display:none;}
 .ado-tbl.open{display:table;}
 .ado-tbl thead th{background:var(--s1);font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:7px 12px;text-align:left;border-bottom:1px solid var(--b1);}
-.ado-tbl thead th:first-child{width:48px;}
-.ado-tbl thead th:last-child{width:80px;}
 .ado-tbl tbody tr{border-bottom:1px solid var(--b1);}
 .ado-tbl tbody tr:last-child{border-bottom:none;}
-.ado-tbl tbody tr:nth-child(even) td{background:rgba(255,255,255,.02);}
 .ado-tbl td{padding:9px 12px;vertical-align:top;line-height:1.6;}
 .ado-sn{font-family:var(--mono);font-size:11px;color:var(--t3);text-align:right;}
 .ado-act{color:var(--text);}
 .ado-exp{color:var(--accent);}
-.ado-att{color:var(--t3);font-size:11px;font-family:var(--mono);}
 .tc-list{display:flex;flex-direction:column;gap:4px;max-height:500px;overflow-y:auto;}
-.tc-list::-webkit-scrollbar{width:3px;}
-.tc-list::-webkit-scrollbar-thumb{background:var(--b2);}
-
-/* BUG ENTRIES */
 .be-wrap{margin:0 36px 8px;}
 .be{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:13px 16px;display:grid;grid-template-columns:150px 1fr auto auto;gap:10px;align-items:center;}
-.be-lbl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:5px;}
-.fdrop{border:1.5px dashed var(--b2);border-radius:7px;padding:9px 12px;font-family:var(--mono);font-size:11px;color:var(--t2);cursor:pointer;text-align:center;transition:all .2s;display:block;}
-.fdrop:hover,.fdrop.dov{border-color:var(--accent);color:var(--accent);background:rgba(0,229,160,.03);}
+.fdrop{border:1.5px dashed var(--b2);border-radius:7px;padding:9px 12px;font-family:var(--mono);font-size:11px;color:var(--t2);cursor:pointer;text-align:center;display:block;}
 .fdrop input[type=file]{display:none;}
-
-/* KB FORM */
 .kb-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.kb-row{display:grid;gap:8px;}
-.kb-r3{grid-template-columns:160px 1fr auto;}
-.kb-r2b{grid-template-columns:180px 1fr auto;}
-.kb-fi{display:flex;gap:8px;align-items:center;}
-kb-hint{display:block;background:rgba(0,201,212,.08);border:1px solid rgba(0,201,212,.2);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--teal);line-height:1.7;margin-bottom:14px;}
 .kb-hint{display:block;background:rgba(0,201,212,.08);border:1px solid rgba(0,201,212,.2);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--teal);line-height:1.7;margin-bottom:14px;}
-
-/* TABLE */
 .tbl-wrap{border:1px solid var(--b1);border-radius:10px;overflow:hidden;}
 .tbl{width:100%;border-collapse:collapse;font-size:13px;}
 .tbl th{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--t3);text-align:left;padding:11px 15px;border-bottom:1px solid var(--b1);background:var(--s2);text-transform:uppercase;}
 .tbl td{padding:13px 15px;border-bottom:1px solid var(--b1);vertical-align:middle;}
 .tbl tr:last-child td{border-bottom:none;}
-.tbl tr:hover td{background:rgba(255,255,255,.015);}
 .id-b{font-family:var(--mono);font-size:11px;color:var(--blue);background:rgba(42,143,255,.1);border:1px solid rgba(42,143,255,.2);padding:2px 7px;border-radius:4px;}
 .plan-b{font-family:var(--mono);font-size:12px;color:var(--amber);}
 .sbg{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;}
@@ -212,20 +161,13 @@ kb-hint{display:block;background:rgba(0,201,212,.08);border:1px solid rgba(0,201
 .cbp{font-family:var(--mono);font-size:11px;color:var(--accent);background:rgba(0,229,160,.1);padding:2px 7px;border-radius:4px;margin-right:3px;}
 .cbn{font-family:var(--mono);font-size:11px;color:var(--coral);background:rgba(255,82,82,.1);padding:2px 7px;border-radius:4px;}
 .alink{font-family:var(--mono);font-size:11px;color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(42,143,255,.3);}
-.alink:hover{color:#70b8ff;}
-
-/* RUN BAR */
 .run-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 36px;background:var(--s1);border-top:1px solid var(--b1);}
 .run-info{font-family:var(--mono);font-size:12px;color:var(--t2);}
 .run-info b{color:var(--text);}
 .prog-wrap{height:3px;background:var(--b1);border-radius:2px;margin-top:6px;width:220px;}
-.prog-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--accent));border-radius:2px;width:0%;transition:width .4s;}
-.btn-run{font-family:var(--sans);font-size:15px;font-weight:800;padding:13px 40px;background:var(--accent);color:#000;border:none;border-radius:10px;cursor:pointer;transition:all .2s;letter-spacing:-.2px;}
-.btn-run:hover{background:#00ffb3;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,229,160,.2);}
-.btn-run:active{transform:none;}
-.btn-run:disabled{opacity:.3;cursor:not-allowed;transform:none;box-shadow:none;}
-
-/* TERMINAL */
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--accent));border-radius:2px;width:0%;}
+.btn-run{font-family:var(--sans);font-size:15px;font-weight:800;padding:13px 40px;background:var(--accent);color:#000;border:none;border-radius:10px;cursor:pointer;letter-spacing:-.2px;}
+.btn-run:disabled{opacity:.3;cursor:not-allowed;}
 .terminal{border-top:1px solid var(--b1);background:var(--s1);flex-shrink:0;}
 .t-bar{display:flex;align-items:center;gap:9px;padding:8px 18px;border-bottom:1px solid var(--b1);}
 .t-dots{display:flex;gap:5px;}
@@ -233,30 +175,19 @@ kb-hint{display:block;background:rgba(0,201,212,.08);border:1px solid rgba(0,201
 .td1{background:#ff5f57;}.td2{background:#febc2e;}.td3{background:#28c840;}
 .t-ttl{font-family:var(--mono);font-size:11px;color:var(--t3);}
 .t-body{height:180px;overflow-y:auto;padding:11px 20px;font-family:var(--mono);font-size:12px;line-height:1.9;color:#4a607a;}
-.t-body::-webkit-scrollbar{width:3px;}
-.t-body::-webkit-scrollbar-thumb{background:var(--b2);}
-.ll{display:block;animation:ls .12s ease;}
-@keyframes ls{from{opacity:0}to{opacity:1}}
+.ll{display:block;}
 .li{color:#3a5068;}.lok{color:#00e5a0;}.lwarn{color:#ffb020;}.lerr{color:#ff5252;}.lagent{color:#9d7dff;}.lmcp{color:#38bdf8;}
-
-/* BUTTONS */
-.btn{font-family:var(--sans);font-size:12px;font-weight:600;border:none;border-radius:8px;cursor:pointer;padding:8px 14px;transition:all .15s;display:inline-flex;align-items:center;gap:6px;}
+.btn{font-family:var(--sans);font-size:12px;font-weight:600;border:none;border-radius:8px;cursor:pointer;padding:8px 14px;display:inline-flex;align-items:center;gap:6px;}
 .btn-g{background:var(--s2);color:var(--t2);border:1px solid var(--b1);}
-.btn-g:hover{color:var(--text);border-color:var(--b2);}
 .btn-d{background:rgba(255,82,82,.1);color:var(--coral);border:1px solid rgba(255,82,82,.2);}
-.btn-d:hover{background:rgba(255,82,82,.18);}
-.tip{font-size:11px;color:var(--t3);margin-top:8px;padding:0 36px;}
-.tip code{font-family:var(--mono);color:var(--accent);}
 .empty-s{text-align:center;padding:40px 24px;color:var(--t3);}
 .empty-s p{font-size:13px;line-height:1.8;}
 .json-pre{background:#040810;border:1px solid var(--b1);border-radius:8px;padding:13px;font-family:var(--mono);font-size:11px;color:var(--t2);line-height:1.9;max-height:200px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;}
 .toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:11px 16px;font-family:var(--mono);font-size:12px;display:none;}
-.toast.show{display:block;animation:tin .2s ease;}
+.toast.show{display:block;}
 .toast.ok{border-color:rgba(0,229,160,.4);color:var(--accent);}
 .toast.error{border-color:rgba(255,82,82,.4);color:var(--coral);}
-@keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-input[type=text],textarea{background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:13px;padding:9px 11px;outline:none;transition:border .15s;}
-input[type=text]:focus,textarea:focus{border-color:var(--accent);}
+input[type=text],textarea{background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:13px;padding:9px 11px;outline:none;}
 input[type=text]::placeholder,textarea::placeholder{color:var(--t3);}
 .card{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:20px;margin:0 36px 14px;}
 .card-h{font-size:15px;font-weight:700;margin-bottom:4px;}
@@ -264,1040 +195,310 @@ input[type=text]::placeholder,textarea::placeholder{color:var(--t3);}
 </style>
 </head>
 <body>
-
-<!-- SUMMARY BAR -->
 <div class="sum-bar">
-  <div class="si"><div class="si-ico ic-b">#</div><div><div class="si-v" id="sm-s">0</div><div class="si-l">User Stories</div><div class="si-ps"><span class="spl sp-g" id="sm-sd">0 done</span><span class="spl sp-a" id="sm-sr">0 running</span><span class="spl sp-b" id="sm-sp">0 pending</span></div></div></div>
-  <div class="si"><div class="si-ico ic-r">!</div><div><div class="si-v" id="sm-b">0</div><div class="si-l">Bug Videos</div><div class="si-ps"><span class="spl sp-g" id="sm-bu">0 uploaded</span><span class="spl sp-c" id="sm-bp">0 pending</span></div></div></div>
-  <div class="si"><div class="si-ico ic-g">✓</div><div><div class="si-v" id="sm-p">0</div><div class="si-l">Test Plans</div><div class="si-ps"><span class="spl sp-g" id="sm-ps">0 from stories</span><span class="spl sp-v" id="sm-pb">0 from bugs</span></div></div></div>
-  <div class="si"><div class="si-ico ic-a">TC</div><div><div class="si-v" id="sm-tc">0</div><div class="si-l">Test Cases</div><div class="si-ps"><span class="spl sp-g" id="sm-pos">0 positive</span><span class="spl sp-c" id="sm-neg">0 negative</span></div></div></div>
-  <div class="si"><div class="si-ico ic-t">⟳</div><div><div class="si-v" style="font-size:16px;font-weight:700;letter-spacing:-.3px" id="sm-last">—</div><div class="si-l">Last Run</div><div class="si-ps"><span class="spl sp-t" id="sm-lsts">waiting</span></div></div></div>
-  <div class="si" style="border-right:none;margin-left:auto"><button class="btn-run" id="run-all" onclick="runAll()" style="font-size:13px;padding:10px 24px">▶ Run All</button></div>
+  <div class="si"><div class="si-ico ic-b">#</div><div><div class="si-v" id="sm-s">3</div><div class="si-l">User Stories</div><div class="si-ps"><span class="spl sp-g">2 done</span><span class="spl sp-a">1 running</span><span class="spl sp-b">0 pending</span></div></div></div>
+  <div class="si"><div class="si-ico ic-r">!</div><div><div class="si-v" id="sm-b">1</div><div class="si-l">Bug Videos</div><div class="si-ps"><span class="spl sp-g">1 uploaded</span><span class="spl sp-c">0 pending</span></div></div></div>
+  <div class="si"><div class="si-ico ic-g">✓</div><div><div class="si-v" id="sm-p">2</div><div class="si-l">Test Plans</div><div class="si-ps"><span class="spl sp-g">2 from stories</span><span class="spl sp-v">0 from bugs</span></div></div></div>
+  <div class="si"><div class="si-ico ic-a">TC</div><div><div class="si-v" id="sm-tc">87</div><div class="si-l">Test Cases</div><div class="si-ps"><span class="spl sp-g">52 positive</span><span class="spl sp-c">35 negative</span></div></div></div>
+  <div class="si"><div class="si-ico ic-t">⟳</div><div><div class="si-v" style="font-size:16px;font-weight:700">14:32:07</div><div class="si-l">Last Run</div><div class="si-ps"><span class="spl sp-t">completed</span></div></div></div>
+  <div class="si" style="border-right:none;margin-left:auto"><button class="btn-run" style="font-size:13px;padding:10px 24px">▶ Run All</button></div>
 </div>
-
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="logo"><div class="logo-box">TF</div><div class="logo-name">Test<span>Forge</span></div></div>
   <nav class="nav">
-    <button class="nb active" id="tab-story"   onclick="switchTab('story')">  <span class="nd"></span>Story Mode  <span class="nc" id="nc-s">0</span></button>
-    <button class="nb"        id="tab-bug"     onclick="switchTab('bug')">    <span class="nd"></span>Bug Mode    <span class="nc" id="nc-b">0</span></button>
-    <button class="nb"        id="tab-results" onclick="switchTab('results')"><span class="nd"></span>Results     <span class="nc" id="nc-r">0</span></button>
-    <button class="nb"        id="tab-kb"      onclick="switchTab('kb')">     <span class="nd"></span>Knowledge   <span class="nc" style="background:rgba(0,201,212,.15);color:var(--teal)" id="nc-kb">—</span></button>
-    <button class="nb"        id="tab-settings" onclick="switchTab('settings')"><span class="nd"></span>Settings    <span class="nc" style="background:rgba(157,125,255,.15);color:var(--violet)">⚙</span></button>
+    <button class="nb active" id="tab-story" onclick="switchTab('story')"><span class="nd"></span>Story Mode<span class="nc">3</span></button>
+    <button class="nb" id="tab-bug" onclick="switchTab('bug')"><span class="nd"></span>Bug Mode<span class="nc">1</span></button>
+    <button class="nb" id="tab-results" onclick="switchTab('results')"><span class="nd"></span>Results<span class="nc">2</span></button>
+    <button class="nb" id="tab-kb" onclick="switchTab('kb')"><span class="nd"></span>Knowledge<span class="nc" style="background:rgba(0,201,212,.15);color:var(--teal)">✓</span></button>
+    <button class="nb" id="tab-settings" onclick="switchTab('settings')"><span class="nd"></span>Settings<span class="nc" style="background:rgba(157,125,255,.15);color:var(--violet)">⚙</span></button>
   </nav>
   <div class="topbar-r">
-    <div class="api-wrap"><span class="api-lbl">API URL</span><input class="api-inp" type="text" id="api-base" value="http://localhost:8000"></div>
-    <button class="btn-val" onclick="validateConn()">Validate</button>
-    <div class="cpill cp-idle" id="conn-pill">Not connected</div>
+    <div class="api-wrap"><span class="api-lbl">API URL</span><input class="api-inp" type="text" value="http://localhost:8000"></div>
+    <button class="btn-val">Validate</button>
+    <div class="cpill cp-ok">Connected</div>
   </div>
 </div>
-
-<!-- PAGE -->
 <div class="page">
-
-<!-- SIDEBAR -->
 <div class="sidebar">
   <div class="sb-sec">
     <h3>Story Queue</h3>
     <div class="add-row">
-      <input class="add-inp" id="story-inp" type="text" placeholder="ID e.g. 28136" onkeydown="if(event.key==='Enter')addStory()">
-      <button class="btn-plus" onclick="addStory()">+</button>
+      <input class="add-inp" type="text" placeholder="ID e.g. 28136">
+      <button class="btn-plus">+</button>
     </div>
-    <button class="btn-bulk" onclick="addBulk()">+ Bulk Add Multiple IDs</button>
+    <button class="btn-bulk">+ Bulk Add Multiple IDs</button>
   </div>
-  <div id="sb-stories"></div>
+  <div>
+    <div class="sb-item active"><span class="sbi-id">US-2041</span><span class="sbi-lbl">Login with phone OTP</span><span class="sbi-dot d-d"></span></div>
+    <div class="sb-item"><span class="sbi-id">US-2042</span><span class="sbi-lbl">Dashboard builder</span><span class="sbi-dot d-d"></span></div>
+    <div class="sb-item"><span class="sbi-id">US-2043</span><span class="sbi-lbl">Form submission flow</span><span class="sbi-dot d-r"></span></div>
+  </div>
   <div class="sb-div"></div>
   <div class="sb-sec"><h3>Bug Entries</h3></div>
-  <div id="sb-bugs"></div>
+  <div>
+    <div class="sb-item"><span class="sbi-id" style="color:var(--coral);background:rgba(255,82,82,.1);border-color:rgba(255,82,82,.2)">BUG</span><span class="sbi-lbl">US-2041</span><span class="sbi-dot d-d"></span></div>
+  </div>
   <div class="sb-div"></div>
   <div class="sb-sec"><h3>Quick Stats</h3></div>
   <div class="sb-qs">
-    <div class="qs"><div class="qs-v" style="color:var(--accent)" id="qs-p">0</div><div class="qs-l">Plans</div></div>
-    <div class="qs"><div class="qs-v" style="color:var(--blue)"   id="qs-tc">0</div><div class="qs-l">Cases</div></div>
-    <div class="qs"><div class="qs-v" style="color:var(--amber)"  id="qs-pos">0</div><div class="qs-l">Positive</div></div>
-    <div class="qs"><div class="qs-v" style="color:var(--coral)"  id="qs-neg">0</div><div class="qs-l">Negative</div></div>
+    <div class="qs"><div class="qs-v" style="color:var(--accent)">2</div><div class="qs-l">Plans</div></div>
+    <div class="qs"><div class="qs-v" style="color:var(--blue)">87</div><div class="qs-l">Cases</div></div>
+    <div class="qs"><div class="qs-v" style="color:var(--amber)">52</div><div class="qs-l">Positive</div></div>
+    <div class="qs"><div class="qs-v" style="color:var(--coral)">35</div><div class="qs-l">Negative</div></div>
   </div>
 </div>
-
-<!-- CONTENT -->
 <div class="content">
-
-<!-- ═══ STORY PANEL ═══ -->
 <div id="panel-story" class="panel active">
   <div class="ph">
     <div><h1>User Story → Test Plan</h1><p>Add story IDs in the sidebar. Click any row to expand full details with ADO step-format test cases.</p></div>
   </div>
   <div class="pb">
     <div class="coll">
-      <div class="coll-hdr" onclick="toggleColl(this)">
+      <div class="coll-hdr open" onclick="toggleColl(this)">
         <div class="coll-ico ic-b" style="border-radius:8px">◆</div>
-        <div><div class="coll-ttl">3-Agent AI Pipeline</div><div class="coll-sub">How GPT-4o generates test cases — click to expand</div></div>
-        <div class="coll-chev">▼</div>
+        <div><div class="coll-ttl">3-Agent AI Pipeline</div><div class="coll-sub">How GPT-4o generates test cases</div></div>
+        <div class="coll-chev open">▼</div>
       </div>
-      <div class="coll-body">
+      <div class="coll-body open">
         <div class="pipeline">
-          <div class="ps"><div class="ps-n c1">AGENT 01</div><div class="ps-t">Test Strategist</div><div class="ps-d">Reads project knowledge + story requirements → 8+ coverage categories with positive/negative counts planned</div></div>
+          <div class="ps"><div class="ps-n c1">AGENT 01</div><div class="ps-t">Test Strategist</div><div class="ps-d">Reads project knowledge + story requirements → 8+ coverage categories planned</div></div>
           <div class="ps-arr">→</div>
-          <div class="ps"><div class="ps-n c2">AGENT 02</div><div class="ps-t">Scenario Generator</div><div class="ps-d">Converts categories into specific scenario titles using real navigation paths from knowledge base</div></div>
+          <div class="ps"><div class="ps-n c2">AGENT 02</div><div class="ps-t">Scenario Generator</div><div class="ps-d">Converts categories into specific scenario titles using real navigation paths</div></div>
           <div class="ps-arr">→</div>
-          <div class="ps"><div class="ps-n c3">AGENT 03</div><div class="ps-t">Test Case Writer</div><div class="ps-d">Writes ADO step format: each step has Action + Expected Result using real app URL, phone, OTP, and field names</div></div>
+          <div class="ps"><div class="ps-n c3">AGENT 03</div><div class="ps-t">Test Case Writer</div><div class="ps-d">Writes ADO step format: each step has Action + Expected Result using real app data</div></div>
         </div>
       </div>
     </div>
-    <div class="sec-lbl">Stories — click any row to expand full details</div>
-    <div id="story-rows"></div>
-    <div class="coll">
-      <div class="coll-hdr" onclick="toggleColl(this)">
-        <div class="coll-ico" style="background:rgba(157,125,255,.15);color:var(--violet);border-radius:8px">{}</div>
-        <div><div class="coll-ttl">Request Preview (JSON)</div><div class="coll-sub">Sent to POST /api/stories/run</div></div>
-        <div class="coll-chev">▼</div>
+    <div class="sec-lbl">Stories — click any row to expand</div>
+    <div class="item-row expanded">
+      <div class="item-hdr">
+        <div class="exp-ico">▼</div>
+        <span class="id-b">US-2041</span>
+        <span style="font-size:13px;color:var(--t2);flex:1">Login with phone number and OTP</span>
+        <span class="sbg sb-done">done</span>
+        <span class="plan-b">#48291</span>
+        <span><span class="cbp">+35</span><span class="cbn">-17</span></span>
+        <a class="alink" href="#">Open ↗</a>
       </div>
-      <div class="coll-body"><div class="json-pre" id="json-prev"></div></div>
+      <div class="drawer open">
+        <div class="drawer-in">
+          <div class="d3">
+            <div class="dcard"><div class="dc-lbl">Test Plan</div><div class="dc-val" style="color:var(--amber);font-family:var(--mono)">#48291</div><div class="dc-sub" style="font-size:11px;color:var(--t2);margin-top:2px">Azure DevOps</div></div>
+            <div class="dcard"><div class="dc-lbl">Test Suite</div><div class="dc-val" style="color:var(--teal);font-family:var(--mono)">#48292</div><div class="dc-sub" style="font-size:11px;color:var(--t2);margin-top:2px">Requirement-based</div></div>
+            <div class="dcard"><div class="dc-lbl">Test Cases</div><div class="dc-val">52</div><div class="dc-sub" style="display:flex;gap:5px;margin-top:3px"><span class="cbp">+35</span><span class="cbn">-17</span></div></div>
+          </div>
+          <div class="dcard">
+            <div class="dc-lbl" style="margin-bottom:10px">Sample Test Cases — ADO Step Format</div>
+            <div class="tc-list">
+              <div class="tc-wrap">
+                <div class="tc-hdr">
+                  <span class="tc-type tcp">POSITIVE</span>
+                  <span class="tc-ttl">Valid phone + correct OTP → successful login and dashboard redirect</span>
+                  <span class="tc-cnt">5 steps</span>
+                  <span style="font-size:10px;color:var(--t3)">▼</span>
+                </div>
+                <table class="ado-tbl open">
+                  <thead><tr><th>Steps</th><th>Action</th><th>Expected Result</th><th>Attachments</th></tr></thead>
+                  <tbody>
+                    <tr><td class="ado-sn">1.</td><td class="ado-act">Open https://lively-pond-0ba4cde10.1.azurestaticapps.net</td><td class="ado-exp">Login page loads with phone number input field visible</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
+                    <tr><td class="ado-sn">2.</td><td class="ado-act">Enter phone number +91 9876543210 in phone field</td><td class="ado-exp">Phone number is accepted, Send OTP button becomes active</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
+                    <tr><td class="ado-sn">3.</td><td class="ado-act">Click "Send OTP" button</td><td class="ado-exp">OTP is sent to +91 9876543210, OTP input field appears, countdown timer starts</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
+                    <tr><td class="ado-sn">4.</td><td class="ado-act">Enter OTP 123456 in the OTP input field</td><td class="ado-exp">OTP is entered, Verify OTP button becomes active</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
+                    <tr><td class="ado-sn">5.</td><td class="ado-act">Click "Verify OTP" button</td><td class="ado-exp">Login successful — redirected to main dashboard showing Form Builder and Dashboard Builder</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tc-wrap">
+                <div class="tc-hdr">
+                  <span class="tc-type tcn">NEGATIVE</span>
+                  <span class="tc-ttl">Invalid OTP entered 3 consecutive times → account locked</span>
+                  <span class="tc-cnt">4 steps</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-hdr">
+        <div class="exp-ico">▼</div>
+        <span class="id-b">US-2042</span>
+        <span style="font-size:13px;color:var(--t2);flex:1">Dashboard builder — create chart widget</span>
+        <span class="sbg sb-done">done</span>
+        <span class="plan-b">#48305</span>
+        <span><span class="cbp">+28</span><span class="cbn">-14</span></span>
+        <a class="alink" href="#">Open ↗</a>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-hdr">
+        <div class="exp-ico">▼</div>
+        <span class="id-b">US-2043</span>
+        <span style="font-size:13px;color:var(--t2);flex:1">Form submission flow with validation</span>
+        <span class="sbg sb-run">running</span>
+        <span style="color:var(--t3);font-family:var(--mono);font-size:12px">—</span>
+        <span style="color:var(--t3);font-size:12px">—</span>
+      </div>
     </div>
   </div>
   <div class="run-bar">
-    <div><div class="run-info"><b id="story-info">0 stories queued</b></div><div class="prog-wrap"><div class="prog-bar" id="story-prog"></div></div></div>
-    <button class="btn-run" id="run-story" onclick="runStory()" disabled>▶ Generate Test Plans</button>
+    <div><div class="run-info"><b>1 story running</b> — 2 complete</div><div class="prog-wrap"><div class="prog-bar" style="width:66%"></div></div></div>
+    <button class="btn-run">▶ Generate Test Plans</button>
   </div>
   <div class="terminal">
-    <div class="t-bar"><div class="t-dots"><span class="td1"></span><span class="td2"></span><span class="td3"></span></div><div class="t-ttl" id="t-ttl">testforge — live log</div></div>
-    <div class="t-body" id="log-body">
-      <span class="ll li">TestForge ready — validate connection above then add story IDs</span>
+    <div class="t-bar"><div class="t-dots"><span class="td1"></span><span class="td2"></span><span class="td3"></span></div><div class="t-ttl">testforge — live log</div></div>
+    <div class="t-body">
+      <span class="ll lok">14:31:44  ✓ Connected — MCP:true | Jobs:3</span>
+      <span class="ll lmcp">14:31:45  → POST /api/stories/run</span>
+      <span class="ll lagent">14:31:46  ◆ Agent 01 — Test Strategist processing US-2041</span>
+      <span class="ll lagent">14:31:52  ◆ Agent 02 — Scenario Generator: 35 positive, 17 negative planned</span>
+      <span class="ll lagent">14:31:58  ◆ Agent 03 — Writing step-by-step test cases with real app context</span>
+      <span class="ll lok">14:32:07  ✓ US-2041 complete — Plan #48291, Suite #48292, 52 test cases</span>
+      <span class="ll lagent">14:32:08  ◆ Agent 01 — Test Strategist processing US-2043...</span>
     </div>
   </div>
 </div>
-
-<!-- ═══ BUG PANEL ═══ -->
 <div id="panel-bug" class="panel">
-  <div class="ph">
-    <div><h1>Video Bug → Test Plan</h1><p>Upload bug recordings. Click any row to see full bug report with repro steps and regression test cases.</p></div>
-    <div class="ph-r"><button class="btn btn-g" onclick="addBugEntry()">+ Add Bug Entry</button></div>
-  </div>
+  <div class="ph"><div><h1>Video Bug → Test Plan</h1><p>Upload bug recordings. AI watches frame-by-frame and generates full bug reports.</p></div></div>
   <div class="pb">
-    <div class="coll">
-      <div class="coll-hdr" onclick="toggleColl(this)">
-        <div class="coll-ico ic-r" style="border-radius:8px">▶</div>
-        <div><div class="coll-ttl">What happens to each video</div><div class="coll-sub">GPT-4o Vision frame analysis — click to expand</div></div>
-        <div class="coll-chev">▼</div>
+    <div class="sec-lbl">Bug Entries</div>
+    <div class="item-row expanded" style="margin:0 36px 8px">
+      <div class="item-hdr">
+        <div class="exp-ico">▼</div>
+        <span class="id-b" style="color:var(--coral);background:rgba(255,82,82,.1);border-color:rgba(255,82,82,.2)">US-2041</span>
+        <span style="font-size:12px;color:var(--t2);flex:1">bug_recording_otp_crash.mp4</span>
+        <span class="sbg sb-done">done</span>
+        <span style="font-family:var(--mono);font-size:12px;color:var(--coral)">Bug #48310</span>
+        <span><span class="cbp">+12</span><span class="cbn">-8</span></span>
       </div>
-      <div class="coll-body">
-        <div class="pipeline">
-          <div class="ps"><div class="ps-n c1">STEP 01</div><div class="ps-t">Frame Extraction</div><div class="ps-d">OpenCV extracts 10 evenly-spaced JPEG frames from the video, base64-encoded for GPT-4o Vision</div></div>
-          <div class="ps-arr">→</div>
-          <div class="ps"><div class="ps-n c2">STEP 02</div><div class="ps-t">GPT-4o Vision</div><div class="ps-d">Frames + User Story + project knowledge → structured bug JSON: title, severity, priority, repro steps, expected/actual behaviour</div></div>
-          <div class="ps-arr">→</div>
-          <div class="ps"><div class="ps-n c3">STEP 03</div><div class="ps-t">ADO Creation</div><div class="ps-d">Bug work item created and linked to User Story as child, then full 3-agent regression test plan generated</div></div>
+      <div class="drawer open">
+        <div class="drawer-in">
+          <div class="d3">
+            <div class="dcard"><div class="dc-lbl">Bug Work Item</div><div class="dc-val" style="color:var(--coral);font-family:var(--mono)">#48310</div></div>
+            <div class="dcard"><div class="dc-lbl">Severity</div><div class="dc-val">Critical</div><div class="dc-sub" style="font-size:11px;color:var(--t2);margin-top:2px">Priority 1</div></div>
+            <div class="dcard"><div class="dc-lbl">Regression Tests</div><div class="dc-val">20</div></div>
+          </div>
+          <div class="dcard" style="margin-bottom:14px"><div class="dc-lbl">Bug Title</div><div style="font-size:14px;font-weight:700">OTP verification crashes app on Samsung Galaxy S22 — Android 13</div></div>
+          <div class="d2">
+            <div class="dcard"><div class="dc-lbl">Steps to Reproduce</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:6px">
+                <li style="display:flex;gap:8px;font-size:12px"><span style="width:20px;height:20px;background:var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0">1</span><span style="color:var(--t2)">Open app on Samsung Galaxy S22</span></li>
+                <li style="display:flex;gap:8px;font-size:12px"><span style="width:20px;height:20px;background:var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0">2</span><span style="color:var(--t2)">Enter phone +91 9876543210, click Send OTP</span></li>
+                <li style="display:flex;gap:8px;font-size:12px"><span style="width:20px;height:20px;background:var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0">3</span><span style="color:var(--t2)">Enter OTP 123456 and click Verify OTP</span></li>
+                <li style="display:flex;gap:8px;font-size:12px"><span style="width:20px;height:20px;background:var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0">4</span><span style="color:var(--t2)">App crashes with white screen before redirect</span></li>
+              </ul>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="dcard"><div class="dc-lbl">Expected</div><div style="font-size:13px;color:var(--accent)">Login successful — redirects to main dashboard</div></div>
+              <div class="dcard"><div class="dc-lbl">Actual</div><div style="font-size:13px;color:var(--coral)">App shows white screen crash after OTP verification on Samsung S22 Android 13</div></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="sec-lbl">Bug Entries — click uploaded entries to expand full report</div>
-    <div id="bug-rows"></div>
-    <div class="be-wrap"><button class="btn btn-g" onclick="addBugEntry()">+ Add Bug Entry</button></div>
-    <div class="tip">↳ Uploads via <code>POST /api/upload/video</code> then calls <code>POST /api/bugs/run</code></div>
   </div>
   <div class="run-bar">
-    <div><div class="run-info"><b id="bug-info">0 bug entries ready</b></div><div class="prog-wrap"><div class="prog-bar" id="bug-prog"></div></div></div>
-    <button class="btn-run" id="run-bug" onclick="runBug()" disabled>▶ Analyse &amp; Generate</button>
+    <div><div class="run-info"><b>1 bug entry ready</b></div><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></div>
+    <button class="btn-run">▶ Analyse &amp; Generate</button>
   </div>
   <div class="terminal">
     <div class="t-bar"><div class="t-dots"><span class="td1"></span><span class="td2"></span><span class="td3"></span></div><div class="t-ttl">testforge — bug mode log</div></div>
-    <div class="t-body" id="bug-log"><span class="ll li">Bug mode ready — add entries above and click Analyse &amp; Generate</span></div>
-  </div>
-</div>
-
-<!-- ═══ RESULTS PANEL ═══ -->
-<div id="panel-results" class="panel">
-  <div class="ph">
-    <div><h1>Results</h1><p>All generated test plans. Click any row to expand full details and test cases.</p></div>
-    <div class="ph-r"><button class="btn btn-g" onclick="refreshResults()">↻ Refresh</button><button class="btn btn-g" onclick="exportCSV()">↓ Export CSV</button></div>
-  </div>
-  <div class="pb">
-    <div class="sec-lbl" style="padding-top:4px">All Results — click any row to expand</div>
-    <div id="result-rows"></div>
-  </div>
-</div>
-
-<!-- ═══ KNOWLEDGE BASE PANEL ═══ -->
-<div id="panel-kb" class="panel">
-  <div class="ph">
-    <div><h1>Project Knowledge Base</h1><p>Store project context so agents generate accurate, runnable test cases — not generic boilerplate.</p></div>
-    <div class="ph-r">
-      <button class="btn btn-g" onclick="exportKB()">↓ Export JSON</button>
-      <button class="btn-run" style="font-size:13px;padding:10px 20px" id="kb-save" onclick="saveKB()">Save Knowledge Base</button>
+    <div class="t-body">
+      <span class="ll lmcp">14:30:10  → Uploading bug_recording_otp_crash.mp4 (12.4 MB)</span>
+      <span class="ll lok">14:30:18  ✓ Uploaded — extracting 10 frames via OpenCV</span>
+      <span class="ll lagent">14:30:19  ◆ GPT-4o Vision analyzing frames...</span>
+      <span class="ll lok">14:30:28  ✓ Bug report generated — Severity: Critical, Priority: 1</span>
+      <span class="ll lmcp">14:30:29  → Creating Bug #48310 in Azure DevOps</span>
+      <span class="ll lok">14:30:31  ✓ Bug #48310 created and linked to US-2041</span>
+      <span class="ll lagent">14:30:32  ◆ Generating 20 regression test cases...</span>
+      <span class="ll lok">14:30:45  ✓ Complete — Plan #48311, 20 regression tests created</span>
     </div>
   </div>
+</div>
+<div id="panel-results" class="panel">
+  <div class="ph"><div><h1>Results</h1><p>All generated test plans linked to Azure DevOps.</p></div><div class="ph-r"><button class="btn btn-g">↻ Refresh</button><button class="btn btn-g">↓ Export CSV</button></div></div>
+  <div class="pb">
+    <div class="sec-lbl" style="padding-top:4px">All Results</div>
+    <div class="item-row" style="margin:0 36px 8px">
+      <div class="item-hdr">
+        <div class="exp-ico">▼</div>
+        <span class="id-b">US-2041</span>
+        <span style="font-size:13px;color:var(--t2);flex:1">Login with phone number and OTP</span>
+        <span class="plan-b">#48291</span>
+        <span><span class="cbp">+35</span><span class="cbn">-17</span></span>
+        <span class="sbg sb-done">story</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--t3)">Today 14:32</span>
+        <a class="alink" href="#">Open ↗</a>
+      </div>
+    </div>
+    <div class="item-row" style="margin:0 36px 8px">
+      <div class="item-hdr">
+        <div class="exp-ico">▼</div>
+        <span class="id-b">US-2042</span>
+        <span style="font-size:13px;color:var(--t2);flex:1">Dashboard builder — create chart widget</span>
+        <span class="plan-b">#48305</span>
+        <span><span class="cbp">+28</span><span class="cbn">-14</span></span>
+        <span class="sbg sb-done">story</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--t3)">Today 14:28</span>
+        <a class="alink" href="#">Open ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="panel-kb" class="panel">
+  <div class="ph"><div><h1>Project Knowledge Base</h1><p>Store project context so agents generate accurate, runnable test cases.</p></div></div>
   <div class="pb" style="padding:18px 0 32px">
     <div class="card">
-      <div class="kb-hint">Without knowledge: Agent writes "Navigate to the feature" &nbsp;|&nbsp; With knowledge: Agent writes "Open https://lively-pond-0ba4cde10.1.azurestaticapps.net → Enter phone +91 9876543210 → Click Send OTP → Enter OTP 123456 → Click Verify OTP"</div>
+      <div class="kb-hint">Without knowledge: "Navigate to the feature" &nbsp;|&nbsp; With knowledge: "Open https://lively-pond-0ba4cde10.1.azurestaticapps.net → Enter phone +91 9876543210 → Click Send OTP → Enter OTP 123456"</div>
       <div class="card-h">Application Info</div>
       <div class="kb-grid2" style="margin-bottom:14px">
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">App URL</div><input type="text" id="kb-url" style="width:100%" placeholder="https://your-app.com"></div>
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">App Name</div><input type="text" id="kb-name" style="width:100%" placeholder="My App Name"></div>
+        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">App URL</div><input type="text" value="https://lively-pond-0ba4cde10.1.azurestaticapps.net" style="width:100%"></div>
+        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">App Name</div><input type="text" value="GPMD — Dual Builder Platform" style="width:100%"></div>
       </div>
-      <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">App Description</div>
-      <textarea id="kb-desc" rows="3" placeholder="Describe what this application does..." style="width:100%;resize:vertical;line-height:1.6"></textarea>
     </div>
-
     <div class="card">
       <div class="card-h">Authentication</div>
-      <div class="card-d">How users log in — agents use this to write correct login steps</div>
-      <div class="kb-grid2" style="margin-bottom:10px">
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Auth Method</div><input type="text" id="kb-auth-method" style="width:100%" placeholder="Phone + OTP / Email + Password"></div>
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Login Flow</div><input type="text" id="kb-auth-flow" style="width:100%" placeholder="Enter phone → Click Send OTP → Enter OTP → Click Verify"></div>
-      </div>
       <div class="kb-grid2">
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Test Phone / Email</div><input type="text" id="kb-phone" style="width:100%" placeholder="+91 9876543210 or test@company.com"></div>
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Test Password / OTP</div><input type="text" id="kb-pass" style="width:100%" placeholder="123456 or TestPassword123"></div>
+        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Auth Method</div><input type="text" value="Phone number + OTP — NO email login, NO password login" style="width:100%"></div>
+        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Test Phone</div><input type="text" value="+91 9876543210 | OTP: 123456" style="width:100%"></div>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="card-h">User Stories</div>
-      <div class="card-d">Paste user story details here — ID, title, and acceptance criteria. Agents use this to write test cases that match your exact requirements.</div>
-      <div id="kb-stories-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px"></div>
-      <button class="btn btn-g" onclick="addKBStory()">+ Add User Story</button>
-    </div>
-
-    <div class="card">
-      <div class="card-h">Navigation Paths</div>
-      <div class="card-d">How to reach key areas. Agents use these to write exact step-by-step navigation.</div>
-      <div id="kb-nav-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px"></div>
-      <button class="btn btn-g" onclick="addNavRow()">+ Add Navigation Path</button>
-    </div>
-
-    <div class="card">
-      <div class="card-h">Key UI Fields &amp; Buttons</div>
-      <div class="card-d">Important elements agents reference in test steps by name.</div>
-      <div id="kb-field-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px"></div>
-      <button class="btn btn-g" onclick="addFieldRow()">+ Add UI Field</button>
-    </div>
-
-    <div class="card">
-      <div class="card-h">Known Issues</div>
-      <div class="card-d">Existing bugs agents should be aware of for regression testing.</div>
-      <div id="kb-issue-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px"></div>
-      <button class="btn btn-g" onclick="addIssueRow()">+ Add Known Issue</button>
-    </div>
-
-    <div class="card">
-      <div class="card-h">Tech Stack &amp; Extra Context</div>
-      <div class="kb-grid2">
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Tech Stack</div><textarea id="kb-tech" rows="3" placeholder="React, Azure Functions, REST API..." style="width:100%;resize:vertical;line-height:1.6"></textarea></div>
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Extra Context for Agents</div><textarea id="kb-extra" rows="3" placeholder="Any additional info agents should know..." style="width:100%;resize:vertical;line-height:1.6"></textarea></div>
-      </div>
-    </div>
-
-    <div class="coll" style="margin-top:8px">
-      <div class="coll-hdr" onclick="toggleColl(this)">
-        <div class="coll-ico" style="background:rgba(157,125,255,.15);color:var(--violet);border-radius:8px">{}</div>
-        <div><div class="coll-ttl">knowledge_base.json Preview</div><div class="coll-sub">This JSON is sent to all 3 agents as context</div></div>
-        <div class="coll-chev">▼</div>
-      </div>
-      <div class="coll-body"><div class="json-pre" id="kb-preview"></div></div>
     </div>
   </div>
 </div>
-
-<!-- SETTINGS PANEL -->
 <div id="panel-settings" class="panel">
-  <div class="ph">
-    <div><h1>Project Settings</h1><p>Upload configuration files to use this tool with any project. Share with your team.</p></div>
-  </div>
+  <div class="ph"><div><h1>Project Settings</h1><p>Upload configuration files to use this tool with any project.</p></div></div>
   <div class="pb" style="padding:18px 0 32px">
-
     <div class="card" style="margin:0 36px 14px">
       <div class="card-h">Current Configuration</div>
-      <div class="d3" id="settings-status">
-        <div class="dcard"><div class="dc-lbl">Organization</div><div class="dc-val" id="cfg-org">—</div></div>
-        <div class="dcard"><div class="dc-lbl">Project</div><div class="dc-val" id="cfg-project">—</div></div>
-        <div class="dcard"><div class="dc-lbl">MCP Status</div><div class="dc-val" id="cfg-mcp">—</div></div>
-      </div>
-      <div class="d2">
-        <div class="dcard"><div class="dc-lbl">Knowledge Base</div><div class="dc-val" id="cfg-kb">—</div></div>
-        <div class="dcard"><div class="dc-lbl">Input Config</div><div class="dc-val" id="cfg-input">—</div></div>
+      <div class="d3">
+        <div class="dcard"><div class="dc-lbl">Organization</div><div class="dc-val">GPMD-Corp</div></div>
+        <div class="dcard"><div class="dc-lbl">Project</div><div class="dc-val">DualBuilder-QA</div></div>
+        <div class="dcard"><div class="dc-lbl">MCP Status</div><div class="dc-val" style="color:var(--accent)">Running</div></div>
       </div>
     </div>
-
-    <div class="card" style="margin:0 36px 14px">
-      <div class="card-h">Upload Knowledge Base</div>
-      <div class="card-d">Upload your project's knowledge_base.json. This tells the AI about your app URLs, login steps, buttons, and test data.</div>
-      <div style="margin-top:12px">
-        <label class="fdrop" id="drop-kb">
-          📄 Drop knowledge_base.json here or click to browse
-          <input type="file" accept=".json" onchange="uploadFile(this,'knowledge-base')">
-        </label>
-        <div id="kb-upload-status" style="margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--t2)"></div>
-      </div>
-    </div>
-
-    <div class="card" style="margin:0 36px 14px">
-      <div class="card-h">Upload Input Config</div>
-      <div class="card-d">Upload input.json with your story IDs and bug entries. This is the same as adding stories in Story Mode tab.</div>
-      <div style="margin-top:12px">
-        <label class="fdrop" id="drop-input">
-          📄 Drop input.json here or click to browse
-          <input type="file" accept=".json" onchange="uploadFile(this,'input-config')">
-        </label>
-        <div id="input-upload-status" style="margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--t2)"></div>
-      </div>
-    </div>
-
-    <div class="card" style="margin:0 36px 14px">
-      <div class="card-h">Upload Bug Video</div>
-      <div class="card-d">Upload bug recording video (MP4, AVI, MOV). Used with Bug Mode to auto-generate bug reports.</div>
-      <div style="margin-top:12px">
-        <label class="fdrop" id="drop-video">
-          🎬 Drop video here or click to browse
-          <input type="file" accept="video/*" onchange="uploadVideo(this)">
-        </label>
-        <div id="video-upload-status" style="margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--t2)"></div>
-      </div>
-    </div>
-
-    <div class="card" style="margin:0 36px 14px">
-      <div class="card-h">How to Use for Another Project</div>
-      <div class="card-d" style="line-height:1.8">
-        <strong>Step 1:</strong> Create your <code>config/.env</code> file with your Azure credentials<br>
-        <strong>Step 2:</strong> Upload your <code>knowledge_base.json</code> above (or edit in Knowledge tab)<br>
-        <strong>Step 3:</strong> Add story IDs in Story Mode tab OR upload <code>input.json</code> above<br>
-        <strong>Step 4:</strong> Click Generate — Test Plans appear in your Azure DevOps project<br><br>
-        <strong>For team deployment:</strong> Use Docker<br>
-        <code style="display:block;background:var(--s2);padding:10px;border-radius:6px;margin-top:6px;color:var(--accent)">
-          docker-compose up -d<br>
-          # Then open http://your-server:8000 in browser
-        </code>
-      </div>
-    </div>
-
   </div>
 </div>
-
-</div><!-- /content -->
-</div><!-- /page -->
+</div>
+</div>
 <div class="toast" id="toast"></div>
-
 <script>
-var ST = {
-  stories:[],bugs:[],results:[],activeES:null
-};
-
-function api(){ return (document.getElementById('api-base')||{value:'http://localhost:8000'}).value.replace(/\/+$/,''); }
-
-// TABS
 function switchTab(n){
   ['story','bug','results','kb','settings'].forEach(function(t){
-    var tb = document.getElementById('tab-'+t);
-    var pn = document.getElementById('panel-'+t);
-    if(tb) tb.classList.toggle('active', t===n);
-    if(pn) pn.classList.toggle('active', t===n);
+    var tb=document.getElementById('tab-'+t);
+    var pn=document.getElementById('panel-'+t);
+    if(tb) tb.classList.toggle('active',t===n);
+    if(pn) pn.classList.toggle('active',t===n);
   });
-  if(n==='results'){ buildResults(); renderResultRows(); }
-  if(n==='settings'){ loadCurrentConfig(); }
 }
-
-// COLLAPSIBLE
 function toggleColl(hdr){
-  var body = hdr.nextElementSibling;
-  var chev = hdr.querySelector('.coll-chev');
-  var open = body.classList.contains('open');
+  var body=hdr.nextElementSibling;
+  var chev=hdr.querySelector('.coll-chev');
+  var open=body.classList.contains('open');
   body.classList.toggle('open',!open);
   if(chev) chev.classList.toggle('open',!open);
   hdr.classList.toggle('open',!open);
 }
-
-// VALIDATE
-async function validateConn(){
-  addLog('log-body','i','Validating '+api()+' ...');
-  setPill('run');
-  try{
-    var r=await fetch(api()+'/health');
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    var d=await r.json();
-    setPill('ok');
-    addLog('log-body','ok','Connected — MCP:'+d.mcp_running+' | Jobs:'+d.jobs_count);
-    showToast('Connected to TestForge API','ok');
-  }catch(e){ setPill('err'); addLog('log-body','err','Failed: '+e.message); showToast('Cannot reach API','error'); }
-}
-
-// SUMMARY
-function updateSummary(){
-  var ts=ST.stories.length, ds=ST.stories.filter(function(s){return s.status==='done';}).length;
-  var rs=ST.stories.filter(function(s){return s.status==='running';}).length;
-  var ps=ST.stories.filter(function(s){return s.status==='pending';}).length;
-  var tb=ST.bugs.length, ub=ST.bugs.filter(function(b){return b.uploaded_path;}).length;
-  buildResults();
-  var sp=ST.results.filter(function(r){return r.mode==='story';}).length;
-  var bp=ST.results.filter(function(r){return r.mode==='bug';}).length;
-  var pos=ST.results.reduce(function(a,r){return a+(r.pos||0);},0);
-  var neg=ST.results.reduce(function(a,r){return a+(r.neg||0);},0);
-  function set(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
-  set('sm-s',ts); set('sm-sd',ds+' done'); set('sm-sr',rs+' running'); set('sm-sp',ps+' pending');
-  set('sm-b',tb); set('sm-bu',ub+' uploaded'); set('sm-bp',(tb-ub)+' pending');
-  set('sm-p',ST.results.length); set('sm-ps',sp+' from stories'); set('sm-pb',bp+' from bugs');
-  set('sm-tc',pos+neg); set('sm-pos',pos+' positive'); set('sm-neg',neg+' negative');
-  set('nc-s',ts); set('nc-b',tb); set('nc-r',ST.results.length);
-  set('qs-p',ST.results.length); set('qs-tc',pos+neg); set('qs-pos',pos); set('qs-neg',neg);
-}
-
-// SIDEBAR
-function renderSidebar(){
-  var sl=document.getElementById('sb-stories');
-  if(sl){
-    if(!ST.stories.length){ sl.innerHTML='<div style="padding:6px 14px 8px;font-size:12px;color:var(--t3)">No stories yet</div>'; }
-    else{ sl.innerHTML=ST.stories.map(function(s,i){ return '<div class="sb-item'+(i===0?' active':'')+'" onclick="selSB(\'s\','+i+')">'+'<span class="sbi-id">US-'+s.id+'</span>'+'<span class="sbi-lbl">'+(s.label||'Story '+s.id)+'</span>'+'<span class="sbi-dot d-'+s.status+'"></span></div>'; }).join(''); }
-  }
-  var bl=document.getElementById('sb-bugs');
-  if(bl){
-    if(!ST.bugs.length){ bl.innerHTML='<div style="padding:6px 14px 8px;font-size:12px;color:var(--t3)">No bug entries</div>'; }
-    else{ bl.innerHTML=ST.bugs.map(function(b,i){ return '<div class="sb-item" onclick="selSB(\'b\','+i+')">'+'<span class="sbi-id" style="color:var(--coral);background:rgba(255,82,82,.1);border-color:rgba(255,82,82,.2)">BUG</span>'+'<span class="sbi-lbl">'+(b.story_id?'US-'+b.story_id:'No story')+'</span>'+'<span class="sbi-dot d-'+b.status+'"></span></div>'; }).join(''); }
-  }
-}
-
-function selSB(type,i){
-  document.querySelectorAll('.sb-item').forEach(function(e){ e.classList.remove('active'); });
-  event.currentTarget.classList.add('active');
-  if(type==='s'){ switchTab('story'); setTimeout(function(){ toggleStoryRow(i); },100); }
-  else{ switchTab('bug'); setTimeout(function(){ toggleBugRow(i); },100); }
-}
-
-// ADD STORY
-function addStory(){
-  var inp=document.getElementById('story-inp');
-  if(!inp) return;
-  var raw=inp.value.trim().replace(/^US-/i,'');
-  if(!raw||!/^\d+$/.test(raw)){ inp.style.borderColor='var(--coral)'; setTimeout(function(){ inp.style.borderColor=''; },800); return; }
-  if(ST.stories.find(function(s){ return s.id===raw; })){ addLog('log-body','warn','US-'+raw+' already added'); return; }
-  ST.stories.push({id:raw,label:'',status:'pending',steps:[]});
-  inp.value='';
-  renderSidebar(); renderStoryRows(); updateJsonPrev(); updateStoryInfo(); updateSummary();
-  addLog('log-body','i','Added US-'+raw+' to queue');
-}
-
-function addBulk(){
-  var v=prompt('Paste story IDs (comma or newline):'); if(!v) return;
-  var added=0;
-  v.split(/[,\n\r]+/).map(function(s){ return s.trim().replace(/^US-/i,''); }).filter(function(s){ return /^\d+$/.test(s); }).forEach(function(id){
-    if(!ST.stories.find(function(s){ return s.id===id; })){ ST.stories.push({id:id,label:'',status:'pending',steps:[]}); added++; }
-  });
-  renderSidebar(); renderStoryRows(); updateJsonPrev(); updateStoryInfo(); updateSummary();
-  addLog('log-body','i','Bulk added '+added+' IDs');
-}
-
-function renderStoryRows(){
-  var el=document.getElementById('story-rows'); if(!el) return;
-  if(!ST.stories.length){ el.innerHTML='<div style="margin:0 36px"><div class="empty-s"><p>No stories added yet.<br>Use the sidebar on the left to add Story IDs.</p></div></div>'; return; }
-  el.innerHTML=ST.stories.map(function(s,i){ return storyRowHTML(s,i); }).join('');
-}
-
-function storyRowHTML(s,i){
-  var r=ST.results.find(function(r){ return r.story_id===s.id; });
-  return '<div class="item-row" id="sr-'+i+'">'
-    +'<div class="item-hdr" onclick="toggleStoryRow('+i+')">'
-    +'<div class="exp-ico" id="sei-'+i+'">▼</div>'
-    +'<span class="id-b">US-'+s.id+'</span>'
-    +'<span style="font-size:13px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(s.label||'—')+'</span>'
-    +'<span class="sbg sb-'+s.status+'">'+s.status+'</span>'
-    +(r?'<span class="plan-b">#'+r.plan_id+'</span>':'<span style="color:var(--t3);font-family:var(--mono);font-size:12px">—</span>')
-    +(r?'<span><span class="cbp">+'+r.pos+'</span><span class="cbn">-'+r.neg+'</span></span>':'<span style="color:var(--t3);font-size:12px">—</span>')
-    +(r?'<a class="alink" href="'+r.url+'" onclick="event.stopPropagation()" target="_blank">Open ↗</a>':'<span style="color:var(--t3);font-size:12px">—</span>')
-    +'</div>'
-    +'<div class="drawer" id="sdd-'+i+'">'+storyDrawer(s,r)+'</div>'
-    +'</div>';
-}
-
-function storyDrawer(s,r){
-  if(!r) return '<div class="drawer-in"><div style="color:var(--t3);font-size:13px;text-align:center;padding:20px">Run the pipeline to see full details for US-'+s.id+'</div></div>';
-  var tcs=s.tc_sample||[];
-  return '<div class="drawer-in">'
-    +'<div class="d3" style="margin-bottom:16px">'
-    +'<div class="dcard"><div class="dc-lbl">Test Plan</div><div class="dc-val" style="color:var(--amber);font-family:var(--mono)">#'+r.plan_id+'</div><div class="dc-sub">Azure DevOps</div></div>'
-    +'<div class="dcard"><div class="dc-lbl">Test Suite</div><div class="dc-val" style="color:var(--teal);font-family:var(--mono)">#'+r.suite_id+'</div><div class="dc-sub">Requirement-based</div></div>'
-    +'<div class="dcard"><div class="dc-lbl">Test Cases</div><div class="dc-val">'+(r.pos+r.neg)+'</div><div class="dc-sub" style="display:flex;gap:5px;margin-top:3px"><span class="cbp">+'+r.pos+'</span><span class="cbn">-'+r.neg+'</span></div></div>'
-    +'</div>'
-    +(tcs.length?'<div class="dcard" style="margin-bottom:0"><div class="dc-lbl" style="margin-bottom:10px">Sample Test Cases — ADO Step Format ('+tcs.length+' shown of '+(r.pos+r.neg)+' total)</div><div class="tc-list">'+tcs.map(function(tc,ti){ return tcWrap(tc,s.id,ti); }).join('')+'</div><div style="margin-top:10px"><a class="alink" href="'+r.url+'" target="_blank">View all '+(r.pos+r.neg)+' test cases in Azure DevOps ↗</a></div></div>':'')
-    +'</div>';
-}
-
-function tcWrap(tc,sid,ti){
-  var hasSteps=tc.steps&&tc.steps.length>0;
-  var rows=hasSteps?tc.steps.map(function(st){
-    return '<tr><td class="ado-sn">'+st.step+'.</td><td class="ado-act">'+escH(st.action)+'</td><td class="ado-exp">'+escH(st.expected_result||'')+'</td><td class="ado-att">—</td></tr>';
-  }).join(''):'';
-  return '<div class="tc-wrap">'
-    +'<div class="tc-hdr" onclick="toggleTC(\''+sid+'\','+ti+')">'
-    +'<span class="tc-type '+(tc.type==='pos'?'tcp':'tcn')+'">'+(tc.type==='pos'?'POSITIVE':'NEGATIVE')+'</span>'
-    +'<span class="tc-ttl">'+escH(tc.title)+'</span>'
-    +(hasSteps?'<span class="tc-cnt">'+tc.steps.length+' steps</span>':'')
-    +(hasSteps?'<span class="tc-chev" id="tct-'+sid+'-'+ti+'">▼</span>':'')
-    +'</div>'
-    +(hasSteps?'<table class="ado-tbl" id="ado-'+sid+'-'+ti+'"><thead><tr><th>Steps</th><th>Action</th><th>Expected Result</th><th>Attachments</th></tr></thead><tbody>'+rows+'</tbody></table>':'')
-    +'</div>';
-}
-
-function toggleTC(sid,ti){
-  var tbl=document.getElementById('ado-'+sid+'-'+ti);
-  var chev=document.getElementById('tct-'+sid+'-'+ti);
-  if(!tbl) return;
-  var open=tbl.classList.contains('open');
-  tbl.classList.toggle('open',!open);
-  if(chev) chev.classList.toggle('open',!open);
-}
-
-function toggleStoryRow(i){
-  var row=document.getElementById('sr-'+i);
-  var drawer=document.getElementById('sdd-'+i);
-  if(!row||!drawer) return;
-  var open=drawer.classList.contains('open');
-  drawer.classList.toggle('open',!open);
-  row.classList.toggle('expanded',!open);
-}
-
-function updateJsonPrev(){
-  var el=document.getElementById('json-prev'); if(!el) return;
-  if(!ST.stories.length){ el.textContent='{ "stories": [] }'; return; }
-  var obj={stories:ST.stories.map(function(s){ var o={id:s.id}; if(s.label) o.label=s.label; return o; })};
-  el.textContent=JSON.stringify(obj,null,2);
-}
-
-function updateStoryInfo(){
-  var n=ST.stories.filter(function(s){ return s.status==='pending'; }).length;
-  var el=document.getElementById('story-info'); if(el) el.textContent=n+(n===1?' story':' stories')+' queued';
-  var btn=document.getElementById('run-story'); if(btn) btn.disabled=n===0;
-}
-
-// RUN STORY
-async function runStory(){
-  var pending=ST.stories.filter(function(s){ return s.status==='pending'; });
-  if(!pending.length) return;
-  var btn=document.getElementById('run-story'); if(btn) btn.disabled=true;
-  setPill('run');
-  pending.forEach(function(s){ s.status='running'; });
-  renderSidebar(); renderStoryRows(); updateSummary();
-  addLog('log-body','mcp','POST '+api()+'/api/stories/run');
-  try{
-    var res=await fetch(api()+'/api/stories/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({stories:pending.map(function(s){ return {id:s.id,label:s.label}; })})});
-    if(!res.ok){ var e=await res.json(); throw new Error(e.detail||'HTTP '+res.status); }
-    var d=await res.json();
-    addLog('log-body','ok','Job queued: '+d.job_id);
-    var ttl=document.getElementById('t-ttl'); if(ttl) ttl.textContent='testforge — job '+d.job_id.slice(0,8);
-    streamLogs(d.job_id,'story',d.total,pending,'log-body','story-prog');
-  }catch(e){
-    addLog('log-body','err','Failed: '+e.message); setPill('err');
-    pending.forEach(function(s){ s.status='error'; });
-    renderSidebar(); renderStoryRows(); updateSummary();
-    if(btn) btn.disabled=false;
-    showToast('Error: '+e.message,'error');
-  }
-}
-
-// BUG ENTRIES
-function addBugEntry(){
-  ST.bugs.push({story_id:'',video_name:'',uploaded_path:'',status:'pending'});
-  renderBugRows(); renderSidebar(); updateBugInfo(); updateSummary();
-}
-
-function renderBugRows(){
-  var el=document.getElementById('bug-rows'); if(!el) return;
-  if(!ST.bugs.length){ el.innerHTML='<div style="margin:0 36px 8px"><div class="empty-s" style="padding:24px"><p>No bug entries yet. Click "+ Add Bug Entry".</p></div></div>'; return; }
-  el.innerHTML=ST.bugs.map(function(b,i){ return bugRowHTML(b,i); }).join('');
-}
-
-function bugRowHTML(b,i){
-  if(!b.uploaded_path){
-    return '<div class="be-wrap"><div class="be">'
-      +'<div><div class="be-lbl">Story ID</div><input type="text" placeholder="28136" value="'+escH(b.story_id)+'" oninput="ST.bugs['+i+'].story_id=this.value.replace(/^US-/i,\'\');updateBugInfo();updateSummary()" style="width:100%"></div>'
-      +'<div><div class="be-lbl">Video File</div><label class="fdrop" id="fd-'+i+'" ondragover="dov(event,'+i+')" ondragleave="dol(event,'+i+')" ondrop="dof(event,'+i+')">'
-      +'<input type="file" accept="video/*" onchange="pf(this,'+i+')">↑ Drop video or click to select</label></div>'
-      +'<span class="sbg sb-'+b.status+'">'+b.status+'</span>'
-      +'<button class="btn btn-d" style="padding:7px 11px" onclick="rmBug('+i+')">✕</button>'
-      +'</div></div>';
-  }
-  return '<div class="item-row" id="br-'+i+'">'
-    +'<div class="item-hdr" onclick="toggleBugRow('+i+')">'
-    +'<div class="exp-ico" id="bei-'+i+'">▼</div>'
-    +'<span class="id-b" style="color:var(--coral);background:rgba(255,82,82,.1);border-color:rgba(255,82,82,.2)">US-'+b.story_id+'</span>'
-    +'<span style="font-size:12px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+escH(b.video_name)+'</span>'
-    +'<span class="sbg sb-'+b.status+'">'+b.status+'</span>'
-    +(b.bug_id?'<span style="font-family:var(--mono);font-size:12px;color:var(--coral)">Bug #'+b.bug_id+'</span>':'')
-    +(b.pos!==undefined?'<span><span class="cbp">+'+b.pos+'</span><span class="cbn">-'+b.neg+'</span></span>':'')
-    +'</div>'
-    +'<div class="drawer" id="bdd-'+i+'">'+bugDrawer(b)+'</div>'
-    +'</div>';
-}
-
-function bugDrawer(b){
-  if(!b.bug_id) return '<div class="drawer-in"><div style="color:var(--t3);font-size:13px;text-align:center;padding:20px">Run analysis to see full bug report</div></div>';
-  return '<div class="drawer-in">'
-    +'<div class="d3"><div class="dcard"><div class="dc-lbl">Bug Work Item</div><div class="dc-val" style="color:var(--coral);font-family:var(--mono)">#'+b.bug_id+'</div></div>'
-    +'<div class="dcard"><div class="dc-lbl">Severity</div><div class="dc-val">'+(b.severity||'—')+'</div><div class="dc-sub">Priority '+(b.priority||'—')+'</div></div>'
-    +'<div class="dcard"><div class="dc-lbl">Regression Tests</div><div class="dc-val">'+((b.pos||0)+(b.neg||0))+'</div></div></div>'
-    +'<div class="dcard" style="margin-bottom:14px"><div class="dc-lbl">Bug Title</div><div style="font-size:14px;font-weight:700">'+escH(b.bug_title||'')+'</div></div>'
-    +'<div class="d2">'
-    +'<div class="dcard"><div class="dc-lbl">Steps to Reproduce</div><ul style="list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:6px">'+(b.steps||[]).map(function(s,i){ return '<li style="display:flex;gap:8px;font-size:12px"><span style="width:20px;height:20px;background:var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0">'+(i+1)+'</span><span style="color:var(--t2)">'+escH(s)+'</span></li>'; }).join('')+'</ul></div>'
-    +'<div style="display:flex;flex-direction:column;gap:10px"><div class="dcard"><div class="dc-lbl">Expected</div><div style="font-size:13px;color:var(--accent)">'+escH(b.expected||'')+'</div></div><div class="dcard"><div class="dc-lbl">Actual</div><div style="font-size:13px;color:var(--coral)">'+escH(b.actual||'')+'</div></div></div>'
-    +'</div></div>';
-}
-
-function toggleBugRow(i){
-  var row=document.getElementById('br-'+i), drawer=document.getElementById('bdd-'+i);
-  if(!row||!drawer) return;
-  var open=drawer.classList.contains('open');
-  drawer.classList.toggle('open',!open); row.classList.toggle('expanded',!open);
-}
-
-function rmBug(i){ ST.bugs.splice(i,1); renderBugRows(); renderSidebar(); updateBugInfo(); updateSummary(); }
-function dov(e,i){ e.preventDefault(); var fd=document.getElementById('fd-'+i); if(fd) fd.classList.add('dov'); }
-function dol(e,i){ var fd=document.getElementById('fd-'+i); if(fd) fd.classList.remove('dov'); }
-async function dof(e,i){ e.preventDefault(); dol(e,i); var f=e.dataTransfer&&e.dataTransfer.files[0]; if(f) await hvf(f,i); }
-async function pf(inp,i){ var f=inp.files&&inp.files[0]; if(f) await hvf(f,i); }
-
-async function hvf(file,i){
-  ST.bugs[i].video_name=file.name; ST.bugs[i].status='running';
-  renderBugRows(); renderSidebar(); updateSummary();
-  addLog('bug-log','i','Uploading '+file.name+' ...');
-  try{
-    var form=new FormData(); form.append('file',file);
-    var res=await fetch(api()+'/api/upload/video',{method:'POST',body:form});
-    if(!res.ok){ var e=await res.json(); throw new Error(e.detail||'Upload failed'); }
-    var d=await res.json();
-    ST.bugs[i].uploaded_path=d.video_path; ST.bugs[i].status='done';
-    addLog('bug-log','ok','Uploaded: '+d.video_path+' ('+d.size_mb+' MB)');
-    showToast('Uploaded: '+file.name,'ok');
-  }catch(e){ ST.bugs[i].status='error'; addLog('bug-log','err','Upload failed: '+e.message); showToast('Upload failed','error'); }
-  renderBugRows(); renderSidebar(); updateBugInfo(); updateSummary();
-}
-
-function updateBugInfo(){
-  var n=ST.bugs.filter(function(b){ return b.story_id&&b.uploaded_path; }).length;
-  var el=document.getElementById('bug-info'); if(el) el.textContent=n+' bug '+(n===1?'entry':'entries')+' ready';
-  var btn=document.getElementById('run-bug'); if(btn) btn.disabled=n===0;
-}
-
-async function runBug(){
-  var valid=ST.bugs.filter(function(b){ return b.story_id&&b.uploaded_path; });
-  if(!valid.length) return;
-  var btn=document.getElementById('run-bug'); if(btn) btn.disabled=true;
-  setPill('run');
-  valid.forEach(function(b){ b.status='running'; }); renderBugRows(); renderSidebar(); updateSummary();
-  addLog('bug-log','mcp','POST '+api()+'/api/bugs/run');
-  try{
-    var res=await fetch(api()+'/api/bugs/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({bugs:valid.map(function(b){ return {story_id:b.story_id,video_path:b.uploaded_path}; })})});
-    if(!res.ok){ var e=await res.json(); throw new Error(e.detail||'HTTP '+res.status); }
-    var d=await res.json();
-    addLog('bug-log','ok','Bug job: '+d.job_id);
-    streamLogs(d.job_id,'bug',d.total,valid,'bug-log','bug-prog');
-  }catch(e){
-    addLog('bug-log','err','Failed: '+e.message); setPill('err');
-    valid.forEach(function(b){ b.status='error'; }); renderBugRows(); renderSidebar(); updateSummary();
-    if(btn) btn.disabled=false; showToast('Error: '+e.message,'error');
-  }
-}
-
-// SSE
-function streamLogs(jid,mode,total,items,logEl,progEl){
-  if(ST.activeES) ST.activeES.close();
-  var es=new EventSource(api()+'/api/jobs/'+jid+'/logs');
-  ST.activeES=es;
-  es.onmessage=function(ev){
-    var d=JSON.parse(ev.data);
-    if(d.msg) addLog(logEl,d.level||'i',d.msg);
-    if(typeof d.progress==='number'){ var pb=document.getElementById(progEl); if(pb) pb.style.width=d.progress+'%'; }
-    if(d.type==='end'){
-      es.close(); ST.activeES=null;
-      if(d.status==='done'){
-        setPill('ok'); items.forEach(function(s){ if(s.status!=='error') s.status='done'; });
-        var last=document.getElementById('sm-last'); if(last) last.textContent=new Date().toTimeString().slice(0,8);
-        var lsts=document.getElementById('sm-lsts'); if(lsts) lsts.textContent='completed';
-        showToast('All '+total+' plan(s) generated!','ok');
-        fetchJobResults(jid);
-      }else{ setPill('err'); items.forEach(function(s){ s.status='error'; }); showToast('Job failed — check logs','error'); }
-      if(mode==='story'){ renderSidebar(); renderStoryRows(); var btn=document.getElementById('run-story'); if(btn) btn.disabled=false; updateStoryInfo(); }
-      else{ renderBugRows(); renderSidebar(); var btn=document.getElementById('run-bug'); if(btn) btn.disabled=false; updateBugInfo(); }
-      updateSummary();
-    }
-  };
-  es.onerror=function(){ addLog(logEl,'warn','Log stream disconnected'); es.close(); ST.activeES=null; };
-}
-
-// RESULTS
-function buildResults(){
-  ST.results=[];
-  ST.stories.filter(function(s){ return s.plan_id; }).forEach(function(s){
-    ST.results.push({story_id:s.id,story_title:s.label,plan_id:s.plan_id,suite_id:s.suite_id,pos:s.pos||0,neg:s.neg||0,mode:'story',url:s.url||'#',created:s.created||'—'});
-  });
-  ST.bugs.filter(function(b){ return b.plan_id; }).forEach(function(b){
-    ST.results.push({story_id:b.story_id,story_title:b.bug_title,plan_id:b.plan_id,suite_id:b.suite_id,pos:b.pos||0,neg:b.neg||0,mode:'bug',url:b.url||'#',created:b.created||'—'});
-  });
-}
-
-async function fetchJobResults(jid){
-  try{
-    var res=await fetch(api()+'/api/results/'+jid);
-    var d=await res.json();
-    (d.results||[]).forEach(function(r){
-      var s=ST.stories.find(function(x){ return x.id===r.story_id; });
-      if(s){ s.plan_id=r.plan_id; s.suite_id=r.suite_id; s.pos=r.positive_count||0; s.neg=r.negative_count||0; s.url=r.url; s.created=r.created_at||'Just now'; }
-    });
-    renderStoryRows(); buildResults(); updateSummary(); switchTab('results'); renderResultRows();
-  }catch(e){ addLog('log-body','warn','Could not load results: '+e.message); }
-}
-
-async function refreshResults(){
-  try{
-    var res=await fetch(api()+'/api/results');
-    var d=await res.json();
-    addLog('log-body','i','Refreshed — '+(d.results||[]).length+' results');
-  }catch(e){ addLog('log-body','warn','Refresh failed: '+e.message); }
-}
-
-function renderResultRows(){
-  var el=document.getElementById('result-rows'); if(!el) return;
-  buildResults();
-  if(!ST.results.length){ el.innerHTML='<div style="margin:0 36px"><div class="empty-s"><p>No results yet. Run Story Mode or Bug Mode.</p></div></div>'; return; }
-  el.innerHTML=ST.results.map(function(r,i){ return resultRowHTML(r,i); }).join('');
-}
-
-function resultRowHTML(r,i){
-  return '<div class="item-row" id="rr-'+i+'">'
-    +'<div class="item-hdr" style="grid-template-columns:none" onclick="toggleResultRow('+i+')">'
-    +'<div class="exp-ico" id="rei-'+i+'">▼</div>'
-    +'<span class="id-b">US-'+r.story_id+'</span>'
-    +'<span style="font-size:13px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(r.story_title||'—')+'</span>'
-    +'<span class="plan-b">#'+r.plan_id+'</span>'
-    +'<span><span class="cbp">+'+r.pos+'</span><span class="cbn">-'+r.neg+'</span></span>'
-    +'<span class="sbg '+(r.mode==='bug'?'sb-bug':'sb-done')+'">'+r.mode+'</span>'
-    +'<span style="font-family:var(--mono);font-size:11px;color:var(--t3)">'+r.created+'</span>'
-    +'<a class="alink" href="'+r.url+'" onclick="event.stopPropagation()" target="_blank">Open ↗</a>'
-    +'</div>'
-    +'<div class="drawer" id="rdd-'+i+'"><div class="drawer-in"><div class="d3">'
-    +'<div class="dcard"><div class="dc-lbl">Test Plan</div><div class="dc-val" style="color:var(--amber);font-family:var(--mono)">#'+r.plan_id+'</div></div>'
-    +'<div class="dcard"><div class="dc-lbl">Suite</div><div class="dc-val" style="font-family:var(--mono)">#'+r.suite_id+'</div></div>'
-    +'<div class="dcard"><div class="dc-lbl">Test Cases</div><div class="dc-val">'+(r.pos+r.neg)+'</div><div class="dc-sub" style="display:flex;gap:5px;margin-top:3px"><span class="cbp">+'+r.pos+'</span><span class="cbn">-'+r.neg+'</span></div></div>'
-    +'</div><div style="margin-top:8px"><a class="alink" href="'+r.url+'" target="_blank">View in Azure DevOps ↗</a></div></div></div>'
-    +'</div>';
-}
-
-function toggleResultRow(i){
-  var row=document.getElementById('rr-'+i), drawer=document.getElementById('rdd-'+i);
-  if(!row||!drawer) return;
-  var open=drawer.classList.contains('open');
-  drawer.classList.toggle('open',!open); row.classList.toggle('expanded',!open);
-}
-
-function exportCSV(){
-  buildResults();
-  if(!ST.results.length){ addLog('log-body','warn','No results to export'); return; }
-  var h=['story_id','story_title','plan_id','suite_id','positive','negative','mode','url'];
-  var rows=ST.results.map(function(r){ return h.map(function(k){ return '"'+String(r[k]||'').replace(/"/g,'""')+'"'; }).join(','); });
-  var a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([[h.join(',')].concat(rows).join('\n')],{type:'text/csv'})),download:'testforge_'+Date.now()+'.csv'});
-  a.click(); addLog('log-body','ok','CSV exported');
-}
-
-// KNOWLEDGE BASE
-function addKBStory(){
-  var el=document.getElementById('kb-stories-list'); if(!el) return;
-  var div=document.createElement('div');
-  div.style.cssText='background:var(--s2);border:1px solid var(--b1);border-radius:9px;padding:14px;';
-  div.innerHTML='<div style="display:grid;grid-template-columns:120px 1fr;gap:8px;margin-bottom:8px">'
-    +'<input type="text" placeholder="Story ID e.g. US-101" style="width:100%">'
-    +'<input type="text" placeholder="Story title e.g. Login with phone and OTP" style="width:100%">'
-    +'</div>'
-    +'<textarea placeholder="Acceptance criteria (one per line):\n- User can enter phone number\n- OTP sent within 30 seconds\n- Successful OTP login redirects to dashboard" rows="4" style="width:100%;resize:vertical;line-height:1.6;margin-bottom:8px"></textarea>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
-    +'<input type="text" placeholder="Sample step: Open https://app.url" style="width:100%">'
-    +'<button class="btn btn-d" style="justify-content:center" onclick="this.closest(\'div\').parentElement.parentElement.remove()">Remove</button>'
-    +'</div>';
-  el.appendChild(div);
-}
-
-function addNavRow(k,v){
-  k=k||''; v=v||'';
-  var el=document.getElementById('kb-nav-list'); if(!el) return;
-  var div=document.createElement('div');
-  div.style.cssText='display:grid;grid-template-columns:155px 1fr auto;gap:8px;align-items:center';
-  div.innerHTML='<input type="text" placeholder="e.g. login" value="'+escH(k)+'" style="width:100%">'
-    +'<input type="text" placeholder="Navigation steps..." value="'+escH(v)+'" style="width:100%">'
-    +'<button class="btn btn-d" style="padding:7px 11px" onclick="this.parentElement.remove()">✕</button>';
-  el.appendChild(div);
-}
-
-function addFieldRow(k,v){
-  k=k||''; v=v||'';
-  var el=document.getElementById('kb-field-list'); if(!el) return;
-  var div=document.createElement('div');
-  div.style.cssText='display:grid;grid-template-columns:175px 1fr auto;gap:8px;align-items:center';
-  div.innerHTML='<input type="text" placeholder="e.g. otp_input" value="'+escH(k)+'" style="width:100%">'
-    +'<input type="text" placeholder="Field description..." value="'+escH(v)+'" style="width:100%">'
-    +'<button class="btn btn-d" style="padding:7px 11px" onclick="this.parentElement.remove()">✕</button>';
-  el.appendChild(div);
-}
-
-function addIssueRow(v){
-  v=v||'';
-  var el=document.getElementById('kb-issue-list'); if(!el) return;
-  var div=document.createElement('div');
-  div.style.cssText='display:flex;gap:8px;align-items:center';
-  div.innerHTML='<input type="text" placeholder="Known issue or bug..." value="'+escH(v)+'" style="flex:1">'
-    +'<button class="btn btn-d" style="padding:7px 11px" onclick="this.parentElement.remove()">✕</button>';
-  el.appendChild(div);
-}
-
-function buildKBObj(){
-  var nav={}, fields={}, issues=[], stories=[];
-  document.querySelectorAll('#kb-nav-list > div').forEach(function(row){
-    var inp=row.querySelectorAll('input[type=text]');
-    var k=inp[0]&&inp[0].value.trim(); var v=inp[1]&&inp[1].value.trim();
-    if(k&&v) nav[k]=v;
-  });
-  document.querySelectorAll('#kb-field-list > div').forEach(function(row){
-    var inp=row.querySelectorAll('input[type=text]');
-    var k=inp[0]&&inp[0].value.trim(); var v=inp[1]&&inp[1].value.trim();
-    if(k&&v) fields[k]=v;
-  });
-  document.querySelectorAll('#kb-issue-list > div input[type=text]').forEach(function(inp){
-    var v=inp.value.trim(); if(v) issues.push(v);
-  });
-  document.querySelectorAll('#kb-stories-list > div').forEach(function(block){
-    var inps=block.querySelectorAll('input[type=text]');
-    var ta=block.querySelector('textarea');
-    var id=inps[0]&&inps[0].value.trim();
-    var title=inps[1]&&inps[1].value.trim();
-    var criteria=ta&&ta.value.trim();
-    var sampleStep=inps[2]&&inps[2].value.trim();
-    if(id||title){ var s={id:id,title:title}; if(criteria) s.acceptance_criteria=criteria.split('\n').filter(function(l){return l.trim();}); if(sampleStep) s.sample_login_step=sampleStep; stories.push(s); }
-  });
-  return {
-    app_url: (document.getElementById('kb-url')||{value:''}).value.trim(),
-    app_name:(document.getElementById('kb-name')||{value:''}).value.trim(),
-    app_description:(document.getElementById('kb-desc')||{value:''}).value.trim(),
-    authentication:{
-      method:(document.getElementById('kb-auth-method')||{value:''}).value.trim(),
-      flow:  (document.getElementById('kb-auth-flow')||{value:''}).value.trim(),
-      test_credential_1:(document.getElementById('kb-phone')||{value:''}).value.trim(),
-      test_credential_2:(document.getElementById('kb-pass')||{value:''}).value.trim(),
-    },
-    user_stories:stories,
-    navigation:nav,
-    key_fields:fields,
-    known_issues:issues,
-    tech_stack:  (document.getElementById('kb-tech')||{value:''}).value.trim(),
-    extra_context:(document.getElementById('kb-extra')||{value:''}).value.trim(),
-  };
-}
-
-function updateKBPreview(){
-  var el=document.getElementById('kb-preview'); if(!el) return;
-  el.textContent=JSON.stringify(buildKBObj(),null,2);
-}
-
-async function saveKB(){
-  var kb=buildKBObj();
-  var btn=document.getElementById('kb-save'); if(btn) btn.textContent='Saving...';
-  try{
-    var res=await fetch(api()+'/api/knowledge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(kb)});
-    if(res.ok){ if(btn) btn.textContent='✓ Saved!'; showToast('Knowledge base saved to server','ok'); addLog('log-body','ok','Knowledge base saved — agents will use this for next run'); }
-    else { exportKB(); showToast('Downloaded knowledge_base.json — place in project folder','ok'); }
-  }catch(e){ exportKB(); showToast('Downloaded knowledge_base.json — place in project folder','ok'); }
-  setTimeout(function(){ var btn=document.getElementById('kb-save'); if(btn) btn.textContent='Save Knowledge Base'; },3000);
-}
-
-function exportKB(){
-  var kb=buildKBObj();
-  var a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([JSON.stringify(kb,null,2)],{type:'application/json'})),download:'knowledge_base.json'});
-  a.click();
-  addLog('log-body','ok','knowledge_base.json exported — place in your project folder next to main_fixed.py');
-}
-
-function initKB(){
-  var g=function(id,v){ var el=document.getElementById(id); if(el) el.value=v; };
-  g('kb-url','https://lively-pond-0ba4cde10.1.azurestaticapps.net');
-  g('kb-name','GPMD — Dual Builder Platform');
-  g('kb-desc','GPMD is a dual-builder platform consisting of a Form Builder and a Dashboard Builder. The Form Builder creates projects and collects structured input data through forms. The Dashboard Builder generates visualizations (charts and reports) from that data. Both builders share project-level data flow and use phone number + OTP authentication.');
-  g('kb-auth-method','Phone number + OTP — NO email login, NO password login');
-  g('kb-auth-flow','Open app URL → Enter phone number → Click Send OTP → Enter 6-digit OTP received on phone → Click Verify OTP → Access granted to both Form Builder and Dashboard Builder');
-  g('kb-phone','+91 9876543210');
-  g('kb-pass','123456');
-  g('kb-tech','React 18 frontend, Azure Static Web Apps (CDN), REST API on Azure Functions, Phone OTP via SMS gateway (MSG91/Twilio), JWT authentication, Azure DevOps CI/CD');
-  g('kb-extra','GPMD is a no-code B2B SaaS platform. Form Builder is always the entry point — create projects and forms here first. Dashboard Builder reads Form Builder data. Test phone: +91 9876543210 | OTP: 123456. Always use Indian mobile format. Both builders accessible from left sidebar after login.');
-
-  // Pre-fill User Story for Login
-  addKBStory();
-  var blocks=document.querySelectorAll('#kb-stories-list > div');
-  if(blocks.length>0){
-    var b=blocks[0];
-    var inps=b.querySelectorAll('input[type=text]');
-    var ta=b.querySelector('textarea');
-    if(inps[0]) inps[0].value='US-LOGIN';
-    if(inps[1]) inps[1].value='Login with phone number and OTP';
-    if(ta) ta.value='- User can enter a valid 10-digit phone number on the login page\n- Clicking Send OTP sends a 6-digit OTP to the phone within 30 seconds\n- Entering the correct OTP and clicking Verify OTP logs the user in\n- Successful login shows the main dashboard with Form Builder and Dashboard Builder\n- Invalid OTP shows error: "Invalid OTP"\n- Expired OTP (after 5 min) shows: "OTP has expired, please request a new one"\n- User can resend OTP after 30-second cooldown\n- Unregistered phone number shows appropriate error message\n- Session persists until explicit logout or token expiry';
-    if(inps[2]) inps[2].value='Open https://lively-pond-0ba4cde10.1.azurestaticapps.net → Wait until phone number field is visible → Enter phone +91 9876543210 → Click Send OTP → Enter OTP 123456 → Click Verify OTP → Dashboard loads';
-  }
-
-  // Nav paths
-  addNavRow('login','Open https://lively-pond-0ba4cde10.1.azurestaticapps.net → Wait until phone number field is visible → Enter +91 9876543210 → Click Send OTP → Enter OTP 123456 → Click Verify OTP → Dashboard loads');
-  addNavRow('form_builder','After login → Click Form Builder in left sidebar');
-  addNavRow('create_project','Form Builder → Click New Project button → Enter project name → Click Create');
-  addNavRow('add_form_field','Open project → Click + Add Field → Select field type → Configure label and validation → Click Save');
-  addNavRow('publish_form','Open project → Click Publish button → Confirm → Form status changes to Published');
-  addNavRow('view_submissions','Open project → Click Submissions tab → View all submitted entries');
-  addNavRow('dashboard_builder','After login → Click Dashboard Builder in left sidebar');
-  addNavRow('create_dashboard','Dashboard Builder → Click New Dashboard → Enter name → Select source project → Click Create');
-  addNavRow('add_chart','Open dashboard → Click + Add Widget → Select chart type → Configure axes → Click Save');
-  addNavRow('logout','Click user profile icon top right → Click Logout');
-
-  // Key fields
-  addFieldRow('phone_number_input','Phone number text field on login page — accepts 10-digit number — placeholder "Enter your phone number"');
-  addFieldRow('send_otp_button','Button labelled "Send OTP" — triggers OTP SMS to entered phone');
-  addFieldRow('otp_input','6-digit OTP input field — appears after clicking Send OTP');
-  addFieldRow('verify_otp_button','Button labelled "Verify OTP" — submits OTP for validation and completes login');
-  addFieldRow('resend_otp_link','Link labelled "Resend OTP" — enabled after 30-second cooldown');
-  addFieldRow('otp_timer','Countdown timer after Send OTP — shows time before OTP expires (5 minutes)');
-  addFieldRow('form_builder_menu','Left sidebar menu item labelled "Form Builder"');
-  addFieldRow('dashboard_builder_menu','Left sidebar menu item labelled "Dashboard Builder"');
-  addFieldRow('new_project_button','Button labelled "New Project" in Form Builder');
-  addFieldRow('publish_button','Button labelled "Publish" — makes form live to accept submissions');
-  addFieldRow('submissions_tab','Tab labelled "Submissions" inside a project — lists all responses');
-
-  // Known issues
-  addIssueRow('OTP SMS delivery may be delayed up to 60 seconds on some carriers');
-  addIssueRow('Resend OTP button sometimes requires page scroll on mobile');
-  addIssueRow('Dashboard charts may show stale data if browser cache is not cleared after new submissions');
-  addIssueRow('Session token expiry silently redirects to login — no visible notification shown');
-
-  var nc=document.getElementById('nc-kb'); if(nc) nc.textContent='✓';
-}
-
-// UTILS
-function addLog(elId,type,msg){
-  var body=document.getElementById(elId); if(!body) return;
-  var ts=new Date().toTimeString().slice(0,8);
-  var pfx={i:'',ok:'✓ ',warn:'⚠ ',err:'✕ ',agent:'◆ ',mcp:'→ '};
-  var cls={i:'li',ok:'lok',warn:'lwarn',err:'lerr',agent:'lagent',mcp:'lmcp'};
-  var sp=document.createElement('span');
-  sp.className='ll '+(cls[type]||'li');
-  sp.textContent=ts+'  '+(pfx[type]||'')+msg;
-  body.appendChild(sp); body.scrollTop=body.scrollHeight;
-}
-
-function setPill(s){
-  var el=document.getElementById('conn-pill'); if(!el) return;
-  var map={ok:'cp-ok',err:'cp-err',run:'cp-run',idle:'cp-idle'};
-  var lbl={ok:'Connected',err:'Error',run:'Running…',idle:'Not connected'};
-  el.className='cpill '+(map[s]||'cp-idle'); el.textContent=lbl[s]||s;
-}
-
-var toastTimer;
-function showToast(msg,type){
-  var el=document.getElementById('toast'); if(!el) return;
-  el.textContent=msg; el.className='toast show '+(type||'');
-  clearTimeout(toastTimer); toastTimer=setTimeout(function(){ el.classList.remove('show'); },3500);
-}
-
-function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-// RUN ALL — runs stories first, then bugs sequentially
-async function runAll(){
-  var btn=document.getElementById('run-all'); if(btn) btn.disabled=true;
-  var hasStories=ST.stories.filter(function(s){ return s.status==='pending'; }).length>0;
-  var hasBugs=ST.bugs.filter(function(b){ return b.story_id&&b.uploaded_path&&b.status!=='done'; }).length>0;
-  if(!hasStories&&!hasBugs){ showToast('Nothing to run — add stories or bugs first','error'); if(btn) btn.disabled=false; return; }
-
-  showToast('Running all tasks...','ok');
-  if(hasStories){
-    await runStory();
-    // Wait for story job to finish
-    await new Promise(function(resolve){
-      var check=setInterval(function(){
-        var allDone=ST.stories.every(function(s){ return s.status==='done'||s.status==='error'||s.status==='pending'; });
-        var anyRunning=ST.stories.some(function(s){ return s.status==='running'; });
-        if(!anyRunning){ clearInterval(check); resolve(); }
-      },1000);
-    });
-  }
-  if(hasBugs){
-    await runBug();
-    await new Promise(function(resolve){
-      var check=setInterval(function(){
-        var anyRunning=ST.bugs.some(function(b){ return b.status==='running'; });
-        if(!anyRunning){ clearInterval(check); resolve(); }
-      },1000);
-    });
-  }
-  if(btn) btn.disabled=false;
-  showToast('All tasks completed!','ok');
-}
-
-// SETTINGS TAB FUNCTIONS
-async function loadCurrentConfig(){
-  try{
-    var r=await fetch(api()+'/api/config/current');
-    if(!r.ok) return;
-    var d=await r.json();
-    document.getElementById('cfg-org').textContent=d.org||'Not set';
-    document.getElementById('cfg-project').textContent=d.project||'Not set';
-    document.getElementById('cfg-mcp').textContent=d.mcp_running?'Running':'Stopped';
-    document.getElementById('cfg-mcp').style.color=d.mcp_running?'var(--accent)':'var(--t2)';
-    document.getElementById('cfg-kb').textContent=d.knowledge_base.exists?(d.knowledge_base.builders||[]).join(', ')||'Loaded':'Not found';
-    document.getElementById('cfg-kb').style.color=d.knowledge_base.exists?'var(--accent)':'var(--coral)';
-    document.getElementById('cfg-input').textContent=d.input.exists?d.input.stories+' stories, '+d.input.bugs+' bugs':'Not found';
-    document.getElementById('cfg-input').style.color=d.input.exists?'var(--accent)':'var(--coral)';
-  }catch(e){ console.log('Config load error',e); }
-}
-
-async function uploadFile(input,type){
-  var file=input.files[0];
-  if(!file) return;
-  var statusEl=document.getElementById((type==='knowledge-base'?'kb':'input')+'-upload-status');
-  statusEl.textContent='Uploading '+file.name+'...';
-  statusEl.style.color='var(--amber)';
-  try{
-    var fd=new FormData();
-    fd.append('file',file);
-    var r=await fetch(api()+'/api/upload/'+type,{method:'POST',body:fd});
-    var d=await r.json();
-    if(!r.ok) throw new Error(d.detail||'Upload failed');
-    statusEl.textContent='✓ '+d.message;
-    statusEl.style.color='var(--accent)';
-    showToast(file.name+' uploaded successfully','ok');
-    loadCurrentConfig();
-  }catch(e){
-    statusEl.textContent='✗ '+e.message;
-    statusEl.style.color='var(--coral)';
-    showToast('Upload failed: '+e.message,'error');
-  }
-}
-
-async function uploadVideo(input){
-  var file=input.files[0];
-  if(!file) return;
-  var statusEl=document.getElementById('video-upload-status');
-  statusEl.textContent='Uploading '+file.name+' ('+Math.round(file.size/1024/1024)+'MB)...';
-  statusEl.style.color='var(--amber)';
-  try{
-    var fd=new FormData();
-    fd.append('file',file);
-    var r=await fetch(api()+'/api/upload/video',{method:'POST',body:fd});
-    var d=await r.json();
-    if(!r.ok) throw new Error(d.detail||'Upload failed');
-    statusEl.textContent='✓ Uploaded: '+d.video_path+' ('+d.size_mb+'MB)';
-    statusEl.style.color='var(--accent)';
-    showToast('Video uploaded: '+d.filename,'ok');
-  }catch(e){
-    statusEl.textContent='✗ '+e.message;
-    statusEl.style.color='var(--coral)';
-    showToast('Upload failed: '+e.message,'error');
-  }
-}
-
-// INIT
-renderSidebar();
-renderStoryRows();
-renderBugRows();
-updateJsonPrev();
-updateStoryInfo();
-updateBugInfo();
-updateSummary();
-initKB();
 </script>
 </body>
 </html>
