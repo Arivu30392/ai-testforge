@@ -11,3 +11,5 @@ opencv-python>=4.9.0
 fastapi==0.111.0
 uvicorn[standard]==0.29.0
 python-multipart==0.0.9
+opencv-python-headless>=4.9.0
+requests
