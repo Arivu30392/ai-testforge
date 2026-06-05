@@ -349,7 +349,7 @@ class AdoMcpClient:
         self.process = subprocess.Popen(
             cmd,
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            env=env, text=True, bufsize=1, shell=False,
+            env=env, text=True, bufsize=1, shell=False, encoding="utf-8", errors="replace",
         )
         threading.Thread(target=self._read_responses, daemon=True).start()
         threading.Thread(target=self._read_stderr,    daemon=True).start()

@@ -11,3 +11,7 @@ opencv-python>=4.9.0
 fastapi==0.111.0
 uvicorn[standard]==0.29.0
 python-multipart==0.0.9
+
+# Knowledge base file parsing
+PyPDF2>=3.0.0
+python-docx>=1.1.0

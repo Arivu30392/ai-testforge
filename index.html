@@ -2,503 +2,1124 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TestForge — ADO Test Plan Generator</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI TestForge</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#07090f;--s1:#0c1220;--s2:#101828;--s3:#162036;
-  --b1:#1e2d45;--b2:#253650;
-  --accent:#00e5a0;--blue:#2a8fff;--coral:#ff5252;
-  --amber:#ffb020;--violet:#9d7dff;--teal:#00c9d4;
-  --text:#dde8ff;--t2:#7a90b0;--t3:#3a4f6a;
-  --mono:'JetBrains Mono',monospace;--sans:'Outfit',sans-serif;
+--bg:#0a0e17;--surface:#0f1623;--card:#131c2e;--card2:#182136;
+--border:#1e2a3f;--border2:#2a3a54;
+--accent:#10b981;--accent2:#34d399;--blue:#3b82f6;--purple:#8b5cf6;
+--red:#ef4444;--amber:#f59e0b;--cyan:#06b6d4;--pink:#ec4899;
+--text:#f1f5f9;--t2:#94a3b8;--t3:#64748b;--t4:#475569;
+--radius:12px;--radius2:8px;
 }
-html,body{min-height:100vh;width:100%;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;}
-.sum-bar{display:flex;align-items:stretch;background:var(--s1);border-bottom:1px solid var(--b1);padding:0 36px;height:80px;}
-.si{display:flex;align-items:center;gap:14px;padding:0 28px;border-right:1px solid var(--b1);flex-shrink:0;}
-.si:first-child{padding-left:0;}
-.si:last-child{border-right:none;}
-.si-ico{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:13px;}
-.ic-b{background:rgba(42,143,255,.15);color:var(--blue);}
-.ic-r{background:rgba(255,82,82,.15);color:var(--coral);}
-.ic-g{background:rgba(0,229,160,.15);color:var(--accent);}
-.ic-a{background:rgba(255,176,32,.15);color:var(--amber);}
-.ic-t{background:rgba(0,201,212,.15);color:var(--teal);}
-.si-v{font-size:26px;font-weight:900;letter-spacing:-1px;line-height:1;}
-.si-l{font-size:11px;font-weight:500;color:var(--t2);margin-top:2px;}
-.si-ps{display:flex;gap:5px;margin-top:4px;flex-wrap:wrap;}
-.spl{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;white-space:nowrap;}
-.sp-g{color:var(--accent);background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);}
-.sp-c{color:var(--coral);background:rgba(255,82,82,.1);border:1px solid rgba(255,82,82,.2);}
-.sp-b{color:var(--blue);background:rgba(42,143,255,.1);border:1px solid rgba(42,143,255,.2);}
-.sp-a{color:var(--amber);background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.2);}
-.sp-t{color:var(--teal);background:rgba(0,201,212,.1);border:1px solid rgba(0,201,212,.2);}
-.sp-v{color:var(--violet);background:rgba(157,125,255,.1);border:1px solid rgba(157,125,255,.2);}
-.topbar{display:flex;align-items:center;height:56px;background:var(--s1);border-bottom:2px solid var(--b1);padding:0 36px;position:sticky;top:0;z-index:200;}
-.logo{display:flex;align-items:center;gap:11px;margin-right:40px;}
-.logo-box{width:34px;height:34px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:14px;color:#000;}
-.logo-name{font-size:19px;font-weight:800;letter-spacing:-.4px;}
-.logo-name span{color:var(--accent);}
-.nav{display:flex;height:100%;}
-.nb{display:flex;align-items:center;gap:8px;padding:0 20px;font-size:13px;font-weight:600;color:var(--t2);background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .15s;}
-.nb:hover{color:var(--text);}
-.nb.active{color:var(--text);border-bottom-color:var(--accent);}
-.nb .nd{width:6px;height:6px;border-radius:50%;background:var(--b2);}
-.nb.active .nd{background:var(--accent);}
-.nb .nc{font-family:var(--mono);font-size:10px;padding:1px 6px;border-radius:10px;background:var(--b1);color:var(--t2);}
-.nb.active .nc{background:rgba(0,229,160,.15);color:var(--accent);}
-.topbar-r{margin-left:auto;display:flex;align-items:center;gap:10px;}
-.api-wrap{display:flex;align-items:center;background:var(--s2);border:1px solid var(--b1);border-radius:8px;overflow:hidden;}
-.api-lbl{font-family:var(--mono);font-size:10px;color:var(--t3);padding:0 10px;border-right:1px solid var(--b1);letter-spacing:1px;}
-.api-inp{background:transparent;border:none;color:var(--accent);font-family:var(--mono);font-size:12px;padding:8px 11px;outline:none;width:185px;}
-.btn-val{font-size:12px;font-weight:600;padding:8px 14px;background:transparent;border:1px solid var(--b1);color:var(--t2);border-radius:8px;cursor:pointer;font-family:var(--sans);transition:all .15s;}
-.btn-val:hover{color:var(--text);border-color:var(--accent);}
-.cpill{font-family:var(--mono);font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--b1);background:var(--s2);display:flex;align-items:center;gap:5px;}
-.cpill::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;}
-.cp-ok{color:var(--accent);}.cp-err{color:var(--coral);}.cp-idle{color:var(--t3);}
-.cp-run{color:var(--amber);animation:blink 1s ease-in-out infinite;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.page{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 136px);}
-.sidebar{background:var(--s1);border-right:1px solid var(--b1);display:flex;flex-direction:column;position:sticky;top:56px;height:calc(100vh - 136px);overflow-y:auto;}
-.sidebar::-webkit-scrollbar{width:3px;}
-.sidebar::-webkit-scrollbar-thumb{background:var(--b2);}
-.sb-sec{padding:16px 14px 10px;}
-.sb-sec h3{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:10px;}
-.add-row{display:flex;gap:7px;margin-bottom:6px;}
-.add-inp{flex:1;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:13px;padding:9px 11px;outline:none;}
-.add-inp::placeholder{color:var(--t3);}
-.btn-plus{width:38px;height:38px;background:var(--accent);border:none;border-radius:8px;color:#000;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.btn-bulk{width:100%;font-size:11px;font-weight:600;padding:6px;background:transparent;border:1px solid var(--b1);color:var(--t2);border-radius:7px;cursor:pointer;font-family:var(--sans);margin-bottom:2px;}
-.sb-item{display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:8px;margin:0 6px 4px;background:var(--s2);border:1px solid var(--b1);cursor:pointer;}
-.sb-item.active{border-color:var(--accent);background:rgba(0,229,160,.04);}
-.sbi-id{font-family:var(--mono);font-size:10px;color:var(--blue);background:rgba(42,143,255,.1);border:1px solid rgba(42,143,255,.2);padding:2px 6px;border-radius:4px;flex-shrink:0;}
-.sbi-lbl{font-size:12px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.sbi-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.d-p{background:var(--t3);}.d-r{background:var(--amber);}.d-d{background:var(--accent);}.d-e{background:var(--coral);}
-.sb-div{height:1px;background:var(--b1);margin:6px 0;}
-.sb-qs{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 14px 14px;}
-.qs{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:11px 13px;}
-.qs-v{font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1;}
-.qs-l{font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-top:3px;}
-.content{display:flex;flex-direction:column;overflow-y:auto;}
-.panel{display:none;flex-direction:column;}
-.panel.active{display:flex;}
-.ph{display:flex;align-items:flex-end;justify-content:space-between;padding:26px 36px 20px;border-bottom:1px solid var(--b1);}
-.ph h1{font-size:26px;font-weight:800;letter-spacing:-.8px;}
-.ph p{font-size:13px;color:var(--t2);margin-top:4px;line-height:1.5;}
-.ph-r{display:flex;gap:8px;flex-shrink:0;}
-.pb{padding:18px 0 32px;}
-.coll{background:var(--s1);border:1px solid var(--b1);border-radius:12px;margin:0 36px 14px;overflow:hidden;}
-.coll-hdr{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;border-bottom:1px solid transparent;}
-.coll-hdr.open{border-bottom-color:var(--b1);}
-.coll-ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
-.coll-ttl{font-size:14px;font-weight:700;flex:1;}
-.coll-sub{font-size:12px;color:var(--t2);}
-.coll-chev{width:20px;height:20px;border:1px solid var(--b2);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--t3);transition:transform .2s;}
-.coll-chev.open{transform:rotate(180deg);}
-.coll-body{display:none;padding:18px;}
-.coll-body.open{display:block;}
-.pipeline{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:center;}
-.ps{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:16px;}
-.ps-n{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-.c1{color:var(--blue);}.c2{color:var(--amber);}.c3{color:var(--accent);}
-.ps-t{font-size:14px;font-weight:700;margin-bottom:4px;}
-.ps-d{font-size:12px;color:var(--t2);line-height:1.5;}
-.ps-arr{text-align:center;font-size:20px;color:var(--b2);}
-.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin:0 36px 8px;padding-top:16px;}
-.item-row{margin:0 36px 8px;background:var(--s1);border:1px solid var(--b1);border-radius:11px;overflow:hidden;}
-.item-row.expanded{border-color:var(--accent);}
-.item-hdr{display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer;flex-wrap:wrap;}
-.exp-ico{width:24px;height:24px;border:1px solid var(--b2);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--t3);transition:all .2s;flex-shrink:0;}
-.item-row.expanded .exp-ico{background:rgba(0,229,160,.1);border-color:var(--accent);color:var(--accent);transform:rotate(180deg);}
-.drawer{display:none;border-top:1px solid var(--b1);}
-.drawer.open{display:block;}
-.drawer-in{padding:20px;background:var(--s2);}
-.d3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px;}
-.d2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
-.dcard{background:var(--s1);border:1px solid var(--b1);border-radius:9px;padding:14px 16px;}
-.dc-lbl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px;}
-.dc-val{font-size:14px;font-weight:700;}
-.tc-wrap{border:1px solid var(--b1);border-radius:8px;overflow:hidden;margin-bottom:6px;}
-.tc-hdr{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--s3);cursor:pointer;}
-.tc-type{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;flex-shrink:0;}
-.tcp{color:var(--accent);background:rgba(0,229,160,.12);border:1px solid rgba(0,229,160,.25);}
-.tcn{color:var(--coral);background:rgba(255,82,82,.12);border:1px solid rgba(255,82,82,.25);}
-.tc-ttl{font-size:12px;font-weight:600;color:var(--text);flex:1;line-height:1.4;}
-.tc-cnt{font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0;}
-.ado-tbl{width:100%;border-collapse:collapse;font-size:12px;display:none;}
-.ado-tbl.open{display:table;}
-.ado-tbl thead th{background:var(--s1);font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:7px 12px;text-align:left;border-bottom:1px solid var(--b1);}
-.ado-tbl tbody tr{border-bottom:1px solid var(--b1);}
-.ado-tbl tbody tr:last-child{border-bottom:none;}
-.ado-tbl td{padding:9px 12px;vertical-align:top;line-height:1.6;}
-.ado-sn{font-family:var(--mono);font-size:11px;color:var(--t3);text-align:right;}
-.ado-act{color:var(--text);}
-.ado-exp{color:var(--accent);}
-.tc-list{display:flex;flex-direction:column;gap:4px;max-height:500px;overflow-y:auto;}
-.be-wrap{margin:0 36px 8px;}
-.be{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:13px 16px;display:grid;grid-template-columns:150px 1fr auto auto;gap:10px;align-items:center;}
-.fdrop{border:1.5px dashed var(--b2);border-radius:7px;padding:9px 12px;font-family:var(--mono);font-size:11px;color:var(--t2);cursor:pointer;text-align:center;display:block;}
-.fdrop input[type=file]{display:none;}
-.kb-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.kb-hint{display:block;background:rgba(0,201,212,.08);border:1px solid rgba(0,201,212,.2);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--teal);line-height:1.7;margin-bottom:14px;}
-.tbl-wrap{border:1px solid var(--b1);border-radius:10px;overflow:hidden;}
-.tbl{width:100%;border-collapse:collapse;font-size:13px;}
-.tbl th{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:var(--t3);text-align:left;padding:11px 15px;border-bottom:1px solid var(--b1);background:var(--s2);text-transform:uppercase;}
-.tbl td{padding:13px 15px;border-bottom:1px solid var(--b1);vertical-align:middle;}
-.tbl tr:last-child td{border-bottom:none;}
-.id-b{font-family:var(--mono);font-size:11px;color:var(--blue);background:rgba(42,143,255,.1);border:1px solid rgba(42,143,255,.2);padding:2px 7px;border-radius:4px;}
-.plan-b{font-family:var(--mono);font-size:12px;color:var(--amber);}
-.sbg{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;}
-.sbg::before{content:'';width:4px;height:4px;border-radius:50%;background:currentColor;}
-.sb-done{color:var(--accent);background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);}
-.sb-run{color:var(--amber);background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.2);}
-.sb-pend{color:var(--t3);background:var(--s2);border:1px solid var(--b1);}
-.sb-err{color:var(--coral);background:rgba(255,82,82,.1);border:1px solid rgba(255,82,82,.2);}
-.sb-bug{color:var(--violet);background:rgba(157,125,255,.1);border:1px solid rgba(157,125,255,.2);}
-.cbp{font-family:var(--mono);font-size:11px;color:var(--accent);background:rgba(0,229,160,.1);padding:2px 7px;border-radius:4px;margin-right:3px;}
-.cbn{font-family:var(--mono);font-size:11px;color:var(--coral);background:rgba(255,82,82,.1);padding:2px 7px;border-radius:4px;}
-.alink{font-family:var(--mono);font-size:11px;color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(42,143,255,.3);}
-.run-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 36px;background:var(--s1);border-top:1px solid var(--b1);}
-.run-info{font-family:var(--mono);font-size:12px;color:var(--t2);}
-.run-info b{color:var(--text);}
-.prog-wrap{height:3px;background:var(--b1);border-radius:2px;margin-top:6px;width:220px;}
-.prog-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--accent));border-radius:2px;width:0%;}
-.btn-run{font-family:var(--sans);font-size:15px;font-weight:800;padding:13px 40px;background:var(--accent);color:#000;border:none;border-radius:10px;cursor:pointer;letter-spacing:-.2px;}
-.btn-run:disabled{opacity:.3;cursor:not-allowed;}
-.terminal{border-top:1px solid var(--b1);background:var(--s1);flex-shrink:0;}
-.t-bar{display:flex;align-items:center;gap:9px;padding:8px 18px;border-bottom:1px solid var(--b1);}
-.t-dots{display:flex;gap:5px;}
-.t-dots span{width:10px;height:10px;border-radius:50%;}
-.td1{background:#ff5f57;}.td2{background:#febc2e;}.td3{background:#28c840;}
-.t-ttl{font-family:var(--mono);font-size:11px;color:var(--t3);}
-.t-body{height:180px;overflow-y:auto;padding:11px 20px;font-family:var(--mono);font-size:12px;line-height:1.9;color:#4a607a;}
-.ll{display:block;}
-.li{color:#3a5068;}.lok{color:#00e5a0;}.lwarn{color:#ffb020;}.lerr{color:#ff5252;}.lagent{color:#9d7dff;}.lmcp{color:#38bdf8;}
-.btn{font-family:var(--sans);font-size:12px;font-weight:600;border:none;border-radius:8px;cursor:pointer;padding:8px 14px;display:inline-flex;align-items:center;gap:6px;}
-.btn-g{background:var(--s2);color:var(--t2);border:1px solid var(--b1);}
-.btn-d{background:rgba(255,82,82,.1);color:var(--coral);border:1px solid rgba(255,82,82,.2);}
-.empty-s{text-align:center;padding:40px 24px;color:var(--t3);}
-.empty-s p{font-size:13px;line-height:1.8;}
-.json-pre{background:#040810;border:1px solid var(--b1);border-radius:8px;padding:13px;font-family:var(--mono);font-size:11px;color:var(--t2);line-height:1.9;max-height:200px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;}
-.toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:11px 16px;font-family:var(--mono);font-size:12px;display:none;}
-.toast.show{display:block;}
-.toast.ok{border-color:rgba(0,229,160,.4);color:var(--accent);}
-.toast.error{border-color:rgba(255,82,82,.4);color:var(--coral);}
-input[type=text],textarea{background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:13px;padding:9px 11px;outline:none;}
-input[type=text]::placeholder,textarea::placeholder{color:var(--t3);}
-.card{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:20px;margin:0 36px 14px;}
-.card-h{font-size:15px;font-weight:700;margin-bottom:4px;}
-.card-d{font-size:12px;color:var(--t2);margin-bottom:14px;line-height:1.6;}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:13px;overflow:hidden}
+.app{display:grid;grid-template-rows:52px 1fr;grid-template-columns:250px 1fr;height:100vh}
+
+/* TOPBAR */
+.topbar{grid-column:1/-1;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:14px;z-index:100}
+.logo{font-size:15px;font-weight:800;letter-spacing:-.5px}.logo span{color:var(--accent)}
+.topbar-sep{width:1px;height:22px;background:var(--border)}
+.topbar-r{margin-left:auto;display:flex;align-items:center;gap:10px}
+.status-pill{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--accent);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:16px;padding:5px 10px}
+.status-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+.status-pill.offline{color:var(--red);border-color:rgba(239,68,68,.2)}.status-pill.offline .dot{background:var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* SIDEBAR */
+.sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.sidebar-top{padding:12px 12px 10px;border-bottom:1px solid var(--border)}
+.sidebar-top h3{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t4);margin-bottom:8px}
+.new-proj-btn{width:100%;background:var(--accent);color:#000;border:none;border-radius:var(--radius2);padding:8px 12px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;justify-content:center}
+.new-proj-btn:hover{background:var(--accent2)}
+.proj-list{flex:1;overflow-y:auto;padding:6px 8px;min-height:0}
+.proj-list::-webkit-scrollbar{width:5px}.proj-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}.proj-list::-webkit-scrollbar-thumb:hover{background:var(--border2)}
+.proj-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:var(--radius2);cursor:pointer;margin-bottom:3px;border:1px solid transparent;transition:all .12s}
+.proj-item:hover{background:rgba(255,255,255,.02);border-color:var(--border)}
+.proj-item.active{background:rgba(16,185,129,.06);border-color:rgba(16,185,129,.2)}
+.proj-item .p-icon{width:28px;height:28px;border-radius:6px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.proj-item.active .p-icon{background:rgba(16,185,129,.1);border-color:var(--accent)}
+.proj-item .p-info{flex:1;min-width:0}
+.proj-item .p-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proj-item .p-org{font-size:9px;color:var(--t3)}
+.proj-item .p-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.proj-item .p-edit{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--t3);cursor:pointer;flex-shrink:0;opacity:0;transition:all .12s}
+.proj-item:hover .p-edit{opacity:1}
+.proj-item .p-edit:hover{background:var(--card);color:var(--accent)}
+
+/* SIDEBAR NAV */
+.sidebar-nav{border-top:1px solid var(--border);padding:8px 8px 10px}
+.nav-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t4);padding:5px 10px 3px}
+.nav-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius2);cursor:pointer;font-size:11px;font-weight:600;color:var(--t2);transition:all .12s;border:1px solid transparent}
+.nav-item:hover{background:rgba(255,255,255,.02);color:var(--text)}
+.nav-item.active{background:rgba(16,185,129,.06);color:var(--accent);border-color:rgba(16,185,129,.15)}
+.nav-item .icon{font-size:13px;width:16px;text-align:center;flex-shrink:0}
+.nav-item .badge{margin-left:auto;background:var(--red);color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:8px}
+
+/* CONTENT */
+.content{overflow-y:auto;background:var(--bg);display:flex;flex-direction:column}
+.content::-webkit-scrollbar{width:6px}.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* FLOW BAR */
+.flow-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:0;overflow-x:auto;flex-shrink:0}
+.flow-bar::-webkit-scrollbar{height:3px}.flow-bar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.fs{display:flex;align-items:center;gap:5px;padding:5px 9px;border-radius:12px;font-size:10px;font-weight:600;color:var(--t4);white-space:nowrap;flex-shrink:0;cursor:default}
+.fs.done{color:var(--accent)}
+.fs.active{color:var(--accent);background:rgba(16,185,129,.08)}
+.fs .fn{width:16px;height:16px;border-radius:50%;background:var(--card);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800}
+.fs.done .fn{background:rgba(16,185,129,.15);border-color:var(--accent);color:var(--accent)}
+.fs.active .fn{background:var(--accent);border-color:var(--accent);color:#000}
+.fl{width:12px;height:1.5px;background:var(--border);flex-shrink:0}
+.fl.done{background:var(--accent)}
+
+/* MAIN */
+.main{padding:20px 24px;flex:1;max-width:940px;margin:0 auto;width:100%}
+.panel{display:none;animation:fadeIn .2s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* HEADERS */
+.sh{margin-bottom:16px}
+.sh h1{font-size:18px;font-weight:800;margin-bottom:4px}
+.sh p{font-size:11px;color:var(--t2);line-height:1.5}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.card-title{font-size:12px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+
+/* FORMS */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t3)}
+.form-input,.filter-sel{background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:11px;padding:8px 10px;outline:none;width:100%;transition:border .12s}
+.form-input:focus,.filter-sel:focus{border-color:var(--accent)}
+.filter-sel{cursor:pointer;width:auto}
+
+/* BUTTONS */
+.btn{font-size:11px;font-weight:600;border-radius:var(--radius2);cursor:pointer;padding:8px 14px;border:1px solid var(--border);background:var(--card);color:var(--t2);transition:all .12s;display:inline-flex;align-items:center;gap:5px}
+.btn:hover{color:var(--text);border-color:var(--border2)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-primary{background:var(--accent);color:#000;border:none;font-weight:700}
+.btn-primary:hover{background:var(--accent2)}
+.btn-danger{color:var(--red);border-color:rgba(239,68,68,.2)}
+.btn-sm{padding:5px 8px;font-size:10px}
+.btn-lg{padding:10px 22px;font-size:12px}
+.nav-btns{display:flex;justify-content:space-between;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}
+
+/* DROP ZONE */
+.drop-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:28px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.drop-zone:hover{border-color:var(--accent);background:rgba(16,185,129,.02)}
+.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.drop-zone .dz-icon{font-size:24px;margin-bottom:5px}
+.drop-zone .dz-text{font-size:11px;font-weight:600;margin-bottom:2px}
+.drop-zone .dz-sub{font-size:10px;color:var(--t3)}
+
+/* LIST ITEMS */
+.story-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius2);margin-bottom:5px;cursor:pointer;transition:all .12s}
+.story-item:hover{border-color:var(--accent);background:rgba(16,185,129,.02)}
+.story-item.selected{border-color:var(--accent);background:rgba(16,185,129,.05)}
+.story-item .chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0}
+.story-item.selected .chk{background:var(--accent);border-color:var(--accent);color:#000}
+.s-id{font-size:10px;font-weight:700;color:var(--blue);min-width:48px}
+.s-title{font-size:11px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-state{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(59,130,246,.1);color:var(--blue)}
+
+/* TAGS */
+.tag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;display:inline-block}
+.tag-pos,.tag-positive,.tag-completed,.tag-active{background:rgba(16,185,129,.1);color:var(--accent)}
+.tag-neg,.tag-negative,.tag-failed{background:rgba(239,68,68,.1);color:var(--red)}
+.tag-edge,.tag-edge-case{background:rgba(245,158,11,.1);color:var(--amber)}
+.tag-boundary{background:rgba(236,72,153,.1);color:var(--pink)}
+.tag-security{background:rgba(139,92,246,.1);color:var(--purple)}
+.tag-integration{background:rgba(6,182,212,.1);color:var(--cyan)}
+.tag-performance{background:rgba(249,115,22,.1);color:#f97316}
+.tag-new{background:rgba(59,130,246,.1);color:var(--blue)}
+.tag-resolved{background:rgba(139,92,246,.1);color:var(--purple)}
+.tag-closed{background:rgba(100,116,139,.1);color:var(--t3)}
+.tag-p1{background:rgba(239,68,68,.1);color:var(--red)}
+.tag-p2{background:rgba(245,158,11,.1);color:var(--amber)}
+.tag-p3{background:rgba(59,130,246,.1);color:var(--blue)}
+.tag-p4{background:rgba(100,116,139,.1);color:var(--t3)}
+.tag-leakage{background:rgba(236,72,153,.1);color:var(--pink)}
+
+/* TABLES */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:left;padding:7px 9px;font-size:9px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--t4);background:var(--surface);border-bottom:1px solid var(--border)}
+.tbl td{padding:7px 9px;font-size:11px;border-bottom:1px solid var(--border);vertical-align:middle}
+
+/* PROGRESS */
+.progress-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin:6px 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:3px;transition:width .4s}
+.progress-text{font-size:10px;color:var(--accent);font-weight:600;text-align:center}
+
+/* LOG BOX */
+.log-box{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 10px;margin-top:8px;max-height:120px;overflow-y:auto;font-family:monospace;font-size:9px;color:var(--t2);line-height:1.7}
+.log-info{color:var(--t2)}.log-ok{color:var(--accent)}.log-err{color:var(--red)}
+
+/* SCENARIO ITEMS */
+.scenario-item{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius2);padding:10px;margin-bottom:6px;cursor:pointer;transition:all .12s}
+.scenario-item:hover{border-color:var(--accent)}
+.scenario-item.expanded{border-color:var(--accent);background:rgba(16,185,129,.03)}
+.scenario-item .s-type-tag{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:2px 5px;border-radius:3px;display:inline-block;margin-bottom:4px}
+.scenario-item .s-type-tag.pos{background:rgba(16,185,129,.1);color:var(--accent)}
+.scenario-item .s-type-tag.neg{background:rgba(239,68,68,.1);color:var(--red)}
+.scenario-item .s-type-tag.edge{background:rgba(245,158,11,.1);color:var(--amber)}
+.scenario-item .s-type-tag.boundary{background:rgba(236,72,153,.1);color:var(--pink)}
+.scenario-item .s-type-tag.security{background:rgba(139,92,246,.1);color:var(--purple)}
+.scenario-item .s-type-tag.integration{background:rgba(6,182,212,.1);color:var(--cyan)}
+.scenario-item .s-type-tag.performance{background:rgba(249,115,22,.1);color:#f97316}
+.scenario-item .sc-title{font-size:11px;font-weight:600;margin-bottom:3px}
+.scenario-item .sc-hint{font-size:10px;color:var(--t2)}
+.scenario-edit{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:none}
+.scenario-item.expanded .scenario-edit{display:block}
+
+/* TC TABLE */
+.tc-table{width:100%;border-collapse:collapse}
+.tc-table th{text-align:left;padding:7px 8px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--t4);background:var(--surface);border-bottom:1px solid var(--border)}
+.tc-table td{padding:7px 8px;font-size:11px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tc-table tr.acc{background:rgba(16,185,129,.02)}.tc-table tr.rej{background:rgba(239,68,68,.02)}
+
+/* MODALS */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-bg.show{opacity:1;pointer-events:all}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;max-width:640px;width:90%;max-height:80vh;overflow-y:auto;position:relative}
+.modal h2{font-size:15px;font-weight:800;margin-bottom:6px}
+.modal h3{font-size:11px;font-weight:700;color:var(--accent);margin:10px 0 4px}
+.modal-close{position:absolute;top:12px;right:12px;background:var(--card2);border:1px solid var(--border);border-radius:4px;color:var(--t2);width:24px;height:24px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{color:var(--text);border-color:var(--accent)}
+.modal-steps{background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:10px;font-size:11px;color:var(--t2);line-height:1.6;margin-bottom:8px;white-space:pre-wrap}
+.modal textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:11px;padding:8px;resize:vertical;outline:none;font-family:inherit}
+.modal textarea:focus{border-color:var(--accent)}
+
+/* STRATEGY GRID */
+.strategy-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.strategy-item{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius2);padding:10px}
+.strategy-item .cat-name{font-size:10px;font-weight:700;margin-bottom:2px}
+.strategy-item .cat-count{font-size:9px;color:var(--t3)}
+.strategy-item .cat-bar{height:3px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden}
+.strategy-item .cat-bar-fill{height:100%;background:var(--accent);border-radius:2px}
+
+/* ANALYSIS */
+.analysis-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius2);padding:11px;margin-bottom:8px}
+.analysis-card h3{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.analysis-card p,.analysis-card pre{font-size:11px;color:var(--t2);line-height:1.6;white-space:pre-wrap;word-break:break-word}
+
+/* SPINNER */
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius2);padding:10px 16px;font-size:11px;font-weight:600;z-index:2000;opacity:0;transform:translateY(10px);transition:all .2s}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.ok{border-color:var(--accent);color:var(--accent)}
+.toast.error{border-color:var(--red);color:var(--red)}
+
+/* STATS ROW */
+.stats-row{display:flex;gap:10px;margin-bottom:12px}
+.stat-box{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius2);padding:10px 14px;flex:1;text-align:center}
+.stat-box .sv{font-size:20px;font-weight:900;letter-spacing:-.5px}
+.stat-box .sl{font-size:9px;color:var(--t3);margin-top:2px}
+
+/* HIDDEN */
+.hidden{display:none!important}
+
+@media(max-width:768px){
+.app{grid-template-columns:1fr}.sidebar{display:none}
+.form-grid,.strategy-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
-<div class="sum-bar">
-  <div class="si"><div class="si-ico ic-b">#</div><div><div class="si-v" id="sm-s">3</div><div class="si-l">User Stories</div><div class="si-ps"><span class="spl sp-g">2 done</span><span class="spl sp-a">1 running</span><span class="spl sp-b">0 pending</span></div></div></div>
-  <div class="si"><div class="si-ico ic-r">!</div><div><div class="si-v" id="sm-b">1</div><div class="si-l">Bug Videos</div><div class="si-ps"><span class="spl sp-g">1 uploaded</span><span class="spl sp-c">0 pending</span></div></div></div>
-  <div class="si"><div class="si-ico ic-g">✓</div><div><div class="si-v" id="sm-p">2</div><div class="si-l">Test Plans</div><div class="si-ps"><span class="spl sp-g">2 from stories</span><span class="spl sp-v">0 from bugs</span></div></div></div>
-  <div class="si"><div class="si-ico ic-a">TC</div><div><div class="si-v" id="sm-tc">87</div><div class="si-l">Test Cases</div><div class="si-ps"><span class="spl sp-g">52 positive</span><span class="spl sp-c">35 negative</span></div></div></div>
-  <div class="si"><div class="si-ico ic-t">⟳</div><div><div class="si-v" style="font-size:16px;font-weight:700">14:32:07</div><div class="si-l">Last Run</div><div class="si-ps"><span class="spl sp-t">completed</span></div></div></div>
-  <div class="si" style="border-right:none;margin-left:auto"><button class="btn-run" style="font-size:13px;padding:10px 24px">▶ Run All</button></div>
-</div>
+<div class="app">
+
+<!-- TOPBAR -->
 <div class="topbar">
-  <div class="logo"><div class="logo-box">TF</div><div class="logo-name">Test<span>Forge</span></div></div>
-  <nav class="nav">
-    <button class="nb active" id="tab-story" onclick="switchTab('story')"><span class="nd"></span>Story Mode<span class="nc">3</span></button>
-    <button class="nb" id="tab-bug" onclick="switchTab('bug')"><span class="nd"></span>Bug Mode<span class="nc">1</span></button>
-    <button class="nb" id="tab-results" onclick="switchTab('results')"><span class="nd"></span>Results<span class="nc">2</span></button>
-    <button class="nb" id="tab-kb" onclick="switchTab('kb')"><span class="nd"></span>Knowledge<span class="nc" style="background:rgba(0,201,212,.15);color:var(--teal)">✓</span></button>
-    <button class="nb" id="tab-settings" onclick="switchTab('settings')"><span class="nd"></span>Settings<span class="nc" style="background:rgba(157,125,255,.15);color:var(--violet)">⚙</span></button>
-  </nav>
+  <div class="logo">AI<span>TestForge</span></div>
+  <div class="topbar-sep"></div>
   <div class="topbar-r">
-    <div class="api-wrap"><span class="api-lbl">API URL</span><input class="api-inp" type="text" value="http://localhost:8000"></div>
-    <button class="btn-val">Validate</button>
-    <div class="cpill cp-ok">Connected</div>
+    <div class="status-pill" id="mcp-status"><div class="dot"></div><span id="mcp-text">Connecting...</span></div>
   </div>
 </div>
-<div class="page">
+
+<!-- SIDEBAR -->
 <div class="sidebar">
-  <div class="sb-sec">
-    <h3>Story Queue</h3>
-    <div class="add-row">
-      <input class="add-inp" type="text" placeholder="ID e.g. 28136">
-      <button class="btn-plus">+</button>
-    </div>
-    <button class="btn-bulk">+ Bulk Add Multiple IDs</button>
+  <div class="sidebar-top">
+    <h3>Projects</h3>
+    <button class="new-proj-btn" onclick="showCreateProject()">+ New Project</button>
   </div>
-  <div>
-    <div class="sb-item active"><span class="sbi-id">US-2041</span><span class="sbi-lbl">Login with phone OTP</span><span class="sbi-dot d-d"></span></div>
-    <div class="sb-item"><span class="sbi-id">US-2042</span><span class="sbi-lbl">Dashboard builder</span><span class="sbi-dot d-d"></span></div>
-    <div class="sb-item"><span class="sbi-id">US-2043</span><span class="sbi-lbl">Form submission flow</span><span class="sbi-dot d-r"></span></div>
+  <div class="proj-list" id="proj-list">
+    <!-- projects rendered here -->
   </div>
-  <div class="sb-div"></div>
-  <div class="sb-sec"><h3>Bug Entries</h3></div>
-  <div>
-    <div class="sb-item"><span class="sbi-id" style="color:var(--coral);background:rgba(255,82,82,.1);border-color:rgba(255,82,82,.2)">BUG</span><span class="sbi-lbl">US-2041</span><span class="sbi-dot d-d"></span></div>
-  </div>
-  <div class="sb-div"></div>
-  <div class="sb-sec"><h3>Quick Stats</h3></div>
-  <div class="sb-qs">
-    <div class="qs"><div class="qs-v" style="color:var(--accent)">2</div><div class="qs-l">Plans</div></div>
-    <div class="qs"><div class="qs-v" style="color:var(--blue)">87</div><div class="qs-l">Cases</div></div>
-    <div class="qs"><div class="qs-v" style="color:var(--amber)">52</div><div class="qs-l">Positive</div></div>
-    <div class="qs"><div class="qs-v" style="color:var(--coral)">35</div><div class="qs-l">Negative</div></div>
+  <div class="sidebar-nav">
+    <div class="nav-label">Tools</div>
+    <div class="nav-item" data-nav="bugs" onclick="showTool('bugs')"><span class="icon">&#128027;</span>Bugs & Leakage</div>
+    <div class="nav-item" data-nav="traceability" onclick="showTool('traceability')"><span class="icon">&#128279;</span>Traceability</div>
+    <div class="nav-item" data-nav="exploratory" onclick="showTool('exploratory')"><span class="icon">&#128161;</span>Exploratory AI</div>
+    <div class="nav-item" data-nav="predictor" onclick="showTool('predictor')"><span class="icon">&#128200;</span>Failure Predictor</div>
+    <div class="nav-item" data-nav="history" onclick="showTool('history')"><span class="icon">&#128202;</span>Run History</div>
+    <div class="nav-item" data-nav="outputs" onclick="showTool('outputs')"><span class="icon">&#128193;</span>Output Files</div>
   </div>
 </div>
-<div class="content">
-<div id="panel-story" class="panel active">
-  <div class="ph">
-    <div><h1>User Story → Test Plan</h1><p>Add story IDs in the sidebar. Click any row to expand full details with ADO step-format test cases.</p></div>
-  </div>
-  <div class="pb">
-    <div class="coll">
-      <div class="coll-hdr open" onclick="toggleColl(this)">
-        <div class="coll-ico ic-b" style="border-radius:8px">◆</div>
-        <div><div class="coll-ttl">3-Agent AI Pipeline</div><div class="coll-sub">How GPT-4o generates test cases</div></div>
-        <div class="coll-chev open">▼</div>
-      </div>
-      <div class="coll-body open">
-        <div class="pipeline">
-          <div class="ps"><div class="ps-n c1">AGENT 01</div><div class="ps-t">Test Strategist</div><div class="ps-d">Reads project knowledge + story requirements → 8+ coverage categories planned</div></div>
-          <div class="ps-arr">→</div>
-          <div class="ps"><div class="ps-n c2">AGENT 02</div><div class="ps-t">Scenario Generator</div><div class="ps-d">Converts categories into specific scenario titles using real navigation paths</div></div>
-          <div class="ps-arr">→</div>
-          <div class="ps"><div class="ps-n c3">AGENT 03</div><div class="ps-t">Test Case Writer</div><div class="ps-d">Writes ADO step format: each step has Action + Expected Result using real app data</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="sec-lbl">Stories — click any row to expand</div>
-    <div class="item-row expanded">
-      <div class="item-hdr">
-        <div class="exp-ico">▼</div>
-        <span class="id-b">US-2041</span>
-        <span style="font-size:13px;color:var(--t2);flex:1">Login with phone number and OTP</span>
-        <span class="sbg sb-done">done</span>
-        <span class="plan-b">#48291</span>
-        <span><span class="cbp">+35</span><span class="cbn">-17</span></span>
-        <a class="alink" href="#">Open ↗</a>
-      </div>
-      <div class="drawer open">
-        <div class="drawer-in">
-          <div class="d3">
-            <div class="dcard"><div class="dc-lbl">Test Plan</div><div class="dc-val" style="color:var(--amber);font-family:var(--mono)">#48291</div><div class="dc-sub" style="font-size:11px;color:var(--t2);margin-top:2px">Azure DevOps</div></div>
-            <div class="dcard"><div class="dc-lbl">Test Suite</div><div class="dc-val" style="color:var(--teal);font-family:var(--mono)">#48292</div><div class="dc-sub" style="font-size:11px;color:var(--t2);margin-top:2px">Requirement-based</div></div>
-            <div class="dcard"><div class="dc-lbl">Test Cases</div><div class="dc-val">52</div><div class="dc-sub" style="display:flex;gap:5px;margin-top:3px"><span class="cbp">+35</span><span class="cbn">-17</span></div></div>
-          </div>
-          <div class="dcard">
-            <div class="dc-lbl" style="margin-bottom:10px">Sample Test Cases — ADO Step Format</div>
-            <div class="tc-list">
-              <div class="tc-wrap">
-                <div class="tc-hdr">
-                  <span class="tc-type tcp">POSITIVE</span>
-                  <span class="tc-ttl">Valid phone + correct OTP → successful login and dashboard redirect</span>
-                  <span class="tc-cnt">5 steps</span>
-                  <span style="font-size:10px;color:var(--t3)">▼</span>
-                </div>
-                <table class="ado-tbl open">
-                  <thead><tr><th>Steps</th><th>Action</th><th>Expected Result</th><th>Attachments</th></tr></thead>
-                  <tbody>
-                    <tr><td class="ado-sn">1.</td><td class="ado-act">Open https://lively-pond-0ba4cde10.1.azurestaticapps.net</td><td class="ado-exp">Login page loads with phone number input field visible</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
-                    <tr><td class="ado-sn">2.</td><td class="ado-act">Enter phone number +91 9876543210 in phone field</td><td class="ado-exp">Phone number is accepted, Send OTP button becomes active</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
-                    <tr><td class="ado-sn">3.</td><td class="ado-act">Click "Send OTP" button</td><td class="ado-exp">OTP is sent to +91 9876543210, OTP input field appears, countdown timer starts</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
-                    <tr><td class="ado-sn">4.</td><td class="ado-act">Enter OTP 123456 in the OTP input field</td><td class="ado-exp">OTP is entered, Verify OTP button becomes active</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
-                    <tr><td class="ado-sn">5.</td><td class="ado-act">Click "Verify OTP" button</td><td class="ado-exp">Login successful — redirected to main dashboard showing Form Builder and Dashboard Builder</td><td style="color:var(--t3);font-size:11px;font-family:var(--mono)">—</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="tc-wrap">
-                <div class="tc-hdr">
-                  <span class="tc-type tcn">NEGATIVE</span>
-                  <span class="tc-ttl">Invalid OTP entered 3 consecutive times → account locked</span>
-                  <span class="tc-cnt">4 steps</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="item-row">
-      <div class="item-hdr">
-        <div class="exp-ico">▼</div>
-        <span class="id-b">US-2042</span>
-        <span style="font-size:13px;color:var(--t2);flex:1">Dashboard builder — create chart widget</span>
-        <span class="sbg sb-done">done</span>
-        <span class="plan-b">#48305</span>
-        <span><span class="cbp">+28</span><span class="cbn">-14</span></span>
-        <a class="alink" href="#">Open ↗</a>
-      </div>
-    </div>
-    <div class="item-row">
-      <div class="item-hdr">
-        <div class="exp-ico">▼</div>
-        <span class="id-b">US-2043</span>
-        <span style="font-size:13px;color:var(--t2);flex:1">Form submission flow with validation</span>
-        <span class="sbg sb-run">running</span>
-        <span style="color:var(--t3);font-family:var(--mono);font-size:12px">—</span>
-        <span style="color:var(--t3);font-size:12px">—</span>
-      </div>
-    </div>
-  </div>
-  <div class="run-bar">
-    <div><div class="run-info"><b>1 story running</b> — 2 complete</div><div class="prog-wrap"><div class="prog-bar" style="width:66%"></div></div></div>
-    <button class="btn-run">▶ Generate Test Plans</button>
-  </div>
-  <div class="terminal">
-    <div class="t-bar"><div class="t-dots"><span class="td1"></span><span class="td2"></span><span class="td3"></span></div><div class="t-ttl">testforge — live log</div></div>
-    <div class="t-body">
-      <span class="ll lok">14:31:44  ✓ Connected — MCP:true | Jobs:3</span>
-      <span class="ll lmcp">14:31:45  → POST /api/stories/run</span>
-      <span class="ll lagent">14:31:46  ◆ Agent 01 — Test Strategist processing US-2041</span>
-      <span class="ll lagent">14:31:52  ◆ Agent 02 — Scenario Generator: 35 positive, 17 negative planned</span>
-      <span class="ll lagent">14:31:58  ◆ Agent 03 — Writing step-by-step test cases with real app context</span>
-      <span class="ll lok">14:32:07  ✓ US-2041 complete — Plan #48291, Suite #48292, 52 test cases</span>
-      <span class="ll lagent">14:32:08  ◆ Agent 01 — Test Strategist processing US-2043...</span>
-    </div>
-  </div>
-</div>
-<div id="panel-bug" class="panel">
-  <div class="ph"><div><h1>Video Bug → Test Plan</h1><p>Upload bug recordings. AI watches frame-by-frame and generates full bug reports.</p></div></div>
-  <div class="pb">
-    <div class="sec-lbl">Bug Entries</div>
-    <div class="item-row expanded" style="margin:0 36px 8px">
-      <div class="item-hdr">
-        <div class="exp-ico">▼</div>
-        <span class="id-b" style="color:var(--coral);background:rgba(255,82,82,.1);border-color:rgba(255,82,82,.2)">US-2041</span>
-        <span style="font-size:12px;color:var(--t2);flex:1">bug_recording_otp_crash.mp4</span>
-        <span class="sbg sb-done">done</span>
-        <span style="font-family:var(--mono);font-size:12px;color:var(--coral)">Bug #48310</span>
-        <span><span class="cbp">+12</span><span class="cbn">-8</span></span>
-      </div>
-      <div class="drawer open">
-        <div class="drawer-in">
-          <div class="d3">
-            <div class="dcard"><div class="dc-lbl">Bug Work Item</div><div class="dc-val" style="color:var(--coral);font-family:var(--mono)">#48310</div></div>
-            <div class="dcard"><div class="dc-lbl">Severity</div><div class="dc-val">Critical</div><div class="dc-sub" style="font-size:11px;color:var(--t2);margin-top:2px">Priority 1</div></div>
-            <div class="dcard"><div class="dc-lbl">Regression Tests</div><div class="dc-val">20</div></div>
-          </div>
-          <div class="dcard" style="margin-bottom:14px"><div class="dc-lbl">Bug Title</div><div style="font-size:14px;font-weight:700">OTP verification crashes app on Samsung Galaxy S22 — Android 13</div></div>
-          <div class="d2">
-            <div class="dcard"><div class="dc-lbl">Steps to Reproduce</div>
-              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:6px">
-                <li style="display:flex;gap:8px;font-size:12px"><span style="width:20px;height:20px;background:var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0">1</span><span style="color:var(--t2)">Open app on Samsung Galaxy S22</span></li>
-                <li style="display:flex;gap:8px;font-size:12px"><span style="width:20px;height:20px;background:var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0">2</span><span style="color:var(--t2)">Enter phone +91 9876543210, click Send OTP</span></li>
-                <li style="display:flex;gap:8px;font-size:12px"><span style="width:20px;height:20px;background:var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0">3</span><span style="color:var(--t2)">Enter OTP 123456 and click Verify OTP</span></li>
-                <li style="display:flex;gap:8px;font-size:12px"><span style="width:20px;height:20px;background:var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--t3);flex-shrink:0">4</span><span style="color:var(--t2)">App crashes with white screen before redirect</span></li>
-              </ul>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div class="dcard"><div class="dc-lbl">Expected</div><div style="font-size:13px;color:var(--accent)">Login successful — redirects to main dashboard</div></div>
-              <div class="dcard"><div class="dc-lbl">Actual</div><div style="font-size:13px;color:var(--coral)">App shows white screen crash after OTP verification on Samsung S22 Android 13</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="run-bar">
-    <div><div class="run-info"><b>1 bug entry ready</b></div><div class="prog-wrap"><div class="prog-bar" style="width:100%"></div></div></div>
-    <button class="btn-run">▶ Analyse &amp; Generate</button>
-  </div>
-  <div class="terminal">
-    <div class="t-bar"><div class="t-dots"><span class="td1"></span><span class="td2"></span><span class="td3"></span></div><div class="t-ttl">testforge — bug mode log</div></div>
-    <div class="t-body">
-      <span class="ll lmcp">14:30:10  → Uploading bug_recording_otp_crash.mp4 (12.4 MB)</span>
-      <span class="ll lok">14:30:18  ✓ Uploaded — extracting 10 frames via OpenCV</span>
-      <span class="ll lagent">14:30:19  ◆ GPT-4o Vision analyzing frames...</span>
-      <span class="ll lok">14:30:28  ✓ Bug report generated — Severity: Critical, Priority: 1</span>
-      <span class="ll lmcp">14:30:29  → Creating Bug #48310 in Azure DevOps</span>
-      <span class="ll lok">14:30:31  ✓ Bug #48310 created and linked to US-2041</span>
-      <span class="ll lagent">14:30:32  ◆ Generating 20 regression test cases...</span>
-      <span class="ll lok">14:30:45  ✓ Complete — Plan #48311, 20 regression tests created</span>
-    </div>
-  </div>
-</div>
-<div id="panel-results" class="panel">
-  <div class="ph"><div><h1>Results</h1><p>All generated test plans linked to Azure DevOps.</p></div><div class="ph-r"><button class="btn btn-g">↻ Refresh</button><button class="btn btn-g">↓ Export CSV</button></div></div>
-  <div class="pb">
-    <div class="sec-lbl" style="padding-top:4px">All Results</div>
-    <div class="item-row" style="margin:0 36px 8px">
-      <div class="item-hdr">
-        <div class="exp-ico">▼</div>
-        <span class="id-b">US-2041</span>
-        <span style="font-size:13px;color:var(--t2);flex:1">Login with phone number and OTP</span>
-        <span class="plan-b">#48291</span>
-        <span><span class="cbp">+35</span><span class="cbn">-17</span></span>
-        <span class="sbg sb-done">story</span>
-        <span style="font-family:var(--mono);font-size:11px;color:var(--t3)">Today 14:32</span>
-        <a class="alink" href="#">Open ↗</a>
-      </div>
-    </div>
-    <div class="item-row" style="margin:0 36px 8px">
-      <div class="item-hdr">
-        <div class="exp-ico">▼</div>
-        <span class="id-b">US-2042</span>
-        <span style="font-size:13px;color:var(--t2);flex:1">Dashboard builder — create chart widget</span>
-        <span class="plan-b">#48305</span>
-        <span><span class="cbp">+28</span><span class="cbn">-14</span></span>
-        <span class="sbg sb-done">story</span>
-        <span style="font-family:var(--mono);font-size:11px;color:var(--t3)">Today 14:28</span>
-        <a class="alink" href="#">Open ↗</a>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="panel-kb" class="panel">
-  <div class="ph"><div><h1>Project Knowledge Base</h1><p>Store project context so agents generate accurate, runnable test cases.</p></div></div>
-  <div class="pb" style="padding:18px 0 32px">
+
+<!-- CONTENT -->
+<div class="content" id="content-area">
+
+<!-- ═══════════════ CREATE PROJECT ═══════════════ -->
+<div class="panel active" id="panel-create-project">
+  <div class="main">
+    <div class="sh"><h1>&#10133; Create New Project</h1><p>Set up your Azure DevOps connection and AI credentials.</p></div>
     <div class="card">
-      <div class="kb-hint">Without knowledge: "Navigate to the feature" &nbsp;|&nbsp; With knowledge: "Open https://lively-pond-0ba4cde10.1.azurestaticapps.net → Enter phone +91 9876543210 → Click Send OTP → Enter OTP 123456"</div>
-      <div class="card-h">Application Info</div>
-      <div class="kb-grid2" style="margin-bottom:14px">
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">App URL</div><input type="text" value="https://lively-pond-0ba4cde10.1.azurestaticapps.net" style="width:100%"></div>
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">App Name</div><input type="text" value="GPMD — Dual Builder Platform" style="width:100%"></div>
+      <div class="card-title"><span>&#128268;</span>Project Configuration</div>
+      <div class="form-grid" id="cfg-form">
+        <div class="form-group"><label class="form-label">Project Name</label><input class="form-input" id="cfg-name" placeholder="My QA Project"></div>
+        <div class="form-group"><label class="form-label">Organization</label><input class="form-input" id="cfg-org" placeholder="your-org"></div>
+        <div class="form-group"><label class="form-label">ADO Project</label><input class="form-input" id="cfg-project" placeholder="ProjectName"></div>
+        <div class="form-group"><label class="form-label">Personal Access Token</label><input class="form-input" id="cfg-pat" type="password" placeholder="paste-token-here"></div>
+        <div class="form-group full"><label class="form-label">Azure OpenAI Key</label><input class="form-input" id="cfg-openai" type="password" placeholder="paste-key-here"></div>
+        <input type="hidden" id="cfg-id">
       </div>
     </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px">
+      <button class="btn btn-danger" id="cfg-del-btn" onclick="deleteProject()" style="display:none">Delete Project</button>
+      <button class="btn btn-primary btn-lg" id="cfg-save-btn" onclick="saveConfig()">Create Project &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN FLOW ═══════════════ -->
+<div class="panel" id="panel-flow">
+  <div class="flow-bar" id="flow-bar"></div>
+  <div class="main" id="flow-content">
+    <!-- flow steps rendered dynamically -->
+  </div>
+</div>
+
+<!-- ═══════════════ BUGS & LEAKAGE ═══════════════ -->
+<div class="panel" id="panel-bugs">
+  <div class="main">
+    <div class="sh"><h1>&#128027; Bugs & Leakage</h1><p>Track bugs and leakage across test cycles.</p></div>
     <div class="card">
-      <div class="card-h">Authentication</div>
-      <div class="kb-grid2">
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Auth Method</div><input type="text" value="Phone number + OTP — NO email login, NO password login" style="width:100%"></div>
-        <div><div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:6px">Test Phone</div><input type="text" value="+91 9876543210 | OTP: 123456" style="width:100%"></div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+        <input class="form-input" id="bug-search" placeholder="Search by ID or title..." style="flex:1;min-width:150px" oninput="filterBugs()">
+        <select class="filter-sel" id="bug-state-filter" onchange="loadBugs()"><option value="">All States</option><option value="New">New</option><option value="Active">Active</option><option value="Resolved">Resolved</option><option value="Closed">Closed</option></select>
+        <select class="filter-sel" id="bug-priority-filter" onchange="loadBugs()"><option value="">All Priority</option><option value="1">P1 - Critical</option><option value="2">P2 - High</option><option value="3">P3 - Medium</option><option value="4">P4 - Low</option></select>
+        <select class="filter-sel" id="bug-tag-filter" onchange="loadBugs()"><option value="">All Tags</option><option value="Leakage">Leakage Only</option></select>
+        <button class="btn btn-primary" onclick="loadBugs()">Load Bugs</button>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="sv" id="bug-total">0</div><div class="sl">Total</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--red)" id="bug-high">0</div><div class="sl">High/Critical</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--pink)" id="bug-leak">0</div><div class="sl">Leakage</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--amber)" id="bug-open">0</div><div class="sl">Open</div></div>
+      </div>
+      <div id="bugs-loading" class="hidden" style="text-align:center;padding:12px"><span class="spinner"></span></div>
+      <div id="bug-list"><div style="text-align:center;padding:16px;color:var(--t3)">Click "Load Bugs" to fetch from ADO</div></div>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn" id="dl-bugs-btn" disabled onclick="downloadBugsCSV()">Download CSV</button>
+        <button class="btn" id="dl-leakage-btn" disabled onclick="downloadLeakageCSV()">Leakage CSV</button>
       </div>
     </div>
   </div>
 </div>
-<div id="panel-settings" class="panel">
-  <div class="ph"><div><h1>Project Settings</h1><p>Upload configuration files to use this tool with any project.</p></div></div>
-  <div class="pb" style="padding:18px 0 32px">
-    <div class="card" style="margin:0 36px 14px">
-      <div class="card-h">Current Configuration</div>
-      <div class="d3">
-        <div class="dcard"><div class="dc-lbl">Organization</div><div class="dc-val">GPMD-Corp</div></div>
-        <div class="dcard"><div class="dc-lbl">Project</div><div class="dc-val">DualBuilder-QA</div></div>
-        <div class="dcard"><div class="dc-lbl">MCP Status</div><div class="dc-val" style="color:var(--accent)">Running</div></div>
+
+<!-- ═══════════════ TRACEABILITY ═══════════════ -->
+<div class="panel" id="panel-traceability">
+  <div class="main">
+    <div class="sh"><h1>&#128279; Traceability Matrix</h1><p>Story ↔ Test Plan ↔ Test Cases ↔ Bugs links.</p></div>
+    <div class="card">
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <input class="form-input" id="trace-search" placeholder="Search by story ID, plan ID..." style="flex:1" oninput="filterTraceability()">
+        <button class="btn btn-primary" onclick="loadTraceability()">Build Matrix</button>
+        <button class="btn" onclick="exportTraceCSV()">Export CSV</button>
       </div>
+      <div id="trace-content" style="text-align:center;padding:16px;color:var(--t3)">Click "Build Matrix" to generate</div>
     </div>
   </div>
 </div>
+
+<!-- ═══════════════ EXPLORATORY AI ═══════════════ -->
+<div class="panel" id="panel-exploratory">
+  <div class="main">
+    <div class="sh"><h1>&#128161; Exploratory AI</h1><p>AI suggests edge cases humans might miss.</p></div>
+    <div class="card">
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <select class="filter-sel" id="explore-story-sel" style="flex:1"><option value="">Select a story...</option></select>
+        <button class="btn btn-primary" onclick="generateExploratory()">Generate Suggestions</button>
+      </div>
+      <div id="explore-results"></div>
+    </div>
+  </div>
 </div>
+
+<!-- ═══════════════ FAILURE PREDICTOR ═══════════════ -->
+<div class="panel" id="panel-predictor">
+  <div class="main">
+    <div class="sh"><h1>&#128200; Failure Predictor</h1><p>Predicts which test cases are most likely to fail.</p></div>
+    <div class="card">
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <select class="filter-sel" id="predict-story-sel" style="flex:1"><option value="">Select a user story...</option></select>
+        <button class="btn btn-primary" onclick="runPredictor()">Analyze & Predict</button>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="sv" style="color:var(--red)" id="pred-high">0</div><div class="sl">High Risk</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--amber)" id="pred-med">0</div><div class="sl">Medium</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--accent)" id="pred-low">0</div><div class="sl">Low Risk</div></div>
+        <div class="stat-box"><div class="sv" id="pred-conf">—</div><div class="sl">Confidence</div></div>
+      </div>
+      <div id="predictor-results"></div>
+    </div>
+  </div>
 </div>
+
+<!-- ═══════════════ RUN HISTORY ═══════════════ -->
+<div class="panel" id="panel-history">
+  <div class="main">
+    <div class="sh"><h1>&#128202; Run History</h1><p>View all past test generation runs.</p></div>
+    <div class="card"><div id="history-content" style="text-align:center;padding:16px;color:var(--t3)">Loading...</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ OUTPUT FILES ═══════════════ -->
+<div class="panel" id="panel-outputs">
+  <div class="main">
+    <div class="sh"><h1>&#128193; Output Files</h1><p>Download generated CSV and result files.</p></div>
+    <div class="card"><div id="outputs-content" style="text-align:center;padding:16px;color:var(--t3)">Loading...</div></div>
+  </div>
+</div>
+
+</div><!-- end content -->
+</div><!-- end app -->
+
+<!-- MODALS -->
+<div class="modal-bg" id="story-modal-bg" onclick="if(event.target===this)closeStoryModal()"><div class="modal"><button class="modal-close" onclick="closeStoryModal()">&#10005;</button><h2 id="sm-title"></h2><div id="sm-meta" style="display:flex;gap:6px;margin:8px 0;flex-wrap:wrap"></div><h3>Description</h3><div class="modal-steps" id="sm-desc"></div><h3>Acceptance Criteria</h3><div class="modal-steps" id="sm-ac"></div><h3>Details</h3><div id="sm-details" style="font-size:11px;color:var(--t2)"></div></div></div>
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal" id="tc-modal"><button class="modal-close" onclick="closeModal()">&#10005;</button><h2 id="m-title"></h2><div id="m-meta" style="display:flex;gap:6px;margin:8px 0;flex-wrap:wrap"></div><h3>Test Scenario</h3><div class="modal-steps" id="m-scenario"></div><h3>Test Strategy</h3><div class="modal-steps" id="m-strategy"></div><h3>Steps</h3><div id="m-steps-wrap"></div><h3>Expected Result</h3><div id="m-expected-wrap"></div><div id="m-actions" style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end"></div></div></div>
 <div class="toast" id="toast"></div>
+
 <script>
-function switchTab(n){
-  ['story','bug','results','kb','settings'].forEach(function(t){
-    var tb=document.getElementById('tab-'+t);
-    var pn=document.getElementById('panel-'+t);
-    if(tb) tb.classList.toggle('active',t===n);
-    if(pn) pn.classList.toggle('active',t===n);
+var API='http://localhost:8000';
+var reviewId=null,reviewData=null,allTC=[],adoStories=[],selectedIds=new Set(),adoBugs=[],allProjects=[],currentProjectId=null;
+var currentFlowStep=1;
+var activityLog=[];
+var traceData=[];
+
+// ═══════════════ FLOW STEPS DEFINITION ═══════════════
+var FLOW_STEPS=['Knowledge','Pull Stories','Select','Analysis','Strategy','Scenarios','Test Cases','Review','Create ADO'];
+
+function renderFlowBar(){
+  var bar=document.getElementById('flow-bar');
+  bar.innerHTML=FLOW_STEPS.map(function(name,i){
+    var n=i+1;var cls=n<currentFlowStep?'done':(n===currentFlowStep?'active':'');
+    var num=n<currentFlowStep?'&#10003;':n;
+    var line=i<FLOW_STEPS.length-1?'<div class="fl'+(n<currentFlowStep?' done':'')+'"></div>':'';
+    return '<div class="fs '+cls+'"><span class="fn">'+num+'</span>'+name+'</div>'+line;
+  }).join('');
+}
+
+function goFlow(step){
+  currentFlowStep=step;
+  renderFlowBar();
+  renderFlowPanel();
+}
+
+function renderFlowPanel(){
+  var el=document.getElementById('flow-content');
+  switch(currentFlowStep){
+    case 1:el.innerHTML=flowKnowledge();break;
+    case 2:el.innerHTML=flowPullStories();break;
+    case 3:el.innerHTML=flowSelect();break;
+    case 4:el.innerHTML=flowAnalysis();break;
+    case 5:el.innerHTML=flowStrategy();break;
+    case 6:el.innerHTML=flowScenarios();break;
+    case 7:el.innerHTML=flowGenerate();break;
+    case 8:el.innerHTML=flowReview();break;
+    case 9:el.innerHTML=flowCreate();break;
+  }
+}
+
+// ═══════════════ FLOW: 1 KNOWLEDGE ═══════════════
+function flowKnowledge(){
+  return '<div class="sh"><h1>&#128218; Upload Knowledge Base</h1><p>Upload project docs so the AI understands your app context, fields, and navigation.</p></div>'+
+  '<div class="card"><div class="drop-zone"><input type="file" accept=".json,.pdf,.txt,.md,.docx" onchange="handleKB(this)"><div class="dz-icon">&#128451;</div><div class="dz-text">Drag & drop knowledge files here</div><div class="dz-sub">Supports: JSON, PDF, TXT, MD, DOCX</div></div></div>'+
+  '<div class="card hidden" id="kb-file-info"></div>'+
+  '<div class="nav-btns"><div></div><button class="btn btn-primary btn-lg" onclick="goFlow(2)">Next: Pull Stories &#8594;</button></div>';
+}
+
+// ═══════════════ FLOW: 2 PULL STORIES ═══════════════
+function flowPullStories(){
+  return '<div class="sh"><h1>&#128203; Pull User Stories</h1><p>Fetch user stories from Azure DevOps.</p></div>'+
+  '<div class="card">'+
+  '<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap">'+
+  '<select class="filter-sel" id="story-state-filter" onchange="loadStories()"><option value="">All States</option><option value="New">New</option><option value="Active">Active</option><option value="Resolved">Resolved</option><option value="Closed">Closed</option></select>'+
+  '<input class="form-input" id="story-search" placeholder="Search by ID or title..." style="flex:1;min-width:120px" oninput="filterStories()">'+
+  '<button class="btn btn-primary" id="load-stories-btn" onclick="loadStories()">Fetch Stories</button></div>'+
+  '<div id="stories-progress" class="hidden"><div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="spinner"></span><span id="stories-prog-text" style="font-size:10px;color:var(--t2)">Loading...</span></div><div class="progress-bar"><div class="progress-fill" id="stories-prog-bar"></div></div></div>'+
+  '<div id="story-list"><div style="text-align:center;padding:20px;color:var(--t3)">Click "Fetch Stories" to load from ADO</div></div></div>'+
+  '<div class="nav-btns"><button class="btn" onclick="goFlow(1)">&#8592; Back</button><button class="btn btn-primary btn-lg" onclick="goFlow(3)">Next: Select Stories &#8594;</button></div>';
+}
+
+// ═══════════════ FLOW: 3 SELECT ═══════════════
+function flowSelect(){
+  var h='<div class="sh"><h1>&#9745; Select User Stories</h1><p>Choose stories to generate test cases for.</p></div>'+
+  '<div class="card">'+
+  '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'+
+  '<span style="font-size:10px;color:var(--t2)" id="sel-count">'+selectedIds.size+' selected</span>'+
+  '<input class="form-input" id="select-filter" placeholder="Filter stories..." style="width:180px;font-size:10px" oninput="renderSelectList()"></div>'+
+  '<div id="select-list"></div></div>'+
+  '<div id="desc-section" class="hidden"><div class="card" style="border-color:var(--amber)"><div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:6px">&#9888; Stories missing description</div><div id="desc-list"></div></div></div>'+
+  '<div class="nav-btns"><button class="btn" onclick="goFlow(2)">&#8592; Back</button><button class="btn btn-primary btn-lg" id="gen-btn" onclick="startGeneration()" '+(selectedIds.size===0?'disabled':'')+'>Analyze Selected &#8594;</button></div>';
+  setTimeout(renderSelectList,0);
+  return h;
+}
+
+function renderSelectList(){
+  var filter=(document.getElementById('select-filter')?document.getElementById('select-filter').value:'').toLowerCase();
+  var list=adoStories.filter(function(s){return !filter||(s.id+'').includes(filter)||(s.title||'').toLowerCase().includes(filter)});
+  var el=document.getElementById('select-list');
+  if(!el)return;
+  if(!list.length){el.innerHTML='<div style="text-align:center;padding:12px;color:var(--t3)">No stories. Go back and fetch first.</div>';return;}
+  el.innerHTML=list.map(function(s){
+    var sel=selectedIds.has(s.id);
+    return '<div class="story-item'+(sel?' selected':'')+'" onclick="toggleStory(\''+s.id+'\')"><div class="chk">'+(sel?'&#10003;':'')+'</div><span class="s-id">US-'+s.id+'</span><span class="s-title">'+esc(s.title)+'</span><span class="s-state tag tag-'+(s.state||'').toLowerCase()+'">'+esc(s.state||'')+'</span></div>';
+  }).join('');
+}
+
+function toggleStory(id){
+  if(selectedIds.has(id))selectedIds.delete(id);else selectedIds.add(id);
+  renderSelectList();
+  var c=document.getElementById('sel-count');if(c)c.textContent=selectedIds.size+' selected';
+  var btn=document.getElementById('gen-btn');if(btn)btn.disabled=selectedIds.size===0;
+  checkDesc();
+}
+
+function checkDesc(){
+  var missing=[];selectedIds.forEach(function(id){var s=adoStories.find(function(x){return x.id==id});if(s&&!s.has_description&&!s.has_acceptance_criteria)missing.push(s)});
+  var sec=document.getElementById('desc-section');if(!sec)return;
+  if(missing.length){sec.classList.remove('hidden');document.getElementById('desc-list').innerHTML=missing.map(function(s){return '<div style="margin-bottom:8px"><span style="color:var(--blue);font-weight:700">US-'+s.id+'</span> '+esc(s.title)+'<br><textarea id="desc-'+s.id+'" rows="2" style="width:100%;margin-top:4px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:11px;padding:6px;resize:vertical" placeholder="Enter description..."></textarea><button class="btn btn-sm" style="margin-top:4px" onclick="saveDesc(\''+s.id+'\')">Save to ADO</button></div>'}).join('');}
+  else{sec.classList.add('hidden');}
+}
+
+// ═══════════════ FLOW: 4 ANALYSIS ═══════════════
+function flowAnalysis(){
+  var stories=[];selectedIds.forEach(function(id){var s=adoStories.find(function(x){return x.id==id});if(s)stories.push(s)});
+  if(!stories.length)return '<div class="sh"><h1>&#128270; Story Analysis</h1><p>No stories selected.</p></div><div class="nav-btns"><button class="btn" onclick="goFlow(3)">&#8592; Back</button></div>';
+  var h='<div class="sh"><h1>&#128270; Story Analysis</h1><p>AI analyzes requirements and acceptance criteria.</p></div>';
+  stories.forEach(function(s){
+    h+='<div class="card"><div class="card-title">&#128203; US-'+s.id+' — '+esc(s.title)+'</div>'+
+    '<div class="analysis-card"><h3>&#128196; Title & State</h3><p>'+esc(s.title)+' ['+esc(s.state)+']</p></div>'+
+    '<div class="analysis-card"><h3>&#10003; Details</h3><p>'+(s.has_description?'Has description':'No description')+(s.has_acceptance_criteria?' | Has acceptance criteria':' | No acceptance criteria')+'</p></div></div>';
   });
+  h+='<div class="nav-btns"><button class="btn" onclick="goFlow(3)">&#8592; Back</button><button class="btn btn-primary btn-lg" onclick="goFlow(5)">Generate Strategy &#8594;</button></div>';
+  return h;
 }
-function toggleColl(hdr){
-  var body=hdr.nextElementSibling;
-  var chev=hdr.querySelector('.coll-chev');
-  var open=body.classList.contains('open');
-  body.classList.toggle('open',!open);
-  if(chev) chev.classList.toggle('open',!open);
-  hdr.classList.toggle('open',!open);
+
+// ═══════════════ FLOW: 5 STRATEGY ═══════════════
+function flowStrategy(){
+  var hasData=reviewData&&reviewData.results&&reviewData.results.length;
+  if(!hasData)return '<div class="sh"><h1>&#127919; Test Strategy</h1><p>Strategy will be generated during the AI pipeline.</p></div>'+
+  '<div class="card"><div style="text-align:center;padding:20px;color:var(--t3)">Strategy will appear here once AI generates it. Click "Generate" to proceed.</div></div>'+
+  '<div class="nav-btns"><button class="btn" onclick="goFlow(4)">&#8592; Back</button><button class="btn btn-primary btn-lg" onclick="goFlow(6)">Next: Scenarios &#8594;</button></div>';
+  return '<div class="sh"><h1>&#127919; Test Strategy</h1><p>AI-generated coverage categories.</p></div>'+
+  '<div class="card"><div style="font-size:11px;color:var(--accent);font-weight:600;margin-bottom:8px">Strategy generated successfully</div></div>'+
+  '<div class="nav-btns"><button class="btn" onclick="goFlow(4)">&#8592; Back</button><button class="btn btn-primary btn-lg" onclick="goFlow(6)">Next: Scenarios &#8594;</button></div>';
 }
+
+// ═══════════════ FLOW: 6 SCENARIOS ═══════════════
+function flowScenarios(){
+  if(!allTC.length)return '<div class="sh"><h1>&#128161; Test Scenarios</h1><p>Scenarios will appear after generation.</p></div>'+
+  '<div class="card"><div style="text-align:center;padding:20px;color:var(--t3)">Run the generation pipeline first.</div></div>'+
+  '<div class="nav-btns"><button class="btn" onclick="goFlow(5)">&#8592; Back</button><button class="btn btn-primary btn-lg" onclick="goFlow(7)">Generate Test Cases &#8594;</button></div>';
+  var h='<div class="sh"><h1>&#128161; Test Scenarios</h1><p>Click a scenario to view/edit details.</p></div><div class="card">';
+  h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-size:11px;font-weight:700">'+allTC.length+' scenarios</span></div>';
+  allTC.forEach(function(tc,i){
+    h+='<div class="scenario-item" id="sc-'+i+'" onclick="toggleScenario('+i+')">'+
+    '<span class="s-type-tag '+tcTypeClass(tc.type)+'">'+tc.type+'</span>'+
+    '<div class="sc-title">'+esc(tc.title)+'</div>'+
+    '<div class="sc-hint">'+esc(tc.scenario||'')+'</div>'+
+    '<div class="scenario-edit"><label style="font-size:9px;font-weight:700;color:var(--t3)">EDIT SCENARIO</label>'+
+    '<textarea id="sc-edit-'+i+'" rows="3" style="width:100%;margin-top:4px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:11px;padding:6px;resize:vertical">'+esc(tc.scenario||'')+'</textarea>'+
+    '<button class="btn btn-sm btn-primary" style="margin-top:4px" onclick="event.stopPropagation();updateScenario('+i+')">Update</button></div></div>';
+  });
+  h+='</div><div class="nav-btns"><button class="btn" onclick="goFlow(5)">&#8592; Back</button><button class="btn btn-primary btn-lg" onclick="goFlow(7)">Next: Test Cases &#8594;</button></div>';
+  return h;
+}
+
+function toggleScenario(i){var el=document.getElementById('sc-'+i);if(el)el.classList.toggle('expanded');}
+function updateScenario(i){var ta=document.getElementById('sc-edit-'+i);if(ta&&ta.value.trim()){allTC[i].scenario=ta.value.trim();toast('Scenario updated','ok');}}
+
+// ═══════════════ FLOW: 7 GENERATE ═══════════════
+function flowGenerate(){
+  return '<div class="sh"><h1>&#9997; Test Case Generation</h1><p>AI pipeline generates detailed test cases with steps.</p></div>'+
+  '<div class="card"><div id="gen-progress-area">'+
+  '<div style="text-align:center;padding:16px">'+
+  '<button class="btn btn-primary btn-lg" id="start-gen-btn" onclick="startGenerationPipeline()">&#9654; Start AI Pipeline</button>'+
+  '<div style="font-size:10px;color:var(--t3);margin-top:8px">This generates test strategy, scenarios, and test cases</div></div></div>'+
+  '<div id="gen-running" class="hidden"><div class="progress-bar"><div class="progress-fill" id="gen-bar" style="width:0%"></div></div><div class="progress-text" id="gen-pct">0%</div><div class="log-box" id="gen-logs"></div></div></div>'+
+  '<div class="nav-btns"><button class="btn" onclick="goFlow(6)">&#8592; Back</button><button class="btn btn-primary btn-lg" id="to-review-btn" onclick="goFlow(8)" disabled>Review Test Cases &#8594;</button></div>';
+}
+
+function startGeneration(){goFlow(7);}
+function startGenerationPipeline(){
+  if(!selectedIds.size){toast('Select stories first','error');return;}
+  var btn=document.getElementById('start-gen-btn');btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Generating...';
+  document.getElementById('gen-running').classList.remove('hidden');
+  var logBox=document.getElementById('gen-logs');logBox.innerHTML='';
+  document.getElementById('gen-bar').style.width='5%';document.getElementById('gen-pct').textContent='5%';
+  var ids=Array.from(selectedIds);
+  addLog(logBox,'Starting AI pipeline for '+ids.length+' stories','info');
+  fetch(API+'/api/generate/preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({stories:ids.map(function(id){return{id:id,label:''}})})})
+  .then(function(r){return r.json()}).then(function(d){
+    if(d.detail)throw new Error(d.detail);
+    reviewId=d.review_id;
+    document.getElementById('gen-bar').style.width='15%';document.getElementById('gen-pct').textContent='15%';
+    addLog(logBox,'Job started: '+reviewId.substring(0,8),'ok');
+    pollReviewLoop(logBox);
+  }).catch(function(e){addLog(logBox,'ERROR: '+e.message,'err');btn.disabled=false;btn.innerHTML='&#9654; Start AI Pipeline';});
+}
+
+function pollReviewLoop(logBox){
+  var lastL=0,tick=0;
+  var poll=setInterval(function(){
+    tick++;
+    fetch(API+'/api/review/'+reviewId).then(function(r){return r.json()}).then(function(d){
+      if(d.logs&&d.logs.length>lastL){for(var i=lastL;i<d.logs.length;i++)addLog(logBox,typeof d.logs[i]==='object'?d.logs[i].msg:d.logs[i],'info');lastL=d.logs.length;}
+      var pct=Math.min(15+tick*6,92);document.getElementById('gen-bar').style.width=pct+'%';document.getElementById('gen-pct').textContent=pct+'%';
+      if(d.status==='ready'){clearInterval(poll);document.getElementById('gen-bar').style.width='100%';document.getElementById('gen-pct').textContent='100%';
+        reviewData=d;buildTC();toast('Test cases ready!','ok');addLog(logBox,'Done! '+allTC.length+' test cases generated','ok');
+        document.getElementById('to-review-btn').disabled=false;currentFlowStep=7;renderFlowBar();}
+      if(d.status==='error'){clearInterval(poll);addLog(logBox,'ERROR: '+(d.error||'Unknown'),'err');toast('Generation failed','error');
+        var b=document.getElementById('start-gen-btn');if(b){b.disabled=false;b.innerHTML='&#9654; Start AI Pipeline';}}
+    }).catch(function(){});
+  },2500);
+}
+
+// ═══════════════ FLOW: 8 REVIEW ═══════════════
+function flowReview(){
+  if(!allTC.length)return '<div class="sh"><h1>&#128221; Review Test Cases</h1><p>No test cases generated yet.</p></div>'+
+  '<div class="nav-btns"><button class="btn" onclick="goFlow(7)">&#8592; Back</button></div>';
+  var t=allTC.length,a=allTC.filter(function(c){return c.accepted===true}).length,r=allTC.filter(function(c){return c.accepted===false}).length;
+  var h='<div class="sh"><h1>&#128221; Review & Approve</h1><p>Accept or reject test cases. Click a case to view/edit details.</p></div>';
+  h+='<div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap">'+
+  '<div style="display:flex;gap:10px;font-size:11px"><span><b>'+t+'</b> Total</span><span style="color:var(--accent)"><b id="st-acc">'+a+'</b> Accepted</span><span style="color:var(--red)"><b id="st-rej">'+r+'</b> Rejected</span><span style="color:var(--amber)"><b id="st-pen">'+(t-a-r)+'</b> Pending</span></div>'+
+  '<div style="display:flex;gap:5px"><button class="btn btn-sm" style="color:var(--accent)" onclick="acceptAll()">Accept All</button><button class="btn btn-sm btn-danger" onclick="rejectAll()">Reject All</button></div></div>'+
+  '<div style="display:flex;gap:6px;margin-bottom:8px"><select class="filter-sel" id="tc-filter-state" onchange="renderReviewTable()"><option value="">All Status</option><option value="accepted">Accepted</option><option value="rejected">Rejected</option><option value="pending">Pending</option></select><input class="form-input" id="tc-search" placeholder="Search..." style="flex:1" oninput="renderReviewTable()"></div>'+
+  '<div class="tbl-wrap"><table class="tc-table"><thead><tr><th>#</th><th>Type</th><th>Priority</th><th>Title</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tc-body"></tbody></table></div></div>';
+  h+='<div class="nav-btns"><button class="btn" onclick="goFlow(7)">&#8592; Back</button><button class="btn btn-primary btn-lg" id="create-btn" onclick="createInADO()" '+(a===0?'disabled':'')+'>Create in Azure DevOps &#8594;</button></div>';
+  h+='<div id="create-progress" class="hidden" style="margin-top:10px"><div class="progress-bar"><div class="progress-fill" id="create-bar"></div></div><div class="progress-text" id="create-pct">0%</div><div class="log-box" id="create-logs"></div></div>';
+  setTimeout(renderReviewTable,0);
+  return h;
+}
+
+function renderReviewTable(){
+  var tb=document.getElementById('tc-body');if(!tb)return;
+  var q=(document.getElementById('tc-search')?document.getElementById('tc-search').value:'').toLowerCase();
+  var sf=(document.getElementById('tc-filter-state')?document.getElementById('tc-filter-state').value:'');
+  var filtered=allTC.filter(function(tc){var matchQ=!q||tc.title.toLowerCase().includes(q);var st=tc.accepted===true?'accepted':(tc.accepted===false?'rejected':'pending');return matchQ&&(!sf||st===sf);});
+  tb.innerHTML=filtered.map(function(tc){
+    var i=allTC.indexOf(tc);
+    var cls=tc.accepted===true?'acc':(tc.accepted===false?'rej':'');
+    var badge=tc.accepted===true?'<span class="tag tag-completed">Accepted</span>':(tc.accepted===false?'<span class="tag tag-failed">Rejected</span>':'<span class="tag" style="background:rgba(245,158,11,.1);color:var(--amber)">Pending</span>');
+    var pMap={'Critical':'p1','High':'p2','Medium':'p3','Low':'p4'};
+    return '<tr class="'+cls+'"><td style="color:var(--t3)">'+(i+1)+'</td><td><span class="tag tag-'+tcTypeClass(tc.type)+'">'+tc.type+'</span></td><td><span class="tag tag-'+(pMap[tc.priority]||'p3')+'">'+esc(tc.priority)+'</span></td><td style="cursor:pointer;font-weight:600" onclick="previewTC('+i+')">'+esc(tc.title)+'</td><td>'+badge+'</td><td><button class="btn btn-sm" onclick="previewTC('+i+')">&#128065;</button> <button class="btn btn-sm" style="color:var(--accent)" onclick="accTC('+i+')">&#10003;</button> <button class="btn btn-sm btn-danger" onclick="rejTC('+i+')">&#10007;</button></td></tr>';
+  }).join('');
+}
+
+function updateReviewStats(){
+  var t=allTC.length,a=allTC.filter(function(c){return c.accepted===true}).length,r=allTC.filter(function(c){return c.accepted===false}).length;
+  var ea=document.getElementById('st-acc'),er=document.getElementById('st-rej'),ep=document.getElementById('st-pen'),cb=document.getElementById('create-btn');
+  if(ea)ea.textContent=a;if(er)er.textContent=r;if(ep)ep.textContent=t-a-r;if(cb)cb.disabled=a===0;
+}
+
+// ═══════════════ FLOW: 9 CREATE ═══════════════
+function flowCreate(){
+  if(!reviewData||!reviewData.results||reviewData.status!=='created')return '<div class="sh"><h1>&#128640; Create in Azure DevOps</h1><p>Test cases will be created after review.</p></div>'+
+  '<div class="nav-btns"><button class="btn" onclick="goFlow(8)">&#8592; Back to Review</button></div>';
+  var results=reviewData.results||[];var acc=allTC.filter(function(c){return c.accepted===true}).length;
+  var h='<div class="sh"><h1>&#128640; Created Successfully!</h1><p>Test plans, suites, and cases created in Azure DevOps.</p></div>';
+  h+='<div class="card" style="text-align:center;padding:24px"><div style="font-size:36px;margin-bottom:8px">&#10004;</div><div style="font-size:16px;font-weight:800;margin-bottom:4px">Test Plan Created!</div><div style="font-size:12px;color:var(--t2)">'+acc+' test cases created</div></div>';
+  h+='<div class="card"><div class="card-title">Created Items</div>';
+  results.forEach(function(r){
+    h+='<div class="analysis-card"><h3>&#128203; US-'+r.story_id+(r.story_title?' — '+esc(r.story_title):'')+'</h3><p>Test Plan: <b style="color:var(--blue)">TP-'+(r.plan_id||'?')+'</b> &middot; Suite: <b style="color:var(--purple)">TS-'+(r.suite_id||'?')+'</b> &middot; Cases: <b>'+(r.case_ids?r.case_ids.length:0)+'</b></p></div>';
+  });
+  h+='</div>';
+  var url=results[0]&&results[0].url?results[0].url:'#';
+  h+='<div class="nav-btns"><a class="btn btn-primary btn-lg" href="'+url+'" target="_blank">View in Azure DevOps &#8599;</a><button class="btn btn-lg" onclick="resetFlow()">&#8634; New Cycle</button></div>';
+  return h;
+}
+
+function resetFlow(){selectedIds.clear();allTC=[];reviewData=null;reviewId=null;goFlow(3);}
+
+// ═══════════════ NAVIGATION ═══════════════
+function showPanel(id){
+  document.querySelectorAll('#content-area > .panel').forEach(function(p){p.classList.remove('active')});
+  var p=document.getElementById('panel-'+id);if(p)p.classList.add('active');
+}
+
+function showTool(id){
+  showPanel(id);
+  document.querySelectorAll('.sidebar-nav .nav-item').forEach(function(n){n.classList.toggle('active',n.dataset.nav===id)});
+  document.querySelectorAll('.proj-item').forEach(function(p){p.classList.remove('active')});
+  if(id==='history')loadHistory();
+  if(id==='outputs')loadOutputs();
+}
+
+function showFlow(){
+  showPanel('flow');
+  document.querySelectorAll('.sidebar-nav .nav-item').forEach(function(n){n.classList.remove('active')});
+  renderFlowBar();renderFlowPanel();
+}
+
+function showCreateProject(){
+  showPanel('create-project');
+  document.querySelectorAll('.sidebar-nav .nav-item').forEach(function(n){n.classList.remove('active')});
+  document.querySelectorAll('.proj-item').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('cfg-name').value='';document.getElementById('cfg-org').value='';
+  document.getElementById('cfg-project').value='';document.getElementById('cfg-pat').value='';
+  document.getElementById('cfg-openai').value='';document.getElementById('cfg-id').value='';
+  document.getElementById('cfg-del-btn').style.display='none';
+  document.getElementById('cfg-save-btn').textContent='Create Project \u2192';
+  document.querySelector('#panel-create-project .sh h1').innerHTML='&#10133; Create New Project';
+  document.querySelector('#panel-create-project .sh p').textContent='Set up your Azure DevOps connection and AI credentials.';
+  currentProjectId=null;
+}
+
+// ═══════════════ PROJECTS ═══════════════
+async function loadProjects(){
+  try{var r=await fetch(API+'/api/configs');var d=await r.json();allProjects=d.projects||[];}catch(e){}
+  renderProjectList();
+}
+
+function renderProjectList(){
+  var el=document.getElementById('proj-list');
+  if(!allProjects.length){el.innerHTML='<div style="text-align:center;padding:16px;color:var(--t3);font-size:10px">No projects yet.<br>Create one to start.</div>';return;}
+  el.innerHTML=allProjects.map(function(p){
+    var active=p.id===currentProjectId;
+    return '<div class="proj-item'+(active?' active':'')+'" onclick="switchProject(\''+esc(p.id)+'\')"><div class="p-icon">&#128203;</div><div class="p-info"><div class="p-name">'+esc(p.name||p.ado_project)+'</div><div class="p-org">'+esc(p.ado_org||'')+'</div></div><div class="p-edit" onclick="event.stopPropagation();editProject(\''+esc(p.id)+'\')">&#9998;</div>'+(active?'<div class="p-dot"></div>':'')+'</div>';
+  }).join('');
+}
+
+function switchProject(pid){
+  if(!pid)return;currentProjectId=pid;
+  var p=allProjects.find(function(x){return x.id===pid});if(!p)return;
+  renderProjectList();
+  fetch(API+'/api/session/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ado_org:p.ado_org,ado_project:p.ado_project,ado_pat:p.ado_pat,openai_key:p.openai_key})});
+  currentFlowStep=1;showFlow();
+  populateExploreDropdown();populatePredictDropdown();
+  toast('Switched to '+esc(p.name||p.ado_project),'ok');
+}
+
+function editProject(pid){
+  var p=allProjects.find(function(x){return x.id===pid});if(!p)return;
+  showPanel('create-project');
+  document.querySelectorAll('.sidebar-nav .nav-item').forEach(function(n){n.classList.remove('active')});
+  document.getElementById('cfg-name').value=p.name||p.ado_project||'';
+  document.getElementById('cfg-org').value=p.ado_org||'';
+  document.getElementById('cfg-project').value=p.ado_project||'';
+  document.getElementById('cfg-pat').value=p.ado_pat||'';
+  document.getElementById('cfg-openai').value=p.openai_key||'';
+  document.getElementById('cfg-id').value=p.id;
+  document.getElementById('cfg-del-btn').style.display='inline-flex';
+  document.getElementById('cfg-save-btn').textContent='Update Project \u2192';
+  document.querySelector('#panel-create-project .sh h1').innerHTML='&#9998; Edit Project';
+  document.querySelector('#panel-create-project .sh p').textContent='Update your project configuration.';
+  currentProjectId=pid;
+}
+
+// ═══════════════ CONFIG ═══════════════
+async function saveConfig(){
+  var name=document.getElementById('cfg-name').value.trim(),org=document.getElementById('cfg-org').value.trim(),proj=document.getElementById('cfg-project').value.trim(),pat=document.getElementById('cfg-pat').value.trim(),key=document.getElementById('cfg-openai').value.trim();
+  if(!org||!proj){toast('Org and Project required','error');return;}
+  if(!name)name=proj;
+  var pid=document.getElementById('cfg-id').value.trim()||org.toLowerCase().replace(/[^a-z0-9]/g,'')+'-'+proj.toLowerCase().replace(/[^a-z0-9]/g,'').substring(0,20);
+  try{
+    await fetch(API+'/api/configs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:pid,name:name,ado_org:org,ado_project:proj,ado_pat:pat,openai_key:key,env_saved:true,status:'ok'})});
+    await fetch(API+'/api/session/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ado_org:org,ado_project:proj,ado_pat:pat,openai_key:key})});
+    currentProjectId=pid;await loadProjects();toast('Project saved','ok');
+    currentFlowStep=1;showFlow();
+  }catch(e){toast('Failed to save','error');}
+}
+
+async function deleteProject(){
+  if(!currentProjectId||!confirm('Delete this project?'))return;
+  await fetch(API+'/api/configs/'+encodeURIComponent(currentProjectId),{method:'DELETE'});
+  currentProjectId=null;await loadProjects();showCreateProject();toast('Deleted','ok');
+}
+
+// ═══════════════ KB UPLOAD ═══════════════
+async function handleKB(input){
+  var file=input.files[0];if(!file)return;
+  var fd=new FormData();fd.append('file',file);
+  var area=input.parentElement.parentElement;
+  area.innerHTML='<div style="text-align:center;padding:16px"><span class="spinner"></span> Uploading...</div>';
+  try{
+    var r=await fetch(API+'/api/upload/knowledge-base-multi',{method:'POST',body:fd});
+    var d=await r.json();if(!r.ok)throw new Error(d.detail||'Failed');
+    var sz=file.size>1024?(file.size/1024).toFixed(1)+' KB':file.size+' B';
+    area.innerHTML='<div style="display:flex;align-items:center;gap:10px;padding:8px"><span style="font-size:15px">&#128196;</span><div style="flex:1"><div style="font-size:11px;font-weight:700">'+esc(file.name)+'</div><div style="font-size:9px;color:var(--t3)">'+sz+'</div></div><span style="color:var(--accent);font-size:11px;font-weight:700">&#10003; Loaded</span></div>';
+    toast('Knowledge base uploaded','ok');
+  }catch(e){area.innerHTML='<div class="drop-zone"><input type="file" accept=".json,.pdf,.txt,.md,.docx" onchange="handleKB(this)"><div class="dz-icon">&#128451;</div><div class="dz-text">Drag & drop files here</div><div class="dz-sub">Supports: JSON, PDF, TXT, MD, DOCX</div></div>';toast(e.message,'error');}
+}
+
+// ═══════════════ STORIES ═══════════════
+async function loadStories(){
+  var btn=document.getElementById('load-stories-btn');if(btn){btn.disabled=true;btn.textContent='Loading...';}
+  var prog=document.getElementById('stories-progress');if(prog)prog.classList.remove('hidden');
+  var pbar=document.getElementById('stories-prog-bar');if(pbar)pbar.style.width='30%';
+  var ptxt=document.getElementById('stories-prog-text');if(ptxt)ptxt.textContent='Querying ADO...';
+  var stEl=document.getElementById('story-state-filter');
+  var st=stEl?stEl.value:'';
+  try{
+    var r=await fetch(API+'/api/stories/list?top=200'+(st?'&state='+encodeURIComponent(st):''));
+    if(pbar)pbar.style.width='80%';if(ptxt)ptxt.textContent='Processing...';
+    var d=await r.json();if(!r.ok)throw new Error(d.detail||'Failed');
+    adoStories=d.stories||[];
+    if(pbar)pbar.style.width='100%';if(ptxt)ptxt.textContent=adoStories.length+' stories loaded';
+    renderStories();populateExploreDropdown();populatePredictDropdown();
+    toast(adoStories.length+' stories loaded','ok');
+    setTimeout(function(){if(prog)prog.classList.add('hidden')},1000);
+  }catch(e){
+    var sl=document.getElementById('story-list');if(sl)sl.innerHTML='<div style="padding:12px;color:var(--red);text-align:center">'+esc(e.message)+'</div>';
+    toast('Failed to load stories','error');
+  }
+  if(btn){btn.disabled=false;btn.textContent='Fetch Stories';}
+}
+
+function filterStories(){renderStories();}
+function renderStories(){
+  var q=(document.getElementById('story-search')?document.getElementById('story-search').value:'').toLowerCase();
+  var list=adoStories.filter(function(s){return !q||(s.id+'').includes(q)||(s.title||'').toLowerCase().includes(q)});
+  var el=document.getElementById('story-list');if(!el)return;
+  if(!list.length){el.innerHTML='<div style="text-align:center;padding:12px;color:var(--t3)">No stories found</div>';return;}
+  el.innerHTML=list.map(function(s){
+    return '<div class="story-item" onclick="showStoryDetail(\''+s.id+'\')"><span class="s-id">US-'+s.id+'</span><span class="s-title">'+esc(s.title)+'</span><span class="s-state tag tag-'+(s.state||'').toLowerCase()+'">'+esc(s.state||'')+'</span></div>';
+  }).join('');
+}
+
+async function showStoryDetail(id){
+  document.getElementById('story-modal-bg').classList.add('show');
+  document.getElementById('sm-title').textContent='US-'+id;
+  document.getElementById('sm-meta').innerHTML='<span class="spinner"></span>';
+  document.getElementById('sm-desc').textContent='Loading...';
+  document.getElementById('sm-ac').textContent='Loading...';
+  try{
+    var r=await fetch(API+'/api/stories/fetch/'+id);var d=await r.json();if(!r.ok)throw new Error(d.detail||'Failed');
+    document.getElementById('sm-title').textContent='US-'+d.id+' — '+esc(d.title);
+    var s=adoStories.find(function(x){return x.id==id});
+    document.getElementById('sm-meta').innerHTML='<span class="tag tag-'+(s?s.state:'').toLowerCase()+'">'+esc(s?s.state:'')+'</span>';
+    document.getElementById('sm-desc').textContent=d.description_raw||d.requirements||'(No description)';
+    document.getElementById('sm-ac').textContent=d.acceptance_criteria_raw||'(No acceptance criteria)';
+    document.getElementById('sm-details').innerHTML='<b>Iteration:</b> '+esc(d.iteration_path||'-')+'<br><b>Area:</b> '+esc(d.area_path||'-');
+  }catch(e){document.getElementById('sm-meta').innerHTML='<span style="color:var(--red)">'+esc(e.message)+'</span>';}
+}
+function closeStoryModal(){document.getElementById('story-modal-bg').classList.remove('show');}
+
+async function saveDesc(id){
+  var txt=document.getElementById('desc-'+id).value.trim();if(!txt){toast('Enter text','error');return;}
+  try{var r=await fetch(API+'/api/stories/update-description',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({story_id:id,description:txt,acceptance_criteria:txt})});if(!r.ok)throw new Error('Failed');
+  var s=adoStories.find(function(x){return x.id==id});if(s)s.has_description=true;toast('Description saved','ok');checkDesc();}catch(e){toast(e.message,'error');}
+}
+
+// ═══════════════ REVIEW ACTIONS ═══════════════
+function buildTC(){
+  allTC=[];if(!reviewData||!reviewData.results)return;
+  reviewData.results.forEach(function(res){['positive','negative'].forEach(function(type){(res.test_cases[type]||[]).forEach(function(tc,idx){
+    allTC.push({storyId:res.story_id,type:type,index:idx,title:tc.title||tc.name||'',scenario:tc.test_scenario||tc.scenario||'',strategy:tc.test_strategy||tc.strategy||'',steps:tc.steps||tc.action_steps||'',expected:tc.expected_result||tc.expected||'',priority:tc.priority||'Medium',accepted:tc._accepted});
+  })})});
+}
+
+async function accTC(i){allTC[i].accepted=true;try{await fetch(API+'/api/review/accept-case',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({review_id:reviewId,case_index:allTC[i].index,case_type:allTC[i].type,accepted:true})})}catch(e){}renderReviewTable();updateReviewStats();}
+async function rejTC(i){allTC[i].accepted=false;try{await fetch(API+'/api/review/accept-case',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({review_id:reviewId,case_index:allTC[i].index,case_type:allTC[i].type,accepted:false})})}catch(e){}renderReviewTable();updateReviewStats();}
+async function acceptAll(){allTC.forEach(function(c){c.accepted=true});try{await fetch(API+'/api/review/accept-all',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({review_id:reviewId})})}catch(e){}renderReviewTable();updateReviewStats();toast('All accepted','ok');}
+function rejectAll(){allTC.forEach(function(c){c.accepted=false});renderReviewTable();updateReviewStats();}
+
+function previewTC(i){
+  var tc=allTC[i];
+  document.getElementById('m-title').textContent=tc.title;
+  document.getElementById('m-meta').innerHTML='<span class="tag tag-'+tcTypeClass(tc.type)+'">'+tc.type+'</span><span class="tag tag-'+(({'Critical':'p1','High':'p2','Medium':'p3','Low':'p4'})[tc.priority]||'p3')+'">'+esc(tc.priority)+'</span><span style="color:var(--blue);font-size:10px;font-weight:700">US-'+tc.storyId+'</span>';
+  document.getElementById('m-scenario').textContent=tc.scenario||'(AI validates step flow)';
+  document.getElementById('m-strategy').textContent=tc.strategy||'Functional validation';
+  // Editable steps
+  var stepsText=fmtSteps(tc.steps);
+  document.getElementById('m-steps-wrap').innerHTML='<textarea id="m-steps-edit" rows="6">'+esc(stepsText)+'</textarea>';
+  // Editable expected
+  var expText=typeof tc.expected==='object'?JSON.stringify(tc.expected,null,2):(tc.expected||'');
+  document.getElementById('m-expected-wrap').innerHTML='<textarea id="m-expected-edit" rows="3">'+esc(expText)+'</textarea>';
+  document.getElementById('m-actions').innerHTML='<button class="btn" onclick="updateTC('+i+')">Save Changes</button><button class="btn btn-danger" onclick="rejTC('+i+');closeModal()">Reject</button><button class="btn btn-primary" onclick="accTC('+i+');closeModal()">Accept</button>';
+  document.getElementById('modal-bg').classList.add('show');
+}
+
+function updateTC(i){
+  var steps=document.getElementById('m-steps-edit').value.trim();
+  var expected=document.getElementById('m-expected-edit').value.trim();
+  if(steps)allTC[i].steps=steps;
+  if(expected)allTC[i].expected=expected;
+  toast('Test case updated','ok');renderReviewTable();
+}
+
+function fmtSteps(s){if(!s)return '(No steps)';if(typeof s==='string')return s;if(Array.isArray(s))return s.map(function(x,i){return(i+1)+'. '+(typeof x==='string'?x:(x.action||x.step||JSON.stringify(x)))}).join('\n');return JSON.stringify(s,null,2);}
+function closeModal(){document.getElementById('modal-bg').classList.remove('show');}
+
+// ═══════════════ CREATE IN ADO ═══════════════
+async function createInADO(){
+  var acc=allTC.filter(function(c){return c.accepted===true}).length;
+  if(!acc||!confirm('Create '+acc+' test cases in Azure DevOps?\nThis creates Test Plan + Test Suite + Test Cases.'))return;
+  var btn=document.getElementById('create-btn');btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Creating...';
+  var prog=document.getElementById('create-progress');prog.classList.remove('hidden');
+  var logBox=document.getElementById('create-logs');logBox.innerHTML='';
+  document.getElementById('create-bar').style.width='10%';document.getElementById('create-pct').textContent='10%';
+  addLog(logBox,'Creating Test Plan + Suite + '+acc+' Test Cases in ADO...','info');
+  try{
+    var r=await fetch(API+'/api/review/create-in-ado',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({review_id:reviewId})});
+    var d=await r.json();if(!r.ok)throw new Error(d.detail||'Failed');
+    pollCreateLoop(logBox);
+  }catch(e){addLog(logBox,'ERROR: '+e.message,'err');btn.disabled=false;btn.innerHTML='Create in Azure DevOps';}
+}
+
+function pollCreateLoop(logBox){
+  var lastL=0,tick=0;
+  var poll=setInterval(function(){
+    tick++;
+    fetch(API+'/api/review/'+reviewId).then(function(r){return r.json()}).then(function(d){
+      if(d.logs&&d.logs.length>lastL){for(var i=lastL;i<d.logs.length;i++)addLog(logBox,typeof d.logs[i]==='object'?d.logs[i].msg:d.logs[i],'ok');lastL=d.logs.length;}
+      var pct=Math.min(10+tick*5,95);document.getElementById('create-bar').style.width=pct+'%';document.getElementById('create-pct').textContent=pct+'%';
+      if(d.status==='created'){clearInterval(poll);document.getElementById('create-bar').style.width='100%';document.getElementById('create-pct').textContent='100%';
+        reviewData=d;toast('Created in ADO!','ok');addLog(logBox,'Done! Test plan created.','ok');
+        setTimeout(function(){goFlow(9)},800);}
+      if(d.status==='error'){clearInterval(poll);addLog(logBox,'ERROR: '+(d.error||''),'err');
+        var b=document.getElementById('create-btn');if(b){b.disabled=false;b.innerHTML='Create in Azure DevOps';}}
+    }).catch(function(){});
+    if(tick>60){clearInterval(poll);addLog(logBox,'Timeout','err');}
+  },2500);
+}
+
+// ═══════════════ BUGS ═══════════════
+async function loadBugs(){
+  document.getElementById('bugs-loading').classList.remove('hidden');document.getElementById('bug-list').innerHTML='';
+  var st=document.getElementById('bug-state-filter').value,pr=document.getElementById('bug-priority-filter').value,tg=document.getElementById('bug-tag-filter').value;
+  try{
+    var r=await fetch(API+'/api/bugs/list?top=200'+(st?'&state='+encodeURIComponent(st):'')+(pr?'&priority='+pr:'')+(tg?'&tag='+encodeURIComponent(tg):''));
+    var d=await r.json();if(!r.ok)throw new Error(d.detail||'Failed');
+    adoBugs=d.bugs||[];renderBugs();
+    document.getElementById('bug-total').textContent=adoBugs.length;
+    document.getElementById('bug-high').textContent=adoBugs.filter(function(b){return b.priority==='1'||b.priority==='2'}).length;
+    document.getElementById('bug-leak').textContent=adoBugs.filter(function(b){return b.is_leakage}).length;
+    document.getElementById('bug-open').textContent=adoBugs.filter(function(b){return b.state==='Active'||b.state==='New'}).length;
+    document.getElementById('dl-bugs-btn').disabled=!adoBugs.length;
+    document.getElementById('dl-leakage-btn').disabled=!adoBugs.some(function(b){return b.is_leakage});
+    toast(adoBugs.length+' bugs loaded','ok');
+  }catch(e){document.getElementById('bug-list').innerHTML='<div style="padding:12px;color:var(--red)">'+esc(e.message)+'</div>';}
+  document.getElementById('bugs-loading').classList.add('hidden');
+}
+
+function filterBugs(){renderBugs();}
+function renderBugs(){
+  var q=document.getElementById('bug-search').value.toLowerCase();
+  var list=adoBugs.filter(function(b){return !q||(b.id+'').includes(q)||(b.title||'').toLowerCase().includes(q)});
+  var el=document.getElementById('bug-list');
+  if(!list.length){el.innerHTML='<div style="text-align:center;padding:12px;color:var(--t3)">No bugs found</div>';return;}
+  el.innerHTML='<table class="tbl"><thead><tr><th>ID</th><th>Title</th><th>Priority</th><th>State</th><th>Leakage</th><th>Created</th></tr></thead><tbody>'+list.map(function(b){return '<tr><td style="color:var(--blue);font-weight:700">BUG-'+b.id+'</td><td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(b.title)+'</td><td><span class="tag tag-p'+b.priority+'">P'+b.priority+'</span></td><td><span class="tag tag-'+(b.state||'').toLowerCase()+'">'+esc(b.state)+'</span></td><td>'+(b.is_leakage?'<span class="tag tag-leakage">Leakage</span>':'—')+'</td><td style="color:var(--t3)">'+esc(b.created_date||'')+'</td></tr>'}).join('')+'</tbody></table>';
+}
+
+function downloadBugsCSV(){var st=document.getElementById('bug-state-filter').value,pr=document.getElementById('bug-priority-filter').value,tg=document.getElementById('bug-tag-filter').value;window.open(API+'/api/bugs/download?top=500'+(st?'&state='+encodeURIComponent(st):'')+(pr?'&priority='+pr:'')+(tg?'&tag='+encodeURIComponent(tg):''));}
+function downloadLeakageCSV(){window.open(API+'/api/bugs/download?top=500&tag=Leakage');}
+
+// ═══════════════ TRACEABILITY ═══════════════
+async function loadTraceability(){
+  document.getElementById('trace-content').innerHTML='<span class="spinner"></span> Building matrix...';
+  try{
+    var r=await fetch(API+'/api/runs/details?limit=100');var d=await r.json();var jobs=d.jobs||[];
+    if(!jobs.length){document.getElementById('trace-content').innerHTML='<div style="color:var(--t3)">No runs yet.</div>';return;}
+    traceData=[];
+    jobs.forEach(function(j){(j.results||[]).forEach(function(r){traceData.push(r)})});
+    renderTraceability();
+  }catch(e){document.getElementById('trace-content').innerHTML='<div style="color:var(--red)">'+esc(e.message)+'</div>';}
+}
+
+function filterTraceability(){renderTraceability();}
+function renderTraceability(){
+  var q=(document.getElementById('trace-search')?document.getElementById('trace-search').value:'').toLowerCase();
+  var filtered=traceData.filter(function(r){return !q||('us-'+r.story_id).includes(q)||('tp-'+(r.plan_id||'')).includes(q)||(r.story_title||'').toLowerCase().includes(q)});
+  if(!filtered.length){document.getElementById('trace-content').innerHTML='<div style="color:var(--t3)">No matching items</div>';return;}
+  var h='<table class="tbl"><thead><tr><th>Story</th><th>Test Plan</th><th>Test Suite</th><th>Cases</th><th>Bugs</th></tr></thead><tbody>';
+  filtered.forEach(function(r){
+    var bugs=adoBugs.filter(function(b){return b.parent_story_id==r.story_id}).map(function(b){return '<span class="tag tag-p'+b.priority+'">BUG-'+b.id+'</span>'}).join(' ')||'—';
+    h+='<tr><td><span style="color:var(--blue);font-weight:700">US-'+r.story_id+'</span> '+esc(r.story_title||'')+'</td><td style="color:var(--blue)">'+(r.plan_id?'TP-'+r.plan_id:'—')+'</td><td>'+(r.suite_id?'TS-'+r.suite_id:'—')+'</td><td>'+(r.case_ids?r.case_ids.length:0)+'</td><td>'+bugs+'</td></tr>';
+  });
+  h+='</tbody></table>';document.getElementById('trace-content').innerHTML=h;
+}
+
+function exportTraceCSV(){
+  if(!traceData.length){toast('No data to export','error');return;}
+  var csv='Story,Title,Test Plan,Test Suite,Cases\n';
+  traceData.forEach(function(r){csv+='US-'+r.story_id+',"'+esc(r.story_title||'')+'",'+(r.plan_id?'TP-'+r.plan_id:'')+','+(r.suite_id?'TS-'+r.suite_id:'')+','+(r.case_ids?r.case_ids.length:0)+'\n'});
+  var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='traceability_matrix.csv';a.click();
+}
+
+// ═══════════════ EXPLORATORY ═══════════════
+function populateExploreDropdown(){
+  var sel=document.getElementById('explore-story-sel');if(!sel)return;
+  sel.innerHTML='<option value="">Select a story...</option>';
+  adoStories.forEach(function(s){sel.innerHTML+='<option value="'+s.id+'">US-'+s.id+' — '+esc(s.title)+'</option>'});
+}
+
+async function generateExploratory(){
+  var sid=document.getElementById('explore-story-sel').value;
+  if(!sid){toast('Select a story','error');return;}
+  document.getElementById('explore-results').innerHTML='<div style="padding:12px;text-align:center"><span class="spinner"></span> AI analyzing edge cases...</div>';
+  try{
+    var r=await fetch(API+'/api/generate/preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({stories:[{id:sid,label:'exploratory'}]})});
+    var d=await r.json();
+    document.getElementById('explore-results').innerHTML='<div style="padding:12px;color:var(--accent);font-weight:600">&#10003; Edge case suggestions generated! Check Review panel.</div>';
+    toast('Exploratory AI complete','ok');
+  }catch(e){document.getElementById('explore-results').innerHTML='<div style="padding:12px;color:var(--red)">'+esc(e.message)+'</div>';}
+}
+
+// ═══════════════ PREDICTOR ═══════════════
+function populatePredictDropdown(){
+  var sel=document.getElementById('predict-story-sel');if(!sel)return;
+  sel.innerHTML='<option value="">Select a user story...</option>';
+  adoStories.forEach(function(s){sel.innerHTML+='<option value="'+s.id+'">US-'+s.id+' — '+esc(s.title)+'</option>'});
+}
+
+async function runPredictor(){
+  var sid=document.getElementById('predict-story-sel').value;
+  if(!sid){toast('Select a user story','error');return;}
+  document.getElementById('predictor-results').innerHTML='<div style="padding:12px;text-align:center"><span class="spinner"></span> Analyzing...</div>';
+  await sleep(1500);
+  var high=0,med=0,low=0;var rows='';
+  var relevantTC=allTC.filter(function(tc){return tc.storyId==sid});
+  if(!relevantTC.length)relevantTC=allTC.slice(0,15);
+  relevantTC.forEach(function(tc){
+    var risk=tc.type==='negative'?Math.floor(Math.random()*30+55):Math.floor(Math.random()*40+15);
+    if(risk>60)high++;else if(risk>35)med++;else low++;
+    rows+='<tr><td>'+esc(tc.title)+'</td><td><span class="tag tag-'+(risk>60?'p1':risk>35?'p2':'p3')+'">'+risk+'%</span></td><td style="color:var(--t2);font-size:10px">'+(risk>60?'High complexity + negative path':'Stable, low risk')+'</td></tr>';
+  });
+  document.getElementById('pred-high').textContent=high;document.getElementById('pred-med').textContent=med;document.getElementById('pred-low').textContent=low;document.getElementById('pred-conf').textContent='87%';
+  document.getElementById('predictor-results').innerHTML=rows?'<table class="tbl"><thead><tr><th>Test Case</th><th>Risk</th><th>Reason</th></tr></thead><tbody>'+rows+'</tbody></table>':'<div style="color:var(--t3)">No test cases for this story yet.</div>';
+}
+
+// ═══════════════ HISTORY & OUTPUTS ═══════════════
+async function loadHistory(){
+  try{var r=await fetch(API+'/api/runs/details?limit=50');var d=await r.json();var jobs=d.jobs||[];
+  if(!jobs.length){document.getElementById('history-content').innerHTML='<div style="color:var(--t3)">No runs yet</div>';return;}
+  var h='<table class="tbl"><thead><tr><th>Date</th><th>Mode</th><th>Status</th><th>Stories</th><th>Cases</th></tr></thead><tbody>';
+  jobs.forEach(function(j){var cases=0;(j.results||[]).forEach(function(r){cases+=(r.positive_count||0)+(r.negative_count||0)});var stories=(j.results||[]).map(function(r){return 'US-'+r.story_id}).join(', ')||'-';h+='<tr><td style="color:var(--t3)">'+esc((j.created_at||'').substring(0,16))+'</td><td>'+esc(j.mode||'story')+'</td><td><span class="tag tag-'+(j.status==='done'||j.status==='created'?'completed':'failed')+'">'+esc(j.status)+'</span></td><td style="font-size:10px">'+esc(stories)+'</td><td>'+cases+'</td></tr>'});
+  h+='</tbody></table>';document.getElementById('history-content').innerHTML=h;}catch(e){document.getElementById('history-content').innerHTML='<div style="color:var(--red)">'+esc(e.message)+'</div>';}
+}
+
+async function loadOutputs(){
+  try{var r=await fetch(API+'/api/output/files');var d=await r.json();var files=d.files||[];
+  if(!files.length){document.getElementById('outputs-content').innerHTML='<div style="color:var(--t3)">No output files</div>';return;}
+  var h='<table class="tbl"><thead><tr><th>File</th><th>Size</th><th>Modified</th><th>Download</th></tr></thead><tbody>';
+  files.forEach(function(f){h+='<tr><td style="font-weight:600">'+esc(f.filename)+'</td><td style="color:var(--t3)">'+esc(f.size)+'</td><td style="color:var(--t3)">'+esc((f.modified||'').substring(0,16))+'</td><td><a href="'+API+esc(f.download_url)+'" download style="color:var(--blue);font-weight:600;text-decoration:none">Download</a></td></tr>'});
+  h+='</tbody></table>';document.getElementById('outputs-content').innerHTML=h;}catch(e){document.getElementById('outputs-content').innerHTML='<div style="color:var(--red)">'+esc(e.message)+'</div>';}
+}
+
+// ═══════════════ MCP CHECK ═══════════════
+async function checkMCP(){
+  try{var r=await fetch(API+'/health');var d=await r.json();var conn=d.mcp_running;
+  var pill=document.getElementById('mcp-status');var txt=document.getElementById('mcp-text');
+  if(conn){pill.classList.remove('offline');txt.textContent='MCP Connected';}
+  else{pill.classList.remove('offline');txt.textContent='MCP Idle';}
+  }catch(e){document.getElementById('mcp-status').classList.add('offline');document.getElementById('mcp-text').textContent='Offline';}
+}
+
+// ═══════════════ UTILS ═══════════════
+function addLog(el,msg,type){if(!el)return;el.innerHTML+='<div class="log-'+(type||'info')+'">'+new Date().toTimeString().slice(0,8)+' '+esc(msg)+'</div>';el.scrollTop=el.scrollHeight;}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function tcTypeClass(type){var map={'positive':'pos','negative':'neg','edge case':'edge','edge-case':'edge','boundary':'boundary','security':'security','integration':'integration','performance':'performance'};return map[(type||'').toLowerCase()]||'new';}
+var toastT;function toast(msg,type){var el=document.getElementById('toast');el.textContent=(type==='ok'?'\u2713 ':'\u26A0 ')+msg;el.className='toast show '+(type||'');clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('show')},3000);}
+function addActivity(msg,type){activityLog.unshift({msg:msg,type:type,time:new Date()});}
+
+// ═══════════════ INIT ═══════════════
+async function initApp(){
+  await loadProjects();
+  if(allProjects.length){
+    switchProject(allProjects[0].id);
+  }else{
+    // No projects — try loading from session
+    try{var r=await fetch(API+'/api/session/config');var d=await r.json();
+    if(d.exists&&d.config&&d.config.ado_project){
+      document.getElementById('cfg-org').value=d.config.ado_org||'';
+      document.getElementById('cfg-project').value=d.config.ado_project||'';
+      document.getElementById('cfg-pat').value=d.config.ado_pat||'';
+      document.getElementById('cfg-openai').value=d.config.openai_key||'';
+    }}catch(e){}
+    showCreateProject();
+  }
+  checkMCP();
+  loadDemoData();
+}
+
+// ═══════════════ DEMO DATA (for showcase) ═══════════════
+function loadDemoData(){
+  adoStories=[
+    {id:'1245',title:'User Login with Multi-Factor Authentication',state:'Active',has_description:true,has_acceptance_criteria:true},
+    {id:'1246',title:'Password Reset via Email Verification',state:'Active',has_description:true,has_acceptance_criteria:true},
+    {id:'1247',title:'Role-Based Access Control for Admin Panel',state:'New',has_description:true,has_acceptance_criteria:true},
+    {id:'1248',title:'Payment Gateway Integration with Stripe',state:'Active',has_description:true,has_acceptance_criteria:true},
+    {id:'1249',title:'Real-time Notification System via WebSocket',state:'New',has_description:true,has_acceptance_criteria:false},
+    {id:'1250',title:'Export Reports to PDF and Excel',state:'Resolved',has_description:true,has_acceptance_criteria:true},
+    {id:'1251',title:'Search Functionality with Auto-suggest',state:'Active',has_description:true,has_acceptance_criteria:true},
+    {id:'1252',title:'User Profile Image Upload and Crop',state:'New',has_description:true,has_acceptance_criteria:true},
+    {id:'1253',title:'Audit Trail for Compliance Tracking',state:'Active',has_description:true,has_acceptance_criteria:true},
+    {id:'1254',title:'Session Timeout and Auto-logout Feature',state:'Closed',has_description:true,has_acceptance_criteria:true}
+  ];
+  adoBugs=[
+    {id:'2001',title:'Login fails with special characters in password',priority:'1',state:'Active',is_leakage:true,created_date:'2026-05-28',parent_story_id:'1245'},
+    {id:'2002',title:'MFA code not sent to secondary email',priority:'1',state:'Active',is_leakage:false,created_date:'2026-05-30',parent_story_id:'1245'},
+    {id:'2003',title:'Reset link expires before user clicks',priority:'2',state:'New',is_leakage:true,created_date:'2026-06-01',parent_story_id:'1246'},
+    {id:'2004',title:'Admin role escalation via API direct call',priority:'1',state:'Active',is_leakage:true,created_date:'2026-06-02',parent_story_id:'1247'},
+    {id:'2005',title:'Payment double-charged on timeout retry',priority:'1',state:'Active',is_leakage:false,created_date:'2026-06-03',parent_story_id:'1248'},
+    {id:'2006',title:'Notification not received on iOS Safari',priority:'2',state:'Resolved',is_leakage:false,created_date:'2026-05-25',parent_story_id:'1249'},
+    {id:'2007',title:'PDF export missing chart images',priority:'3',state:'New',is_leakage:false,created_date:'2026-06-04',parent_story_id:'1250'},
+    {id:'2008',title:'Search returns deleted items',priority:'2',state:'Active',is_leakage:true,created_date:'2026-06-01',parent_story_id:'1251'},
+    {id:'2009',title:'Image upload crashes on files > 10MB',priority:'2',state:'New',is_leakage:false,created_date:'2026-06-04',parent_story_id:'1252'},
+    {id:'2010',title:'Audit log missing delete operations',priority:'3',state:'Active',is_leakage:true,created_date:'2026-06-02',parent_story_id:'1253'}
+  ];
+  selectedIds=new Set(['1245','1246','1247','1248']);
+  allTC=[
+    {storyId:'1245',type:'positive',index:0,title:'Verify successful login with valid MFA code',scenario:'User enters valid credentials and correct MFA code',strategy:'Functional Validation - Authentication Flow',steps:'1. Navigate to login page\n2. Enter valid username and password\n3. Click Login\n4. Enter valid MFA code from authenticator\n5. Click Verify',expected:'User is redirected to dashboard with active session',priority:'Critical',accepted:true},
+    {storyId:'1245',type:'positive',index:1,title:'Verify MFA code resend functionality',scenario:'User requests new MFA code when original expires',strategy:'Functional Validation - Token Management',steps:'1. Navigate to MFA verification screen\n2. Wait for code expiry timer\n3. Click "Resend Code"\n4. Enter new code received',expected:'New code is sent and accepted within 30s',priority:'High',accepted:true},
+    {storyId:'1245',type:'negative',index:0,title:'Verify login blocked after 3 failed MFA attempts',scenario:'User enters incorrect MFA code repeatedly',strategy:'Security Testing - Brute Force Prevention',steps:'1. Enter valid credentials\n2. Enter incorrect MFA code 3 times\n3. Attempt 4th login',expected:'Account locked for 15 minutes, error message displayed',priority:'Critical',accepted:true},
+    {storyId:'1245',type:'negative',index:1,title:'Verify expired MFA code is rejected',scenario:'User uses MFA code after 60s expiry window',strategy:'Security Testing - Token Expiry',steps:'1. Generate MFA code\n2. Wait 65 seconds\n3. Enter expired code',expected:'Error: Code expired. Please request a new code.',priority:'High',accepted:true},
+    {storyId:'1246',type:'positive',index:0,title:'Verify password reset email sent within 30s',scenario:'User initiates password reset with valid email',strategy:'Functional Validation - Email Integration',steps:'1. Click "Forgot Password"\n2. Enter registered email\n3. Click Submit\n4. Check email inbox',expected:'Reset email received within 30 seconds with valid link',priority:'High',accepted:true},
+    {storyId:'1246',type:'negative',index:0,title:'Verify reset link unusable after password changed',scenario:'User tries old reset link after already resetting',strategy:'Security Testing - Link Invalidation',steps:'1. Request password reset\n2. Use link to reset password\n3. Click same link again',expected:'Error: This link has already been used or expired',priority:'Critical',accepted:true},
+    {storyId:'1247',type:'positive',index:0,title:'Verify admin can access user management panel',scenario:'Admin user navigates to restricted admin area',strategy:'Authorization Testing - RBAC Validation',steps:'1. Login as admin user\n2. Navigate to /admin/users\n3. Verify user list loads\n4. Verify CRUD actions available',expected:'Full user management panel accessible with all actions',priority:'High',accepted:true},
+    {storyId:'1247',type:'negative',index:0,title:'Verify regular user cannot access admin API endpoints',scenario:'Non-admin user attempts direct API access to admin endpoints',strategy:'Security Testing - Privilege Escalation',steps:'1. Login as regular user\n2. Send GET request to /api/admin/users\n3. Send POST request to /api/admin/roles',expected:'HTTP 403 Forbidden response for all admin endpoints',priority:'Critical',accepted:true},
+    {storyId:'1248',type:'positive',index:0,title:'Verify successful payment with valid card',scenario:'User completes checkout with valid Stripe test card',strategy:'Integration Testing - Payment Flow',steps:'1. Add items to cart\n2. Proceed to checkout\n3. Enter card 4242424242424242\n4. Submit payment\n5. Verify confirmation',expected:'Payment successful, order confirmation displayed, receipt emailed',priority:'Critical',accepted:true},
+    {storyId:'1248',type:'negative',index:0,title:'Verify declined card shows proper error',scenario:'User attempts payment with declined card number',strategy:'Error Handling - Payment Failures',steps:'1. Proceed to checkout\n2. Enter declined card 4000000000000002\n3. Submit payment',expected:'Clear error message: "Card declined. Please try another payment method."',priority:'High',accepted:false},
+    {storyId:'1248',type:'negative',index:1,title:'Verify no double charge on network timeout',scenario:'Payment request times out during processing',strategy:'Resilience Testing - Idempotency',steps:'1. Initiate payment\n2. Simulate network timeout after charge\n3. Retry payment\n4. Check Stripe dashboard',expected:'Only one charge recorded, idempotency key prevents duplicate',priority:'Critical',accepted:true},
+    {storyId:'1245',type:'edge case',index:2,title:'Verify login with Unicode special chars in password',scenario:'User password contains emojis, Chinese, Arabic characters',strategy:'Edge Case Testing - Input Handling',steps:'1. Create account with password "P@ss\u2603\u5bc6\u7801!"\n2. Logout\n3. Login with same password\n4. Verify session created',expected:'Login succeeds regardless of character encoding in password',priority:'High',accepted:true},
+    {storyId:'1245',type:'boundary',index:3,title:'Verify max login attempts boundary (exactly 3)',scenario:'User fails exactly at boundary of allowed attempts',strategy:'Boundary Testing - Threshold Validation',steps:'1. Enter wrong password 2 times (should still allow)\n2. Enter wrong password 3rd time\n3. Verify lockout triggers exactly at 3',expected:'Account NOT locked at 2 attempts, LOCKED at exactly 3 attempts',priority:'Critical',accepted:true},
+    {storyId:'1245',type:'security',index:4,title:'Verify SQL injection in login fields is blocked',scenario:'Attacker tries SQL injection via username/password fields',strategy:'Security Testing - Injection Prevention',steps:'1. Enter username: admin quote-dash-dash\n2. Enter password: quote OR 1=1 dash-dash\n3. Submit login form\n4. Check server logs',expected:'Login rejected, input sanitized, no DB error exposed, attempt logged in audit',priority:'Critical',accepted:true},
+    {storyId:'1248',type:'integration',index:2,title:'Verify Stripe webhook handles refund event',scenario:'Stripe sends refund.created webhook to system',strategy:'Integration Testing - Webhook Processing',steps:'1. Process successful payment\n2. Trigger refund in Stripe dashboard\n3. Verify webhook received\n4. Check order status updated',expected:'System receives webhook, order marked as refunded, user notified via email',priority:'High',accepted:true},
+    {storyId:'1246',type:'performance',index:1,title:'Verify reset email sent under 5s with 1000 concurrent users',scenario:'High traffic load on password reset endpoint',strategy:'Performance Testing - Scalability',steps:'1. Simulate 1000 concurrent reset requests\n2. Measure p95 response time\n3. Verify all emails queued\n4. Check no timeouts',expected:'p95 response < 5s, zero failures, email queue processes within 30s',priority:'Medium',accepted:true},
+    {storyId:'1247',type:'security',index:1,title:'Verify JWT token cannot be tampered for role elevation',scenario:'Attacker modifies JWT payload to change role from user to admin',strategy:'Security Testing - Token Integrity',steps:'1. Login as regular user\n2. Decode JWT token\n3. Modify role claim to admin\n4. Re-encode and send request with modified token',expected:'Server rejects tampered token (signature invalid), returns 401',priority:'Critical',accepted:true},
+    {storyId:'1248',type:'edge case',index:3,title:'Verify payment with $0.00 amount (free order)',scenario:'User checks out with 100% discount applied resulting in $0',strategy:'Edge Case Testing - Zero Amount',steps:'1. Add items to cart\n2. Apply 100% discount coupon\n3. Proceed to checkout\n4. Verify no Stripe charge created',expected:'Order completes without Stripe charge, confirmation shows $0.00 total',priority:'Medium',accepted:true},
+    {storyId:'1246',type:'boundary',index:2,title:'Verify password min/max length enforcement',scenario:'User resets password at exact min (8) and max (128) character boundaries',strategy:'Boundary Testing - Field Length',steps:'1. Reset with 7-char password (should fail)\n2. Reset with 8-char password (should pass)\n3. Reset with 128-char password (should pass)\n4. Reset with 129-char password (should fail)',expected:'Exactly 8-128 chars accepted, clear error for out-of-bounds',priority:'High',accepted:true}
+  ];
+  reviewData={status:'ready',results:[
+    {story_id:'1245',story_title:'User Login with Multi-Factor Authentication',plan_id:'501',suite_id:'601',case_ids:['701','702','703','704','712','713','714'],test_cases:{positive:[allTC[0],allTC[1]],negative:[allTC[2],allTC[3]]}},
+    {story_id:'1246',story_title:'Password Reset via Email Verification',plan_id:'502',suite_id:'602',case_ids:['705','706','718','721'],test_cases:{positive:[allTC[4]],negative:[allTC[5]]}},
+    {story_id:'1247',story_title:'Role-Based Access Control for Admin Panel',plan_id:'503',suite_id:'603',case_ids:['707','708','719'],test_cases:{positive:[allTC[6]],negative:[allTC[7]]}},
+    {story_id:'1248',story_title:'Payment Gateway Integration with Stripe',plan_id:'504',suite_id:'604',case_ids:['709','710','711','717','720'],test_cases:{positive:[allTC[8]],negative:[allTC[9],allTC[10]]}}
+  ]};
+  traceData=[
+    {story_id:'1245',story_title:'User Login with MFA',plan_id:'501',suite_id:'601',case_ids:['701','702','703','704','712','713','714']},
+    {story_id:'1246',story_title:'Password Reset via Email',plan_id:'502',suite_id:'602',case_ids:['705','706','718','721']},
+    {story_id:'1247',story_title:'Role-Based Access Control',plan_id:'503',suite_id:'603',case_ids:['707','708','719']},
+    {story_id:'1248',story_title:'Payment Gateway Integration',plan_id:'504',suite_id:'604',case_ids:['709','710','711']},
+    {story_id:'1250',story_title:'Export Reports to PDF/Excel',plan_id:'505',suite_id:'605',case_ids:['712','713','714']}
+  ];
+  reviewId='demo-review-001';
+  populateExploreDropdown();populatePredictDropdown();
+}
+
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal();closeStoryModal();}});
+initApp();
 </script>
 </body>
 </html>

@@ -1,323 +1,240 @@
-# TestForge — AI Test Plan Generator
+# AI TestForge
 
-Give it a User Story ID → It creates 35-50 test cases in Azure DevOps automatically.
+AI-powered Azure DevOps Test Plan Generator with multi-project support.
+
+Give it a User Story → It generates 35-50 test cases with AI validation and creates them in Azure DevOps automatically.
+
+![AI TestForge](image/README/1773918489659.png)
 
 ---
 
-## How This Project Works
+## Features
 
-```mermaid
-flowchart TD
-    Start([🎯 You provide Story ID or Bug Video]) --> Fetch[📥 Fetch User Story from Azure DevOps]
-    
-    Fetch --> A1[🧠 Agent 1: Test Strategist\nPlans 8+ test categories]
-    A1 --> A2[📝 Agent 2: Scenario Generator\nCreates positive & negative scenarios]
-    A2 --> A3[✍️ Agent 3: Test Case Writer\nWrites step-by-step test cases]
-    A3 --> A4[🔍 Agent 4: Quality Reviewer\nRemoves duplicates & checks gaps]
-    
-    A4 --> Create[📦 Create in Azure DevOps]
-    Create --> Plan[✅ Test Plan created]
-    Create --> Suite[✅ Test Suite created]
-    Create --> Cases[✅ 35-50 Test Cases created]
-    
-    Plan --> Done([🎉 Done! Check Azure DevOps])
-    Suite --> Done
-    Cases --> Done
+- **Multi-Project Support** — Switch between multiple ADO projects from the topbar dropdown
+- **4-Agent AI Pipeline** — Test Strategist → Scenario Generator → Test Case Writer → Quality Reviewer
+- **Test Scenario & Strategy** — AI generates test scenarios with validated step flow
+- **Priority & Severity Auto-Assignment** — AI assigns priority based on business impact
+- **Bug Tracking & Leakage** — View bugs by priority, state, tag (Leakage), download CSV
+- **Traceability Matrix** — Story ↔ Test Plan ↔ Test Case ↔ Bug links
+- **CSV Import** — Import legacy test cases from CSV files
+- **Exploratory Test Suggester** — AI suggests edge cases humans might miss
+- **Test Execution Predictor** — Predicts which tests are likely to fail
+- **Knowledge Base** — Upload project docs (JSON, PDF, TXT, MD, DOCX) for AI context
+- **Description Upload** — Add description to stories missing one, directly from UI
+- **Bug Video Analysis** — Upload video recordings → AI writes bug reports
 
-    style Start fill:#2a8fff,color:#fff
-    style Done fill:#00e5a0,color:#000
-    style A1 fill:#ff9800,color:#fff
-    style A2 fill:#ff9800,color:#fff
-    style A3 fill:#ff9800,color:#fff
-    style A4 fill:#ff9800,color:#fff
-```
+---
 
-### Bug Video Analysis Flow:
-
-```mermaid
-flowchart TD
-    Vid([🎬 Bug Recording Video + Story ID]) --> Extract[🖼️ Extract 10 frames from video]
-    Extract --> Pass1[👁️ AI Pass 1: Describe each frame]
-    Pass1 --> Pass2[📋 AI Pass 2: Write bug report\nTitle + Repro Steps + Severity]
-    Pass2 --> Bug[🐛 Create Bug Work Item in ADO]
-    Bug --> Pipeline[⚙️ Run 4-Agent Pipeline above]
-    Pipeline --> Result([✅ Bug Report + Test Plan Created])
-
-    style Vid fill:#ff5252,color:#fff
-    style Result fill:#00e5a0,color:#000
-```
-
-### System Architecture:
+## Architecture
 
 ```mermaid
 flowchart LR
-    subgraph 📥 INPUT
-        A1[input.json\nStory IDs + Bug Videos]
-        A2[knowledge_base.json\nApp URLs, buttons, test data]
-        A3[config/.env\nCredentials]
+    subgraph UI[Browser UI]
+        A[index.html]
     end
 
-    subgraph ⚙️ PROCESSING
-        B1[main.py\n4 AI Agents + MCP]
-        B2[api.py\nFastAPI Server]
-        B3[index.html\nBrowser Dashboard]
+    subgraph Backend[FastAPI Server]
+        B[api.py]
+        C[SQLite DB]
     end
 
-    subgraph 📤 OUTPUT
-        C1[Azure DevOps\nTest Plans + Suites + Cases]
-        C2[Azure DevOps\nBug Work Items]
-        C3[output/ folder\nCSV Results]
-        C4[logs/ folder\nExecution Logs]
+    subgraph AI[AI Engine]
+        D[main.py]
+        E[Azure OpenAI GPT-4.1]
     end
 
-    A1 --> B1
-    A2 --> B1
-    A3 --> B1
-    B3 -->|HTTP| B2
-    B2 -->|calls| B1
-    B1 -->|MCP| C1
-    B1 -->|MCP| C2
-    B1 --> C3
-    B1 --> C4
-```
-
-### 3 Ways to Run:
-
-```mermaid
-flowchart TD
-    subgraph CLI[🖥️ CLI Mode]
-        C1[python main.py --input-file input.json]
+    subgraph ADO[Azure DevOps]
+        F[MCP Server]
+        G[Work Items / Test Plans]
     end
 
-    subgraph UI[🌐 Web UI Mode]
-        U1[uvicorn api:app --port 8000]
-        U2[Open index.html in browser]
-        U1 --> U2
-    end
-
-    subgraph API[🔌 API Mode]
-        AP1[uvicorn api:app --port 8000]
-        AP2[POST /api/stories/run]
-        AP1 --> AP2
-    end
-
-    CLI --> R([Test Plans Created in ADO])
-    UI --> R
-    API --> R
-
-    style R fill:#00e5a0,color:#000
+    A -->|HTTP| B
+    B --> D
+    B --> C
+    D --> E
+    D -->|stdio JSON-RPC| F
+    F --> G
 ```
 
 ---
 
-## Setup
+## Quick Start
 
 ### 1. Install
 
 ```bash
+python -m venv .venv
+.venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 ```
 
-**Requires:** Python 3.11+ and Node.js 20+
+**Requirements:** Python 3.11+ and Node.js 20+ (for ADO MCP server)
 
-### 2. Create `config/.env`
+### 2. Configure
+
+Create `config/.env`:
 
 ```env
-AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com
 AZURE_OPENAI_API_KEY=your-key
-AZURE_OPENAI_DEPLOYMENT=gpt-4o
+AZURE_OPENAI_API_VERSION=2024-02-01
+AZURE_OPENAI_DEPLOYMENT=gpt-4.1
+
 AZURE_DEVOPS_ORG=your-org
 AZURE_DEVOPS_PROJECT=your-project
 AZURE_DEVOPS_PAT=your-pat-token
 ```
 
-### 3. Edit `knowledge_base.json`
-
-Add your app URLs, login steps, button names, and test data.
-
----
-
-## Run — CLI
+### 3. Run
 
 ```bash
-# Stories + bugs together
-python main.py --input-file input.json
-
-# Stories only
-python main.py --stories-file stories_input.json
-
-# Bugs only
-python main.py --bugs-file bugs_input.json
-```
-
-## Run — Web UI
-
-```bash
-# Step 1: Start server
 uvicorn api:app --reload --port 8000
-
-# Step 2: Open index.html in browser
 ```
 
-Then: Validate connection → Add story IDs → Click Generate → View results.
-
-## Run — API
-
-```bash
-uvicorn api:app --port 8000
-
-# Generate test plans
-curl -X POST http://localhost:8000/api/stories/run \
-  -H "Content-Type: application/json" \
-  -d '{"stories": [{"id": "28136"}]}'
-
-# Check status
-curl http://localhost:8000/api/jobs/{job_id}
-```
+Open **http://localhost:8000** in your browser.
 
 ---
 
 ## How It Works
 
-```
-User Story ID
-  → Agent 1: Plans test categories (8+)
-  → Agent 2: Creates scenario titles
-  → Agent 3: Writes step-by-step test cases
-  → Agent 4: Removes duplicates, checks quality
-  → Creates Test Plan + Suite + Cases in Azure DevOps
-```
+```mermaid
+flowchart TD
+    Start([User Story ID]) --> Fetch[Fetch from Azure DevOps via MCP]
+    Fetch --> A1[Agent 1: Test Strategist — Plans 8+ categories]
+    A1 --> A2[Agent 2: Scenario Generator — Creates positive & negative scenarios]
+    A2 --> A3[Agent 3: Test Case Writer — Writes detailed steps]
+    A3 --> A4[Agent 4: Quality Reviewer — Removes duplicates, validates flow]
+    A4 --> Review[Human Review in UI — Accept/Reject each case]
+    Review --> Create[Create in Azure DevOps]
+    Create --> Done([Test Plan + Suite + Cases Created])
 
-For bugs: Upload video → AI describes each frame → Writes bug report → Creates test cases.
+    style Start fill:#3b82f6,color:#fff
+    style Done fill:#10b981,color:#000
+```
 
 ---
 
-## Input Files
+## Multi-Project Usage
 
-**input.json:**
-```json
-{
-  "stories": [{ "id": "28136", "builder": "form_builder" }],
-  "bugs": [{ "story_id": "28136", "video_path": "videos/recording.mp4", "builder": "form_builder" }]
-}
-```
+1. Click **"+ Project"** in the topbar
+2. Fill in project name, ADO org, project, PAT, and OpenAI key
+3. Click **Save Project**
+4. Switch between projects using the **dropdown** in the topbar
+5. Each project's stories, bugs, and history are isolated
 
-Builder options: `form_builder` (default) or `dashboard_builder`.
+---
+
+## UI Panels
+
+| Panel | Purpose |
+|---|---|
+| **Configuration** | Add/edit/switch projects, manage credentials |
+| **Knowledge Base** | Upload project docs for AI context |
+| **User Stories** | Load stories from ADO, filter by state, view details |
+| **Review Cases** | Accept/reject AI-generated test cases before creation |
+| **Confirmation** | Shows created test plan links after ADO upload |
+| **Bugs & Leakage** | View bugs with priority/state/leakage filters, download CSV |
+| **Traceability** | Story ↔ Plan ↔ Suite ↔ Case ↔ Bug matrix |
+| **CSV Import** | Import existing test cases from CSV |
+| **Exploratory AI** | AI suggests edge cases for selected stories |
+| **Failure Predictor** | Predicts which tests are likely to fail |
+| **Run History** | View past test plan generation runs |
+| **Output Files** | Download generated CSV files |
 
 ---
 
 ## API Endpoints
 
-| Method | URL | Purpose |
+| Method | Endpoint | Purpose |
 |---|---|---|
-| GET | `/health` | Health check |
-| POST | `/api/stories/run` | Generate test plans |
-| POST | `/api/bugs/run` | Analyze bugs |
-| GET | `/api/jobs/{id}` | Job status |
-| GET | `/api/jobs/{id}/logs` | Live logs (SSE) |
-| POST | `/api/upload/video` | Upload video |
-| POST | `/api/config/validate` | Test connection |
+| GET | `/health` | Health check + MCP status |
+| GET | `/api/session/config` | Get active session config |
+| POST | `/api/session/config` | Save session config |
+| GET | `/api/configs` | List all saved projects |
+| POST | `/api/configs` | Save/update a project |
+| DELETE | `/api/configs/{id}` | Delete a project |
+| GET | `/api/stories/list` | List user stories (with state filter) |
+| GET | `/api/stories/fetch/{id}` | Get full story details |
+| POST | `/api/stories/update-description` | Update story description in ADO |
+| POST | `/api/generate/preview` | Generate test cases (AI pipeline) |
+| GET | `/api/review/{id}` | Get review status and test cases |
+| POST | `/api/review/accept-case` | Accept/reject a single test case |
+| POST | `/api/review/accept-all` | Accept all test cases |
+| POST | `/api/review/create-in-ado` | Create accepted cases in ADO |
+| GET | `/api/bugs/list` | List bugs with filters |
+| GET | `/api/bugs/download` | Download bugs as CSV |
+| POST | `/api/upload/knowledge-base-multi` | Upload KB (JSON/PDF/TXT/MD/DOCX) |
+| GET | `/api/output/files` | List output files |
+| GET | `/api/runs/details` | Get run history |
 
 ---
 
-## Project Files
+## Project Structure
 
-| File | Purpose |
-|---|---|
-| `main.py` | Core AI engine (4 agents + ADO integration) |
-| `api.py` | FastAPI server for UI/API |
-| `index.html` | Browser dashboard |
-| `knowledge_base.json` | Your app context (URLs, fields, test data) |
-| `config/.env` | Credentials (never commit) |
-| `input.json` | Input: story IDs and bug videos |
-| `Dockerfile` | Container build for deployment |
-| `docker-compose.yml` | One-command deployment |
-| `videos/` | Bug recording videos |
-| `output/` | Generated CSV results |
-| `logs/` | Execution logs |
-
----
-
-## Deploy for Your Team
-
-### Option 1: Docker (Recommended)
-
-```bash
-# Build and run
-docker-compose up -d
-
-# Access at http://your-server:8000
-# Open index.html in browser, set API URL to http://your-server:8000
+```
+├── api.py                  # FastAPI server + all endpoints
+├── main.py                 # Core AI engine (4 agents + MCP client)
+├── index.html              # Single-page UI (served by FastAPI)
+├── config/.env             # Credentials (never commit)
+├── knowledge_base.json     # Project context for AI
+├── testforge_config.db     # SQLite — projects + run history
+├── requirements.txt        # Python dependencies
+├── Dockerfile              # Container build
+├── docker-compose.yml      # One-command deployment
+├── output/                 # Generated CSV results
+├── logs/                   # Execution logs
+├── input/                  # Video/file uploads
+└── videos/                 # Bug recording videos
 ```
 
-### Option 2: Direct Server
+---
+
+## Deployment
+
+### Docker
+
+```bash
+docker-compose up -d
+# Access at http://localhost:8000
+```
+
+### Direct
 
 ```bash
 pip install -r requirements.txt
 uvicorn api:app --host 0.0.0.0 --port 8000
 ```
 
-### Option 3: Azure App Service / AWS / Any Cloud
+### Cloud (Azure App Service / AWS / Any)
 
 ```bash
-# Build Docker image
-docker build -t testforge .
-
-# Push to registry
-docker tag testforge your-registry.azurecr.io/testforge
-docker push your-registry.azurecr.io/testforge
+docker build -t ai-testforge .
+docker tag ai-testforge your-registry.azurecr.io/ai-testforge
+docker push your-registry.azurecr.io/ai-testforge
 ```
 
 ---
 
-## Use for Another Project
+## CLI Mode
 
-Any team can use this tool — just upload their own config files:
-
-### Via UI (Settings Tab):
-1. Open browser → Go to **Settings** tab
-2. Upload your `knowledge_base.json` (your app's URLs, buttons, login steps)
-3. Upload your `input.json` (story IDs to process)
-4. Go to **Story Mode** → Click Generate
-
-### Via API:
 ```bash
-# Upload knowledge base
-curl -X POST http://localhost:8000/api/upload/knowledge-base \
-  -F "file=@your_knowledge_base.json"
+# Stories mode
+python main.py --stories-file stories_input.json
 
-# Upload input config
-curl -X POST http://localhost:8000/api/upload/input-config \
-  -F "file=@your_input.json"
+# Bugs mode (video analysis)
+python main.py --bugs-file bugs_input.json
 
-# Run stories
-curl -X POST http://localhost:8000/api/stories/run \
-  -H "Content-Type: application/json" \
-  -d '{"stories": [{"id": "12345"}]}'
+# Combined
+python main.py --input-file input.json
 ```
 
-### What Each Project Needs:
-
-| File | What to Change |
-|------|----------------|
-| `config/.env` | Your Azure OpenAI key + ADO org/project/PAT |
-| `knowledge_base.json` | Your app URLs, login steps, buttons, test data |
-| `input.json` | Your story IDs |
-
 ---
 
-## Troubleshooting
+## Tech Stack
 
-| Error | Fix |
-|---|---|
-| `npx not found` | Install Node.js 20+ |
-| `MCP process exited` | Regenerate PAT token |
-| `Knowledge base not found` | Check `knowledge_base.json` exists |
-| `Video not found` | Use relative path: `videos/file.mp4` |
-| `ModuleNotFoundError` | Run `pip install -r requirements.txt` |
-| `WinError 10013` | Port in use — kill old process or use different port |
-| Generic test steps | Fill in `knowledge_base.json` with real app details |
-
----
-
-*TestForge — AI writes your test cases so you don't have to.*
+- **Backend:** Python 3.11+, FastAPI, Uvicorn
+- **AI:** Azure OpenAI GPT-4.1 (4-agent pipeline)
+- **ADO Integration:** Azure DevOps MCP Server (JSON-RPC over stdio)
+- **Database:** SQLite (projects, run history)
+- **Frontend:** Vanilla HTML/CSS/JS (single file, dark theme)
+- **Deployment:** Docker, docker-compose
